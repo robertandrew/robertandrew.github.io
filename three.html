@@ -1,37 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title></title>
-		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<head>
+		<meta charset="utf-8">
+		<title>Madagascar</title>
+		<script type="text/javascript" src="../d3/d3.v3.js"></script>
 		<style type="text/css">
-		
-			div.bar {
-				display: inline-block;
-				width: 20px;
-				height: 75px;
-				background-color: green;
-				margin-right: 2px;
-			}
-		
+				
 		</style>
-
-    </head>
-    <body>
+	</head>
+	<body>
 		<h3>Madagascar population, 2014-2038</h3>
-		<br>
-        <script type="text/javascript">
-			var dataset = [ 13532000, 18132000, 23202000, 23813000, 24430000, 25054000, 25684000, 26318000, 26956000, 27597000, 28241000, 28887000, 29535000, 30183000, 30831000, 31480000, 32127000, 32774000, 33417000, 34059000, 34701000, 35341000, 35979000, 36614000, 37247000, 37879000, 38509000];
+		<script type="text/javascript">
 
-			d3.select("body").selectAll("div")
-				.data(dataset)
-				.enter()
-				.append("div")
-				.attr("class", "bar")
-			.style("height", function(d) {
-		var barHeight = d / 1000000;  //Scale up by factor of 5
-		return barHeight + "px";
-		});
-        </script>
-    </body>
+			//Width and height
+			var w = 500;
+			var h = 100;
+			var barPadding = 1;
+			
+			var dataset = [ 13532000, 18132000, 23202000, 23813000, 24430000, 25054000, 25684000, 26318000, 26956000, 27597000, 28241000, 28887000, 29535000, 30183000, 30831000, 31480000, 32127000, 32774000, 33417000, 34059000, 34701000, 35341000, 35979000, 36614000, 37247000, 37879000, 38509000];
+			
+			//Create SVG element
+			var svg = d3.select("body")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h);
+
+			svg.selectAll("rect")
+			   .data(dataset)
+			   .enter()
+			   .append("rect")
+			   .attr("x", function(d, i) {
+			   		return i * (w / dataset.length);
+			   })
+			   .attr("y", function(d) {
+			   		return h - (d / 500000);
+			   })
+			   .attr("width", w / dataset.length - barPadding)
+			   .attr("height", function(d) {
+			   		return d * 4;
+			   })
+			   .attr("fill", function(d) {
+					return "rgb(0, 0, " + (d * 10) + ")";
+			   });
+
+			svg.selectAll("text")
+			   .data(dataset)
+			   .enter()
+			   .append("text")
+			   .text(function(d) {
+			   		return (d3.round(d / 1000000,0));
+			   })
+			   .attr("text-anchor", "middle")
+			   .attr("x", function(d, i) {
+			   		return i * (w / dataset.length) + (w / dataset.length - barPadding) / 2;
+			   })
+			   .attr("y", function(d) {
+			   		return h - (d / 500000) + 14;
+			   })
+			   .attr("font-family", "sans-serif")
+			   .attr("font-size", "11px")
+			   .attr("fill", "white");
+
+
+			
+		</script>
+	</body>
 </html>
