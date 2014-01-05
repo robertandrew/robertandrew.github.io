@@ -2,27 +2,25 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Madagascar</title>
+		<title>Puerto Rico</title>
 		<script type="text/javascript" src="../d3/d3.v3.js"></script>
 		<style type="text/css">
-				
 		</style>
 	</head>
 	<body>
-		<h3>Madagascar population, 2014-2038</h3>
+		<h3>Puerto Rico birthrate, 2013-2037</h3>
 		<script type="text/javascript">
 
-			//Width and height
-			var w = 600;
-			var h = 250;
-			var barPadding = 1;
+			var w = 800;
+			var h = 150;
+			var dataset = [ 11, 10.9, 10.9, 10.8, 10.8, 10.8, 10.8, 10.8, 10.8, 10.7, 10.6, 10.5, 10.4, 10.2, 10.1, 9.9, 9.8, 9.6, 9.5, 9.3, 9.2, 9.1, 9, 8.8, 8.8];
 			var xScale = d3.scale.ordinal()
 				.domain(d3.range(dataset.length))
-				.rangeRoundBands([0, w] 0.05);
-				
-			var dataset = [ 13532000, 18132000, 23202000, 23813000, 24430000, 25054000, 25684000, 26318000, 26956000, 27597000, 28241000, 28887000, 29535000, 30183000, 30831000, 31480000, 32127000, 32774000, 33417000, 34059000, 34701000, 35341000, 35979000, 36614000, 37247000, 37879000, 38509000];
-			
-			//Create SVG element
+				.rangeRoundBands([0, w], 0.05);			
+			var yScale = d3.scale.linear()
+				.domain([0, d3.max(dataset)])
+				.range([0, h]);
+				//Create SVG element
 			var svg = d3.select("body")
 						.append("svg")
 						.attr("width", w)
@@ -33,17 +31,17 @@
 			   .enter()
 			   .append("rect")
 			   .attr("x", function(d, i) {
-			   		return i * (w / dataset.length);
+			   		return xScale(i);
 			   })
 			   .attr("y", function(d) {
-			   		return h - (d / 500000);
+			   		return h - yScale(d);
 			   })
-			   .attr("width", w / dataset.length - barPadding)
+			   .attr("width", xScale.rangeBand())
 			   .attr("height", function(d) {
-			   		return d * 4;
+			   		return yScale(d);
 			   })
 			   .attr("fill", function(d) {
-					return "rgb(0, 0, " + (d * 10) + ")";
+					return "rgb(0, 0, " + (d * 20) + ")";
 			   });
 
 			svg.selectAll("text")
@@ -51,14 +49,14 @@
 			   .enter()
 			   .append("text")
 			   .text(function(d) {
-			   		return (d3.round(d / 1000000,0));
+			   		return d3.round(d,1);
 			   })
 			   .attr("text-anchor", "middle")
 			   .attr("x", function(d, i) {
-			   		return i * (w / dataset.length) + (w / dataset.length - barPadding) / 2;
+			   		return xScale(i) + xScale.rangeBand() / 2;
 			   })
 			   .attr("y", function(d) {
-			   		return h - (d / 500000) + 14;
+			   		return h - yScale(d) + 14;
 			   })
 			   .attr("font-family", "sans-serif")
 			   .attr("font-size", "11px")
