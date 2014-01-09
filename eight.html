@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Argentina</title>
+		<script type="text/javascript" src="../d3/d3.v3.js"></script>
+		<style type="text/css">
+		</style>
+	</head>
+	<body>
+		<h3>Argentina, population by age, 0 to 84, by year</h3>
+		<script type="text/javascript">
+
+			var w = 1800;
+			var h = 150;
+			var dataset = [ 726341, 724781, 723275, 721485, 718773, 729117, 720905, 698478, 689625, 691842, 693112, 683490, 685899, 681197, 663543, 662373, 666672, 668459, 692398, 691606, 666458, 667575, 667774, 664718, 655885, 634941, 636318, 648784, 658162, 672457, 676028, 657173, 641480, 623575, 600065, 583115, 557231, 533361, 526139, 518069, 493226, 478640, 467564, 460796, 457031, 453683, 450301, 447362, 444458, 441269, 436962, 432749, 428516, 424051, 419139, 413270, 406491, 398138, 387882, 376075, 363661, 350988, 337943, 324637, 311211, 297731, 284561, 272144, 260817, 250431, 240203, 230079, 220475, 211576, 202851, 194096, 184954, 175645, 166204, 156554, 146900, 137181, 126806, 115614, 103995
+ ];
+			var xScale = d3.scale.ordinal()
+				.domain(d3.range(dataset.length))
+				.rangeRoundBands([0, w], 0.05);			
+			var yScale = d3.scale.linear()
+				.domain([0, d3.max(dataset)])
+				.range([0, h]);
+				//Create SVG element
+			var svg = d3.select("body")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h);
+
+			svg.selectAll("rect")
+			   .data(dataset)
+			   .enter()
+			   .append("rect")
+			   .attr("x", function(d, i) {
+			   		return xScale(i);
+			   })
+			   .attr("y", function(d) {
+			   		return h - yScale(d);
+			   })
+			   .attr("width", xScale.rangeBand())
+			   .attr("height", function(d) {
+			   		return yScale(d);
+			   })
+			   .attr("fill", function(d) {
+					return "rgb(" + (d*20) +", 0, " + (d * 20) + ")";
+			   });
+
+			svg.selectAll("text")
+			   .data(dataset)
+			   .enter()
+			   .append("text")
+			   .text(function(d) {
+			   		return d3.round(d/1000,0);
+			   })
+			   .attr("text-anchor", "middle")
+			   .attr("x", function(d, i) {
+			   		return xScale(i) + xScale.rangeBand() / 2;
+			   })
+			   .attr("y", function(d) {
+			   		return h - yScale(d) + 14;
+			   })
+			   .attr("font-family", "sans-serif")
+			   .attr("font-size", "11px")
+			   .attr("fill", "white");
+			//Create x-axis
+			svg.append("g")
+				.attr("class", "x axis")    // <-- Note x added here
+				.attr("transform", "translate(0," + (h - padding) + ")")
+				.call(xAxis);
+
+			//Create y-axis
+			svg.append("g")
+				.attr("class", "y axis")    // <-- Note y added here
+				.attr("transform", "translate(" + padding + ",0)")
+				.call(yAxis);
+			//Update x-axis
+			svg.select(".x.axis")
+				.transition()
+				.duration(1000)
+				.call(xAxis);
+
+			//Update y-axis
+			svg.select(".y.axis")
+				.transition()
+				.duration(1000)
+				.call(yAxis);
+
+			
+		</script>
+	</body>
+</html>
