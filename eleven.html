@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Argentina</title>
+		<script type="text/javascript" src="../d3/d3.v3.js"></script>
+		<style type="text/css">
+		
+		</style>
+
+    </head>
+    <body>
+
+			<script type="text/javascript">
+				var svg = d3.select('body').append('svg')
+					.attr('height', '200')
+					.attr('width', '500');
+				var g = svg.append('g');
+				
+				var parseRow =function(row) {
+					return {
+						month: row.Platform,
+						average: parseFloat(row.Units)
+					}
+				};
+				
+				d3.tsv('consoles.tsv', parseRow, function(data) {
+				 var months = data.map(function(d) { return d.month })
+				 var x = d3.scale.ordinal()
+						 .rangeRoundBands([0, 400], .1)
+						 .domain(months)
+			 
+				 var averages = data.map(function(d) { return d.average })
+				 var y = d3.scale.linear()
+						 .range([150, 0])
+						 .domain([0, d3.max(averages)])					
+					var rect = g.selectAll('.bar').data(data)
+								.enter().append('rect')
+						rect.attr('class', 'bar')
+							.attr('width', 10)
+							.attr('height', 100)
+							.attr('x', function(d) { return d.month.charCodeAt(0)*5})
+				})
+			</script>
+			
+    </body>
+</html>
