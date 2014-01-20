@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Finland</title>
+	<script type="text/javascript" src="../d3/d3.v3.js"></script> 
+
+    </head>
+    <body>
+	<h3>Population density of Finland, 1966 to 1989</h3>
+	<script type="text/javascript">
+	//Referenceable height and width
+		var h = 100;
+		var w = 600;
+	//Flexible y value to keep it centered vertically
+		var yaxis = h/2;
+		//some finland data
+		var finland = [15.2,15.2,15.2,15.2,15.2,15.3,15.4,15.4,15.5,15.6,15.6,15.6,15.7,15.7,15.8,15.9,16,16.1,16.1,16.2,16.2,16.3,16.3];
+		//Space between bubbles
+		var padding = 25;
+		var spacing = (w-(padding*2)) / finland.length;
+		//draw a big box on the page
+		var svgZone = d3.select("body").append("svg")
+			.attr("height",h)
+			.attr("width",w);
+	//Bind Finland data to theoretical circles
+		var circleSel = svgZone.selectAll("circle").data(finland);
+	//Draw circles inside the svgZone
+		var circleElem = circleSel.enter().append("circle");
+	//create a function that multiplies the index by spacing to get the x coords
+		//Call the circle-drawer and give it attributes
+		var circleLooks = circleElem
+			//Use funcX to spread out the x axis values
+			.attr("cx",function (d, i) {return i * spacing + padding;})
+			.attr("cy",yaxis)
+			//Base the radius on the bound data
+			.attr("r",function (d) {return d;})
+			.style("fill", "purple")
+			.style("stroke-width","2")
+			.style("stroke","steelblue");
+		//Attach a text label at exactly the same point
+
+		
+	</script>
+	</body>
+</html> 
