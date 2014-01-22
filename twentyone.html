@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Eesti</title>
+	<script type="text/javascript" src="../d3/d3.v3.js"></script> 
+
+    </head>
+    <body>
+	<h3>Male life expectancy in Estonia, 1989 to 2013</h3>
+	<script type="text/javascript">
+	//Referenceable height and width
+		var h = 200;
+		var w = 900;
+	//Flexible y value to keep it centered vertically
+		var yaxis = 20;
+		//some finland data
+		var finland = [65.8,64.7,64.4,63.4,62.3,60.7,61.5,64.2,64.3,63.6,64.8,65.2,64.8,64.9,65.3,65.8,66.3,66.6,66.9,67.2,67.5,67.7,68,68.3,68.6];
+		//Space between bubbles
+		var padding = 25;
+		var spacing = (w-(padding*2)) / finland.length;
+		//draw a big box on the page
+		var svgZone = d3.select("body").append("svg")
+			.attr("height",h)
+			.attr("width",w);
+	//Bind Finland data to theoretical squares
+		var rectSel = svgZone.selectAll("rect").data(finland);
+	//Draw circles inside the svgZone
+		var rectElem = rectSel.enter().append("rect");
+	//create a function that multiplies the index by spacing to get the x coords
+		//Call the circle-drawer and give it attributes
+		var rectLooks = rectElem
+			//Use funcX to spread out the x axis values
+			.attr("x",function (d, i) {return i * spacing + padding;})
+			.attr("y",yaxis)
+			//Base the radius on the bound data
+			.attr("height",function (d) {return d*2;})
+			.attr("width",spacing-5)
+			.style("fill", "orange")
+			//.style("stroke","steelblue")
+			;
+		//append text in the same places
+		var makeText = svgZone.selectAll("text")
+			.data(finland)
+			.enter()
+			.append("text")
+			.attr("x",function (d, i) {return i * spacing + padding;})
+			.attr("y",yaxis-2)
+			.text(function (d) {return d})
+			.attr('font-size',13)
+			.attr('font-family','sans-serif')
+			.attr('font-weight','bold')
+			;
+	</script>
+	</body>
+</html> 
