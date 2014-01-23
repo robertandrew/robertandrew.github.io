@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Eesti</title>
+	<script type="text/javascript" src="../d3/d3.v3.js"></script> 
+
+    </head>
+    <body>
+	<h3>Infant mortality in Estonia, 1989 to 2038</h3>
+	<script type="text/javascript">
+	//Referenceable height and width
+		var cberror;
+		var cbdata;
+		//load TSV
+		d3.tsv('consoles.tsv',
+			function(error, data) {
+				//assign values the TSV reading passes, now to be global
+				cberror = error;
+				cbdata = data;
+			}
+		)
+		var h = 200;
+		var w = 1300;
+	//Flexible y value to keep it centered vertically
+		var yaxis = 20;
+		//some estonia data
+		var year = [1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2032,2033,2034,2035,2036,2037,2038];
+		var estonia = [14.7,11.8,12.4,15.5,14.5,14,14.6,10.5,9.8,9.3,9.8,8.7,8.7,8.6,8.3,8.1,7.9,7.7,7.6,7.5,7.3,7.2,7.1,6.9,6.8,6.7,6.6,6.5,6.4,6.3,6.2,6.1,6,5.9,5.8,5.7,5.6,5.5,5.5,5.4,5.3,5.2,5.2,5.1,5,5,4.9,4.8,4.8,4.7];
+
+		//Space between bars
+		var padding = 25;
+		var spacing = (w-(padding*2)) / estonia.length;
+		//draw a big box on the page
+		var svgZone = d3.select("body").append("svg")
+			.attr("height",h)
+			.attr("width",w);
+	//Bind data to theoretical squares
+		var rectSel = svgZone.selectAll("rect").data(estonia);
+			//Draw circles inside the svgZone
+		var rectElem = rectSel.enter().append("rect");
+	//create a function that multiplies the index by spacing to get the x coords
+		//Call the circle-drawer and give it attributes
+		var rectLooks = rectElem
+			//Use funcX to spread out the x axis values
+			.attr("x",function (d, i) {return i * spacing + padding;})
+			.attr("y",yaxis)
+			//Base the radius on the bound data
+			.attr("height",function (d) {return d*10;})
+			.attr("width",spacing-5)
+			.style("fill", "gray")
+			//.style("stroke","steelblue")
+			;
+		//append text in the same places
+		var makeText = svgZone.selectAll("text")
+			.data(estonia)
+			.enter()
+			.append("text")
+			.attr("x",function (d, i) {return i * spacing + padding;})
+			.attr("y",function (d) {return (d*10)+32;})
+			.text(function (d) {return d})
+			.attr('font-size',13)
+			.attr('font-family','sans-serif')
+			.attr('font-weight','bold')
+			;
+			//add year labels
+			var makeText = svgZone.selectAll("text")
+			.data(year)
+			.enter()
+			.append("text")
+			.attr("x",function (d, i) {return i * spacing + padding;})
+			.attr("y",yaxis-2)
+			.text(function (d) {return d})
+			.attr('font-size',13)
+			.attr('font-family','sans-serif')
+			.attr('font-weight','bold')
+			;
+	
+			
+	</script>
+	</body>
+</html> 
