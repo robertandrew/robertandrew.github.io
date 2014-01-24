@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="d3.v3.min.js"></script>
+</head>
+<body>
+ 	<script type="text/javascript">
+	//declare huge homecooked africa array
+ 	var africa = [
+		{'country': 'Mauritius', 'density': 588, 'area': 2040, 'population': 1200206}, 
+		{'country': 'Mayotte (Fr.)', 'density': 457, 'area': 374, 'population': 170879}, 
+		{'country': 'Réunion (Fr.)', 'density': 296, 'area': 2512, 'population': 743981}, 
+		{'country': 'Comoros', 'density': 283, 'area': 2170, 'population': 614382}, 
+		{'country': 'Rwanda', 'density': 281, 'area': 26338, 'population': 7398074}, 
+		{'country': 'Burundi', 'density': 229, 'area': 27830, 'population': 6373002}, 
+		{'country': 'Seychelles', 'density': 176, 'area': 455, 'population': 80098}, 
+		{'country': 'Sao Tome and Príncipe', 'density': 170, 'area': 1001, 'population': 170372}, 
+		{'country': 'Nigeria', 'density': 141, 'area': 923768, 'population': 129934911}, 
+		{'country': 'Gambia', 'density': 129, 'area': 11300, 'population': 1455842}, 
+		{'country': 'Uganda', 'density': 105, 'area': 236040, 'population': 24699073}, 
+		{'country': 'Cape Verde', 'density': 101, 'area': 4033, 'population': 408760}, 
+		{'country': 'Togo', 'density': 93, 'area': 56785, 'population': 5285501}, 
+		{'country': 'Malawi', 'density': 90, 'area': 118480, 'population': 10701824}, 
+		{'country': 'Ghana', 'density': 85, 'area': 239460, 'population': 20244154}, 
+		{'country': 'Sierra Leone', 'density': 78, 'area': 71740, 'population': 5614743}, 
+		{'country': 'Lesotho', 'density': 73, 'area': 30355, 'population': 2207954}, 
+		{'country': 'Egypt', 'density': 71, 'area': 1001450, 'population': 70712345}, 
+		{'country': 'Morocco (excluding Western Sahara)', 'density': 70, 'area': 446550, 'population': 31167783}, 
+		{'country': 'Swaziland', 'density': 65, 'area': 17363, 'population': 1123605}, 
+		{'country': 'Benin', 'density': 60, 'area': 112620, 'population': 6787625}, 
+		{'country': 'Ethiopia', 'density': 60, 'area': 1127127, 'population': 67673031}, 
+		{'country': 'Tunisia', 'density': 60, 'area': 163610, 'population': 9815644}, 
+		{'country': 'Senegal', 'density': 54, 'area': 196190, 'population': 10589571}, 
+		{'country': 'Kenya', 'density': 53, 'area': 582650, 'population': 31138735}, 
+		{'country': 'Cote dIvoire', 'density': 52, 'area': 322460, 'population': 16804784}, 
+		{'country': 'Burkina Faso', 'density': 46, 'area': 274200, 'population': 12603185}, 
+		{'country': 'Tanzania', 'density': 39, 'area': 945087, 'population': 37187939}, 
+		{'country': 'Guinea-Bissau', 'density': 37, 'area': 36120, 'population': 1345479}, 
+		{'country': 'Eritrea', 'density': 37, 'area': 121320, 'population': 4465651}, 
+		{'country': 'South Africa', 'density': 36, 'area': 1219912, 'population': 43647658}, 
+		{'country': 'Cameroon', 'density': 34, 'area': 475440, 'population': 16184748}, 
+		{'country': 'Guinea', 'density': 32, 'area': 245857, 'population': 7775065}, 
+		{'country': 'Liberia', 'density': 30, 'area': 111370, 'population': 3288198}, 
+		{'country': 'Zimbabwe', 'density': 29, 'area': 390580, 'population': 11376676}, 
+		{'country': 'Madagascar', 'density': 28, 'area': 587040, 'population': 16473477}, 
+		{'country': 'Mozambique', 'density': 24, 'area': 801590, 'population': 19607519}, 
+		{'country': 'Democratic Republic of the Congo', 'density': 24, 'area': 2345410, 'population': 55225478}, 
+		{'country': 'Djibouti', 'density': 21, 'area': 23000, 'population': 472810}, 
+		{'country': 'Equatorial Guinea', 'density': 18, 'area': 28051, 'population': 498144}, 
+		{'country': 'Sudan', 'density': 15, 'area': 2505810, 'population': 37090298}, 
+		{'country': 'Algeria', 'density': 14, 'area': 2381740, 'population': 32277942}, 
+		{'country': 'Zambia', 'density': 13, 'area': 752614, 'population': 9959037}, 
+		{'country': 'Saint Helena, Ascension and Tristan da Cunha (UK)', 'density': 13, 'area': 420, 'population': 5661}, 
+		{'country': 'Somalia', 'density': 12, 'area': 637657, 'population': 7753310}, 
+		{'country': 'Mali', 'density': 9.1, 'area': 1240000, 'population': 11340480}, 
+		{'country': 'Republic of the Congo', 'density': 8.7, 'area': 342000, 'population': 2958448}, 
+		{'country': 'Angola', 'density': 8.5, 'area': 1246700, 'population': 10593171}, 
+		{'country': 'Niger', 'density': 8.4, 'area': 1267000, 'population': 10639744}, 
+		{'country': 'Chad', 'density': 8, 'area': 1284000, 'population': 10329208}, 
+		{'country': 'Central African Republic', 'density': 5.8, 'area': 622984, 'population': 3642739}, 
+		{'country': 'Gabon', 'density': 4.6, 'area': 267667, 'population': 1233353}, 
+		{'country': 'Libya', 'density': 3.1, 'area': 1759540, 'population': 5368585}, 
+		{'country': 'Mauritania', 'density': 2.7, 'area': 1030700, 'population': 2828858}, 
+		{'country': 'Botswana', 'density': 2.7, 'area': 600370, 'population': 1591232}, 
+		{'country': 'Namibia', 'density': 2.2, 'area': 825418, 'population': 1820916}, 
+		{'country': 'Western Sahara', 'density': 1, 'area': 266000, 'population': 256177}, 
+		];
+		//declare SVG global variables
+		var h = 1000;
+		var w = 1000;
+		var pads = 50;
+		var radius = 50;
+		
+		//put africa into the universal container
+		var unicorn = africa;		
+		
+		//softcode minx, miny
+		
+		var minx = d3.min(unicorn, function(d){return d.area});
+		var maxx = d3.max(unicorn, function(d){return d.area});
+		var miny = 5661;
+		var maxy = 129934911;
+		var minr = 1;
+		var maxr = 588;
+		//create svg container
+		var svgCon = d3.select("body").append("svg").attr("width",w).attr("height",h);
+		
+		//attempt to scale africa
+			//area as x		
+		var xScale = d3.scale.linear()
+			.domain([minx,maxx])
+			.range([pads,w-pads]);
+		var yScale = d3.scale.linear()
+			.domain([miny,maxy])
+			.range([pads,h-pads]);
+		var rScale = d3.scale.linear()
+			.domain([miny,maxy])
+			.range([0,radius]);
+
+		
+		//bind data to circles within the container
+		var circBind = svgCon.selectAll("circle").data(africa).enter().append("circle");		
+
+		//draw circles
+		var circDraw = circBind
+			.attr("cx",function(d) {return xScale(d.area)})
+			.attr("cy",function(d) {return yScale(d.population)})
+			.attr("r",function(d) {return rScale(d.population)})
+			.style("fill","purple")
+			.style("stroke","white");
+		//drop text on the circles
+		var drawText = svgCon.selectAll("text")
+			.data(africa)
+			.enter()
+			.append("text")
+			.attr('x',function(d){return xScale(d.area)})
+			.attr('y', function(d){return yScale(d.population)})
+			.text(function(d) {return d.country});								
+			</script>
+		</body>
+</html>
