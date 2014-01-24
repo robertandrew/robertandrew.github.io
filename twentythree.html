@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Safrica</title>
+	<script type="text/javascript" src="../d3/d3.v3.js"></script> 
+
+    </head>
+    <body>
+	<h3>Mortality rate for those under age 5 in South Africa, 1989 to 2038</h3>
+	<script type="text/javascript">
+	//Referenceable height and width
+		var cberror;
+		var cbdata;
+		var h = 200;
+		var w = 1700;
+	//Flexible y value to keep it centered vertically
+		var yaxis = 20;
+		//some safrica data
+		var year = [1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2032,2033,2034,2035,2036,2037,2038];
+		var safrica = [79.7,75.4,71.6,68.4,65.9,65.3,65.3,66.4,68.1,70.1,72.2,74,75.3,76,76.2,75.9,75.2,74.4,73.5,72.5,71.5,70.5,69.6,68.7,67.9,67.1,66.2,65.1,63.9,62.6,61.3,59.9,58.6,57.3,56.1,54.8,53.6,52.5,51.4,50.3,49.2,48.2,47.2,46.2,45.2,44.2,43.3,42.4,41.4,40.5];
+
+		//Space between bars
+		var padding = 25;
+		var spacing = (w-(padding*2)) / safrica.length;
+		//draw a big box on the page
+		var svgZone = d3.select("body").append("svg")
+			.attr("height",h)
+			.attr("width",w);
+	//Bind data to theoretical squares
+		var rectSel = svgZone.selectAll("rect").data(safrica);
+			//Draw circles inside the svgZone
+		var rectElem = rectSel.enter().append("rect");
+	//create a function that multiplies the index by spacing to get the x coords
+		//Call the circle-drawer and give it attributes
+		var rectLooks = rectElem
+			//Use funcX to spread out the x axis values
+			.attr("x",function (d, i) {return i * spacing + padding;})
+			.attr("y",yaxis)
+			//Base the radius on the bound data
+			.attr("height",function (d) {return d*2;})
+			.attr("width",spacing-5)
+			.style("fill", "green")
+			//.style("stroke","steelblue")
+			;
+		//append text in the same places
+		var makeText = svgZone.selectAll("text")
+			.data(safrica)
+			.enter()
+			.append("text")
+			.attr("x",function (d, i) {return i * spacing + padding;})
+			.attr("y",function (d) {return (d*2)+32;})
+			.text(function (d) {return d})
+			.attr('font-size',13)
+			.attr('font-family','sans-serif')
+			.attr('font-weight','bold')
+			;
+			//add year labels
+			
+			
+	</script>
+	</body>
+</html> 
