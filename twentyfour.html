@@ -4,6 +4,7 @@
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 </head>
 <body>
+	<h3>African countries by population and area</h3>
  	<script type="text/javascript">
 	//declare huge homecooked africa array
  	var africa = [
@@ -68,8 +69,24 @@
 		//declare SVG global variables
 		var h = 1000;
 		var w = 1000;
-		var pads = 50;
 		var radius = 50;
+		
+		//conventional margins
+		var margin = {
+			top: 60, 
+			right: 50, 
+			bottom: 50, 
+			left: 100}, 
+			width = w-margin.left - margin.right, 
+			height = h - margin.top - margin.bottom;
+		
+		//create svg container
+		var svgCon = d3.select("body")
+			.append("svg")
+			.attr('width', width + margin.left + margin.right)
+			.attr('height',height + margin.top + margin.bottom)
+			.append('g')
+			.attr('transform',"translate(" + margin.left + "," + margin.top + ")");		
 		
 		//put africa into the universal container
 		var unicorn = africa;		
@@ -82,22 +99,30 @@
 		var maxy = 129934911;
 		var minr = 1;
 		var maxr = 588;
-		//create svg container
-		var svgCon = d3.select("body").append("svg").attr("width",w).attr("height",h);
-		
+			
 		//attempt to scale africa
 			//area as x		
 		var xScale = d3.scale.linear()
 			.domain([minx,maxx])
-			.range([pads,w-pads]);
+			.range([0,w-margin.right]);
 		var yScale = d3.scale.linear()
 			.domain([miny,maxy])
-			.range([pads,h-pads]);
+			.range([h-margin.bottom,0]);
 		var rScale = d3.scale.linear()
 			.domain([miny,maxy])
 			.range([0,radius]);
-
 		
+		//set up the axes
+		var xaxis = d3.svg.axis()
+			.scale(xScale)
+			.orient("top");
+		var yaxis = d3.svg.axis()
+			.scale(yScale)
+			.orient("left");
+		//draw the axes
+		var xaxisgroup = svgCon.append("g").call(xaxis);
+		var yaxisgroup = svgCon.append("g").call(yaxis);
+		 
 		//bind data to circles within the container
 		var circBind = svgCon.selectAll("circle").data(africa).enter().append("circle");		
 
@@ -113,9 +138,10 @@
 			.data(africa)
 			.enter()
 			.append("text")
+			.text(function(d) {return d.country})
 			.attr('x',function(d){return xScale(d.area)})
 			.attr('y', function(d){return yScale(d.population)})
-			.text(function(d) {return d.country});								
+			;								
 			</script>
 		</body>
 </html>
