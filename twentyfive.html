@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="d3.v3.min.js"></script>
+<style type="text/css">
+	.axis path,
+	.axis line {
+		fill: none;
+		stroke: black;
+		shape-rendering: crispEdges;
+	}
+	.axis text {
+		font-family: sans-serif;
+		font-size: 11px;
+	}
+</style>
+
+
+</head>
+
+<body>
+<h3 class="headline">Population of African countries, 2002</h3>
+ 	<script type="text/javascript">
+	//Declare dataset
+	
+ 	var africa = [
+		{'country': 'Mauritius', 'density': 588, 'area': 2040, 'population': 1200206}, 
+		{'country': 'Mayotte (Fr.)', 'density': 457, 'area': 374, 'population': 170879}, 
+		{'country': 'RÃ©union (Fr.)', 'density': 296, 'area': 2512, 'population': 743981}, 
+		{'country': 'Comoros', 'density': 283, 'area': 2170, 'population': 614382}, 
+		{'country': 'Rwanda', 'density': 281, 'area': 26338, 'population': 7398074}, 
+		{'country': 'Burundi', 'density': 229, 'area': 27830, 'population': 6373002}, 
+		{'country': 'Seychelles', 'density': 176, 'area': 455, 'population': 80098}, 
+		{'country': 'Sao Tome and PrÃ­ncipe', 'density': 170, 'area': 1001, 'population': 170372}, 
+		{'country': 'Nigeria', 'density': 141, 'area': 923768, 'population': 129934911}, 
+		{'country': 'Gambia', 'density': 129, 'area': 11300, 'population': 1455842}, 
+		{'country': 'Uganda', 'density': 105, 'area': 236040, 'population': 24699073}, 
+		{'country': 'Cape Verde', 'density': 101, 'area': 4033, 'population': 408760}, 
+		{'country': 'Togo', 'density': 93, 'area': 56785, 'population': 5285501}, 
+		{'country': 'Malawi', 'density': 90, 'area': 118480, 'population': 10701824}, 
+		{'country': 'Ghana', 'density': 85, 'area': 239460, 'population': 20244154}, 
+		{'country': 'Sierra Leone', 'density': 78, 'area': 71740, 'population': 5614743}, 
+		{'country': 'Lesotho', 'density': 73, 'area': 30355, 'population': 2207954}, 
+		{'country': 'Egypt', 'density': 71, 'area': 1001450, 'population': 70712345}, 
+		{'country': 'Morocco (excluding Western Sahara)', 'density': 70, 'area': 446550, 'population': 31167783}, 
+		{'country': 'Swaziland', 'density': 65, 'area': 17363, 'population': 1123605}, 
+		{'country': 'Benin', 'density': 60, 'area': 112620, 'population': 6787625}, 
+		{'country': 'Ethiopia', 'density': 60, 'area': 1127127, 'population': 67673031}, 
+		{'country': 'Tunisia', 'density': 60, 'area': 163610, 'population': 9815644}, 
+		{'country': 'Senegal', 'density': 54, 'area': 196190, 'population': 10589571}, 
+		{'country': 'Kenya', 'density': 53, 'area': 582650, 'population': 31138735}, 
+		{'country': 'Cote dIvoire', 'density': 52, 'area': 322460, 'population': 16804784}, 
+		{'country': 'Burkina Faso', 'density': 46, 'area': 274200, 'population': 12603185}, 
+		{'country': 'Tanzania', 'density': 39, 'area': 945087, 'population': 37187939}, 
+		{'country': 'Guinea-Bissau', 'density': 37, 'area': 36120, 'population': 1345479}, 
+		{'country': 'Eritrea', 'density': 37, 'area': 121320, 'population': 4465651}, 
+		{'country': 'South Africa', 'density': 36, 'area': 1219912, 'population': 43647658}, 
+		{'country': 'Cameroon', 'density': 34, 'area': 475440, 'population': 16184748}, 
+		{'country': 'Guinea', 'density': 32, 'area': 245857, 'population': 7775065}, 
+		{'country': 'Liberia', 'density': 30, 'area': 111370, 'population': 3288198}, 
+		{'country': 'Zimbabwe', 'density': 29, 'area': 390580, 'population': 11376676}, 
+		{'country': 'Madagascar', 'density': 28, 'area': 587040, 'population': 16473477}, 
+		{'country': 'Mozambique', 'density': 24, 'area': 801590, 'population': 19607519}, 
+		{'country': 'Democratic Republic of the Congo', 'density': 24, 'area': 2345410, 'population': 55225478}, 
+		{'country': 'Djibouti', 'density': 21, 'area': 23000, 'population': 472810}, 
+		{'country': 'Equatorial Guinea', 'density': 18, 'area': 28051, 'population': 498144}, 
+		{'country': 'Sudan', 'density': 15, 'area': 2505810, 'population': 37090298}, 
+		{'country': 'Algeria', 'density': 14, 'area': 2381740, 'population': 32277942}, 
+		{'country': 'Zambia', 'density': 13, 'area': 752614, 'population': 9959037}, 
+		{'country': 'Saint Helena, Ascension and Tristan da Cunha (UK)', 'density': 13, 'area': 420, 'population': 5661}, 
+		{'country': 'Somalia', 'density': 12, 'area': 637657, 'population': 7753310}, 
+		{'country': 'Mali', 'density': 9.1, 'area': 1240000, 'population': 11340480}, 
+		{'country': 'Republic of the Congo', 'density': 8.7, 'area': 342000, 'population': 2958448}, 
+		{'country': 'Angola', 'density': 8.5, 'area': 1246700, 'population': 10593171}, 
+		{'country': 'Niger', 'density': 8.4, 'area': 1267000, 'population': 10639744}, 
+		{'country': 'Chad', 'density': 8, 'area': 1284000, 'population': 10329208}, 
+		{'country': 'Central African Republic', 'density': 5.8, 'area': 622984, 'population': 3642739}, 
+		{'country': 'Gabon', 'density': 4.6, 'area': 267667, 'population': 1233353}, 
+		{'country': 'Libya', 'density': 3.1, 'area': 1759540, 'population': 5368585}, 
+		{'country': 'Mauritania', 'density': 2.7, 'area': 1030700, 'population': 2828858}, 
+		{'country': 'Botswana', 'density': 2.7, 'area': 600370, 'population': 1591232}, 
+		{'country': 'Namibia', 'density': 2.2, 'area': 825418, 'population': 1820916}, 
+		{'country': 'Western Sahara', 'density': 1, 'area': 266000, 'population': 256177}, 
+		];
+	//Define global variables
+	var h = 1400;
+	var w = 1000;
+	var rectpad = 5;
+	var baroffset = 100;
+	//var textoffset = ;
+
+//Set margin with an array pointing to top, bottom, left, and right
+	
+	var margin = {
+	'top':50,
+	'bottom':50,
+	'left':50,
+	'right':50}
+
+
+	//Define the SVG space with width, height
+	var svgcon = d3.select('body')
+		.append('svg')
+		.attr('width',w)
+		.attr('height',h);
+
+	//Define drawing space
+		//Add a group inside teh SVG that is translated by the top and left margins
+	var drawcon = svgcon
+		.append('g')
+		.attr('transform',"translate(" + margin.left + "," + margin.top + ")");		
+
+			
+	//Scale axes
+		//Find the extent of each dataset
+		//define the functions to scale x and y based on the drawing space
+	var xextent = d3.extent(africa, function (d) {return d.population});
+	
+	var scalex = d3.scale.linear()
+		.domain(xextent)
+		.range([0, w-margin.left-margin.right-baroffset]);
+	
+	var scaley = d3.scale.linear()
+		.domain([0, africa.length])		
+		.range([0, h-margin.top-margin.bottom])
+
+	//scale rectangles
+	var rectheight = ((h-margin.top-margin.bottom)/africa.length)-rectpad;
+
+	//Bind data to elements
+	var makerect = drawcon
+		.append('g')
+		.selectAll('rect')
+		.data(africa)
+		.enter()
+		.append('rect');
+		
+	//Draw elements
+		//scale teh data for each attribute using anonymous functions
+	var drawrect = makerect
+		.attr('width',function(d) {return scalex(d.population)})	
+		.attr('height',rectheight)
+		.attr('x',baroffset)
+		.attr('y',function(r,i) {return scaley(i)})
+		.style('fill','orange');	
+	//Define axes
+		//For both X and Y, go for myaxis = d3.svg.axis().scale(xaxisscale).orient('top');
+	var xaxis = d3.svg.axis()
+		.scale(scalex)
+		.orient('top')
+		.ticks(5);
+	
+	//Draw axes
+		//add groups to the drawing space and do .call(myaxis)
+	var drawx = drawcon
+		.append('g')
+		.attr('class','axis')
+		.call(xaxis)
+		//move the axis over based on the bar offset
+		.attr('transform','translate('+baroffset+',0)');
+
+
+	//Add text
+		//add objects, bind them, and give them scaled attributes including .text
+	//First, the country names	
+	var drawtext = drawcon
+		.append('g')
+		.selectAll('text')
+		.data(africa)
+		.enter()
+		.append('text')
+		.attr('x',0)
+		.attr('y',function(r,i) {return scaley(i)+(rectheight*0.85)})
+		.text(function(d){return d.country})
+		.style('font-family','sans-serif')
+		.style('font-size',rectheight*0.7);		
+	//then, the quantity labels in a separate group
+	var drawqtext = drawcon
+		.append('g')
+		.selectAll('text')
+		.data(africa)
+		.enter()
+		.append('text')
+		.attr('x',function(d) {return scalex(d.population)+baroffset+5})
+		.attr('y',function(r,i){return scaley(i)+(rectheight*0.85)})
+		.text(function(d){return d.population})
+		.style('font-family','sans-serif')
+		.style('font-size',rectheight*0.7);	
+		//format as needed
+		
+	</script>
+</html>
