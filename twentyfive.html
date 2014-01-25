@@ -127,6 +127,35 @@
 	//scale rectangles
 	var rectheight = ((h-margin.top-margin.bottom)/africa.length)-rectpad;
 
+	//Add text
+		//add objects, bind them, and give them scaled attributes including .text
+	//First, the country names	
+	var drawtext = drawcon
+		.append('g')
+		.selectAll('text')
+		.data(africa)
+		.enter()
+		.append('text')
+		.attr('x',0)
+		.attr('y',function(r,i) {return scaley(i)+(rectheight*0.85)})
+		.text(function(d){return d.country})
+		.style('font-family','sans-serif')
+		.style('font-size',rectheight*0.7);		
+	//then, the quantity labels in a separate group
+	var drawqtext = drawcon
+		.append('g')
+		.selectAll('text')
+		.data(africa)
+		.enter()
+		.append('text')
+		.attr('x',function(d) {return scalex(d.population)+baroffset+5})
+		.attr('y',function(r,i){return scaley(i)+(rectheight*0.85)})
+		.text(function(d){return d.population})
+		.style('font-family','sans-serif')
+		.style('font-size',rectheight*0.7);	
+		//format as needed
+
+
 	//Bind data to elements
 	var makerect = drawcon
 		.append('g')
@@ -160,33 +189,6 @@
 		.attr('transform','translate('+baroffset+',0)');
 
 
-	//Add text
-		//add objects, bind them, and give them scaled attributes including .text
-	//First, the country names	
-	var drawtext = drawcon
-		.append('g')
-		.selectAll('text')
-		.data(africa)
-		.enter()
-		.append('text')
-		.attr('x',0)
-		.attr('y',function(r,i) {return scaley(i)+(rectheight*0.85)})
-		.text(function(d){return d.country})
-		.style('font-family','sans-serif')
-		.style('font-size',rectheight*0.7);		
-	//then, the quantity labels in a separate group
-	var drawqtext = drawcon
-		.append('g')
-		.selectAll('text')
-		.data(africa)
-		.enter()
-		.append('text')
-		.attr('x',function(d) {return scalex(d.population)+baroffset+5})
-		.attr('y',function(r,i){return scaley(i)+(rectheight*0.85)})
-		.text(function(d){return d.population})
-		.style('font-family','sans-serif')
-		.style('font-size',rectheight*0.7);	
-		//format as needed
 		
 	</script>
 </html>
