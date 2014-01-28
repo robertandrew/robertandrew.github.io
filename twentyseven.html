@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+
+<style type="text/css">
+	.axis path,
+	.axis line {
+		fill: none;
+		stroke: black;
+		shape-rendering: crispEdges;
+	}
+	.axis text {
+		font-family: sans-serif;
+		font-size: 11px;
+	}
+ 	body {
+		font-family: sans-serif;
+		font-size: 15px;
+	}
+</style>
+
+
+</head>
+
+<body>
+ 	<script type="text/javascript">
+
+//data independent
+	
+ 	//Define global variables
+		//include storage space for the TS import
+	var h = 250;
+	var w = 600;
+;
+
+	//Define the SVG space with width, height
+
+	var svgcon = d3.select('body')
+		.append('svg')
+		.attr('height',h)
+		.attr('width',w)
+		
+
+	//Set margin with an array pointing to top, bottom, left, and right
+		//Define width as height - margin.left - margin.right
+
+	var margin = {
+	'top':40,
+	'bottom': 40,
+	'right':	50,
+	'left':40};
+
+	//Define drawing space
+		//Add a group inside teh SVG that is translated by the top and left margins
+	var drawcon = svgcon.append('g')
+		.attr('transform','translate(' + margin.left + ','+ margin.top + ')');
+
+	//global functions
+	var parsedate = d3.time.format('%Y').parse;
+
+	//additional independents
+	var infants;
+	var cberror;
+
+//data dependent
+
+
+	//import dataset, leave hanging function
+	d3.tsv('southafrica.tsv', function(error, data) {
+		error = cberror;		
+		data.forEach(function(d){
+			d.year = parsedate(d.year)
+			d.mort = +d.infantmort;
+			
+			infants=data;		
+		});
+
+			
+		//Scale axes
+			//Find the extent of each dataset
+	 	var extentx = d3.extent(infants, function(d){return d.year});
+	 	var maxy = d3.max(infants, function(d){return d.mort});		
+		
+			//define the functions to scale x and y based on the drawing space
+		var scalex = d3.time.scale()
+			.domain(extentx)
+			.range([0,w-margin.left-margin.right]);
+		
+		var scaley = d3.scale.linear()
+			.domain([0,60])
+			.range([h-margin.top-margin.bottom,0]).nice();
+		//Bind data to elements		
+		var makerect = drawcon.append('g')
+			.selectAll('rect')
+			.data(infants)
+			.enter()
+			.append('rect');
+			 
+		//Calculate rectwidth
+		var rectwidth = (((w-margin.right-margin.left)/(infants.length))-2);
+
+		//Draw elements
+			//scale teh data for each attribute using anonymous functions
+		var drawrect = makerect
+			.attr('x',function(d) {return scalex(d.year)})
+			.attr('y',function (d){return scaley(d.mort)})		
+			.attr('width', rectwidth)
+			.attr('height', function (d){return h - margin.top - margin.bottom - scaley(d.mort)})
+			.attr('fill','pink');
+								
+		//Define axes
+			//For both X and Y, go for myaxis = d.svg.axis().scale(xaxisscale).orient('top');
+		var xaxis = d3.svg.axis()
+			.scale(scalex)
+			.orient('bottom');
+			
+		var yaxis = d3.svg.axis()
+			.scale(scaley)
+			.orient('left');
+
+			
+		//Draw axes
+			//add groups to the drawing space and do .call(myaxis)
+		drawcon.append('g')
+			.attr('transform','translate(0,' + (h - margin.top - margin.bottom) + ')')
+			.attr('class','axis')
+			.call(xaxis);
+		drawcon.append('g')
+			.attr('class','axis')
+			.call(yaxis)
+			.append('text')
+			.attr('transform','rotate(-90)')
+			.attr('text-anchor','end')
+			.attr('y', 6 )
+			.attr('dy','.5em')
+			.style('fill','gray')
+			.text('Deaths');
+			
+		svgcon.append('g')
+			.attr('class','axis')
+			.append('text')
+			.attr('x', margin.left)			
+			.attr('y', (margin.top/2))
+			.text('Mortality rate per 1,000 infants in South Africa')
+			.style('font-size','15');
+		
+		svgcon.append('g')
+			.attr('class','axis')
+			.append('text')
+			.attr('x', margin.left)			
+			.attr('y', (h - ((margin.bottom-20)/2)))
+			.text('Source: Census Bureau')
+			.style('font-size','9')
+			.style('fill','gray');
+		
+	//end hanging function
+	});		
+	</script>
+</html>
