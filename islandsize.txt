@@ -1,0 +1,78 @@
+rank	name	area	Country or countries
+1	Greenland	822706.0	" Greenland, constituent country of the  Kingdom of Denmark"
+2	New Guinea	303381.0	 Indonesia (Papua and West Papua) and  Papua New Guinea
+3	Borneo	288869.0	" Brunei,  Indonesia (Central, East, North, South and West Kalimantan) and  Malaysia (Sabah and Sarawak)"
+4	Madagascar	226917.0	 Madagascar
+5	Baffin Island	195928.0	 Canada (Nunavut)
+6	Sumatra	184954.0	" Indonesia (Aceh, Bengkulu, Jambi, Lampung, Riau and North, South and West Sumatra)"
+7	Honshu	87182.0	" Japan (Ch?bu, Ch?goku, Kansai, Kant? and T?hoku Regions)"
+8	Victoria Island	83897.0	 Canada (Northwest Territories and Nunavut)
+9	Great Britain	80823.0	" United Kingdom (England, Scotland and Wales)"
+10	Ellesmere Island	75767.0	 Canada (Nunavut)
+11	Sulawesi	69761.0	" Indonesia (Gorontalo and Central, North, South, South East and West Sulawesi Provinces)"
+12	South Island	56308.0	" New Zealand (Canterbury, Otago, Southland, West Coast, Tasman, Nelson, Marlborough Regions)"
+13	Java	53589.0	" Indonesia (Banten, Jakarta, Yogyakarta and Central, East and West Java Provinces)"
+14	North Island	43082.0	" New Zealand (Northland, Auckland, Waikato, Gisborne, Bay of Plenty, Taranaki, Hawke's Bay, Manawatu-Wanganui and Wellington Regions)"
+15	Luzon	42458.0	" Philippines (Bicol, Cagayan Valley, CALABARZON, Central Luzon, Cordillera, Ilocos and National Capital Regions)"
+16	Newfoundland	42031.0	 Canada (Newfoundland and Labrador)
+17	Cuba 	40369.0	 Cuba
+18	Iceland 	39315.0	 Iceland
+19	Mindanao	36657.0	" Philippines (Caraga, Davao, Muslim Mindanao, Northern Mindanao, SOCCSKSARGEN and Zamboanga Peninsula)"
+20	Ireland	32595.0	 Republic of Ireland and  United Kingdom (Northern Ireland)
+21	Hokkaido	30394.0	 Japan (Hokkaido region)
+22	Hispaniola	28544.0	 Dominican Republic and  Haiti
+23	Sakhalin	27989.0	 Russia (Sakhalin Oblast)
+24	Banks Island	27038.0	 Canada (Northwest Territories)
+25	Sri Lanka 	25200.0	 Sri Lanka
+26	Tasmania 	25105.0	 Australia (Tasmania)
+27	Devon Island	21331.0	" Canada (Nunavut) (largest uninhabited island in the world) (The entire planet's population could fit on this island, at densities of the most densely populated part of Earth, Lalbagh, Dhaka as of the 2011 census figures there.)"
+28	Alexander Island	18946.0	"None (Antarctic territorial claims by  Argentina (partial),  Chile and  United Kingdom)"
+29	Isla Grande 	18302.0	 Argentina (Tierra del Fuego Province) and  Chile (Magallanes and Antártica Chilena Region)
+30	Severny Island	18177.0	 Russia (Arkhangelsk Oblast)
+31	Berkner Island	16939.0	"None (Antarctic territorial claims by  Argentina,  Chile (partial) and  United Kingdom)"
+32	Axel Heiberg Island	16671.0	 Canada (Nunavut)
+33	Melville Island	16274.0	 Canada (Northwest Territories and Nunavut)
+34	Southampton Island	15913.0	 Canada (Nunavut)
+35	Marajo	15483.0	" Brazil (Pará) (World's largest island surrounded by fresh water, or in a river)."
+36	Spitsbergen	14600.0	 Norway (Svalbard)
+37	Kyushu	14455.0	 Japan (Ky?sh? region)
+38	Taiwan 	13855.0	 Republic of China (Taiwan)[Note 1]
+39	New Britain	13570.0	 Papua New Guinea
+40	Prince of Wales Island	12872.0	 Canada (Nunavut)
+41	Yuzhny Island	12836.0	 Russia (Arkhangelsk Oblast)
+42	Hainan	12822.0	 People's Republic of China (Hainan Province)
+43	Vancouver Island	12079.0	 Canada (British Columbia)
+44	Timor	10972.0	 East Timor and  Indonesia (East Nusa Tenggara)
+45	Sicily	9908.0	 Italy
+46	Somerset Island	9570.0	 Canada (Nunavut)
+47	Kotelny/Faddeyevsky Island	9266.0	 Russia (Sakha Republic)
+48	Sardinia	9247.0	 Italy
+49	Bananal	7400.0	 Brazil (Tocantins) (world's largest fluvial island)
+50	Shikoku	7160.0	 Japan (Shikoku region)
+51	Halmahera	6865.0	 Indonesia (North Maluku)
+52	Seram	6621.0	 Indonesia (Maluku)
+53	New Caledonia	6467.0	" New Caledonia, Sui generis collectivity of  France"
+54	Bathurst Island	6194.0	 Canada (Nunavut)
+55	Prince Patrick Island	6119.0	 Canada (Northwest Territories)
+56	Thurston Island	6050.0	None (unclaimed island of Antarctica)
+57	Nordaustlandet	5586.0	 Norway (Svalbard)
+58	Sumbawa	5554.0	 Indonesia (West Nusa Tenggara)
+59	October Revolution Island (Oktyabrskoy Revolyutsii)	5471.0	 Russia (Krasnoyarsk Krai)
+60	Flores	5464.0	 Indonesia (East Nusa Tenggara)
+61	King William Island	5062.0	 Canada (Nunavut)
+62	Negros	5048.0	 Philippines (Central Visayas and Western Visayas)
+63	Samar	4961.0	 Philippines (Eastern Visayas)
+64	Palawan	4706.0	 Philippines (MIMAROPA)
+65	Panay	4637.0	 Philippines (Western Visayas)
+66	Tupinambarana	4576.0	 Brazil (Amazonas)
+67	Yos Sudarso	4534.0	 Indonesia (Papua)
+68	Bangka	4407.0	 Indonesia (Bangka-Belitung Islands)
+69	Ellef Ringnes Island	4361.0	 Canada (Nunavut)
+70	Bolshevik Island	4327.0	 Russia (Krasnoyarsk Krai)
+71	Jamaica	4320.0	 Jamaica
+72	Bylot Island	4273.0	 Canada (Nunavut)
+73	Sumba	4135.0	 Indonesia (East Nusa Tenggara)
+74	Mindoro	4082.0	 Philippines (MIMAROPA)
+75	Viti Levu	4066.0	 Fiji
+76	Hawai'i (Big Island)	4029.0	 United States (Hawaii)
+77	Cape Breton Island	3981.0	 Canada (Nova Scotia)

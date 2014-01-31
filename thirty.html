@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+<style type="text/css">
+	.axis path,
+	.axis line {
+		fill: none;
+		stroke: black;
+		shape-rendering: crispEdges;
+	}
+	.axis text {
+		font-family: sans-serif;
+		font-size: 11px;
+	}
+		body {
+		font-family: sans-serif;
+		font-size: 15px;
+		color: black;
+		
+	}
+</style>
+
+</head>
+
+<body>
+<p>List of islands by area, in square miles</p>
+
+ 	<script type="text/javascript">
+
+//data independent
+	
+ 	//Define global variables
+	
+	//Set margin with an array pointing to top, bottom, left, and right
+		//Define width as height - margin.left - margin.right
+	var margin = {
+		'top': 30,
+		'bottom': 50,
+		'left': 5,
+		'right': 200,
+		'barbuffer':20},
+		height = (2000 - margin.top - margin.bottom),
+		width = (700 - margin.right - margin.left);	
+	
+
+	//Define the SVG space with width, height
+	var svgcon = d3.select('body').append('svg')
+		.attr('height', height + margin.top + margin.bottom)
+		.attr('width', width + margin.right + margin.left);
+
+	//Define drawing space
+		//Add a group inside teh SVG that is translated by the top and left margins
+	var drawcon = svgcon.append('g')
+		.attr('transform','translate(' + margin.left + ', ' + margin.top + ')');
+		
+//data dependent
+
+	//import dataset, leave hanging function
+	d3.tsv('islandsize.txt',function(error,data){
+		data.forEach(function(d){
+			d.rank = +d.rank;
+			d.area = +d.area;
+		});
+	//find the extent of area, and the height/spacing
+	var xmax = d3.max(data, function(d){return d.area});
+	var barheight = height/data.length;
+	
+	//scale the width
+	var scalewidth = d3.scale.linear()
+		.domain([0,xmax])
+		.range([0,width - margin.barbuffer]);
+	
+	//bind data and draw elements
+	var makerect = drawcon.append('g')
+		.selectAll('rect')
+		.data(data)
+		.enter()
+		.append('rect')
+		.attr('x',margin.barbuffer)
+		.attr('y',function(d,i){return i*barheight})
+		.attr('fill','magenta')
+		.attr('width',function(d){return scalewidth(d.area)})
+		.attr('height',barheight - 2);
+		
+	//drop in text labels
+	var maketext = drawcon.append('g')
+		.selectAll('text')
+		.attr('class','axis')
+		.data(data)
+		.enter()
+		.append('text')
+		.text(function(d){return d.rank})
+		.attr('x',0)
+		.attr('y',function(d,i){return (i*barheight) + 0.75 * barheight});
+		
+	var makecountries = drawcon.append('g')
+		.selectAll('text')
+		.attr('class','axis')
+		.data(data)
+		.enter()
+		.append('text')
+		.text(function(d){return d.name})
+		.attr('x',function(d){return scalewidth(d.area) + margin.barbuffer + 5})
+		.attr('y',function(d,i){return (i*barheight) + 0.75 * barheight});
+	
+	//add an x axis
+	var xaxis = d3.svg.axis().scale(scalewidth).orient('top')
+	drawcon.append('g')
+		.call(xaxis)
+		.attr('class','axis')
+		.attr('transform','translate(' + margin.barbuffer + ',0)')
+		.append('text')
+		.text('area, in square miles')
+		.attr('y',0)
+		.attr('x',xmax)
+		.attr('text-anchor','end');
+		
+		
+	//end hanging function				
+});		
+	</script>
+</html>
