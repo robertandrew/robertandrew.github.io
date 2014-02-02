@@ -82,7 +82,7 @@
 		//Scale axes
 			//Find the extent of each dataset
 			
-	scalex.domain(data.map(function(d) {return d.letter; }));
+	scalex.domain(data.map(function(d) {return d.Letter; }));
 				
 	scaley.domain([0,d3.max(data, function(d){return d.French})]);
 
@@ -98,7 +98,7 @@
 		.style('fill','purple')
 		.attr('font-family', 'sans-serif')
 		.attr('text-anchor','middle')
-		.text(function(d){return d.letter})
+		.text(function(d){return d.Letter})
 ;				
 
 
