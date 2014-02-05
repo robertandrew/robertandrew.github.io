@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+<style type="text/css">
+	.axis path,
+	.axis line {
+		fill: none;
+		stroke: black;
+		line: none;
+		shape-rendering: crispEdges;
+	}
+	.axis text {
+		font-family: sans-serif;
+		font-size: 10px;
+		font-weight: light;
+	
+	}
+	.label text {
+		font-family: sans-serif;
+		font-size: 15px;
+		opacity: .5;	
+		text-anchor: middle;
+		}
+
+	.scaletext text {
+		line-height: 110%;
+		fill: red;
+		opacity: .5;
+		font-family: monospaced;
+		text-anchor: middle;
+
+		}	
+	.coverup {
+		fill: white;
+		opacity: 1;
+		
+		
+		}
+	
+	.lettergrid text {
+		fill: purple;
+		font-family:serif;
+		font-family: monospaced;
+				
+		}
+	
+	body {
+		font-family: sans-serif;
+		font-size: 15px;
+		
+	}
+</style>
+
+</head>
+
+<body>
+<p>Letters repeated by their relative frequequency in written Portuguese</p>
+
+<p>Click on the letters to reveal their frequency</p>
+
+ 	<script type="text/javascript">
+
+//suggestions: Create a precisely sized container rect for each one with a light transparency
+//place upper and lower case next together
+
+
+//data independent
+	
+	
+	//Set margin with an array pointing to top, bottom, left, and right
+		//Define width as height - margin.left - margin.right
+	var margin = {
+		'top': 20,
+		'bottom': 50,
+		'left': 10,
+		'right': 50,
+		'barbuffer':00},
+		height = (1775 - margin.top - margin.bottom),
+		width = (600 - margin.right - margin.left - margin.barbuffer);	
+	
+
+	//Define the SVG drawing space 
+	var svg = d3.select('body').append('svg')
+		.attr('height', height + margin.top + margin.bottom)
+		.attr('width', width + +margin.barbuffer + margin.top + margin.bottom)
+		.append('g')
+		.attr('transform','translate(' + margin.left + ', ' + margin.top + ')');
+
+	var scalewidth = d3.scale.linear()
+		.range([0, width]);
+
+	var scaley = d3.scale.linear()
+		.range([0,height]);	
+	
+	var xaxis = d3.svg.axis().scale(scalewidth).orient('top');	
+	
+		
+ 	//Define global variables
+	var letterspacing = 10;
+	var betweenbars = 2;	
+	
+	var rectheight;
+		
+	var lango;	
+
+	//import dataset
+	d3.tsv('worldletters.tsv', function(error,data) {
+		data.forEach(function(d) {
+			d.Language = +d.Portuguese;
+			lango = data;
+			});
+			
+	scalewidth.domain([0,d3.max(data,function(d){return d.Language})]);
+	
+	scaley.domain([0,data.length]);
+	
+	rectheight = (height / data.length)+0.2	;
+
+	svg.append('g')
+		.attr('transform','translate(' + margin.barbuffer + ',0)')		
+		.attr('class','axis')
+		.call(xaxis);	
+	
+
+	//bind and draw the vertical text
+	svg.append('g')
+		.selectAll('text')		
+		.data(data)
+		.enter()
+		.append('text')
+		.attr('transform','translate(' + margin.barbuffer + ',' + (rectheight - (0.5 * betweenbars)) + ')')
+		.attr('x',0)
+		.attr('y', function(d,i){return scaley(i)})
+		.attr('font-size',rectheight)		
+		.text(function(d,i) {return d.Letter + d.Letter + d.Letter + d.Letter + d.Letter + d.Letter + d.Letter + d.Letter + d.Letter + d.Letter + d.Letter + d.Letter+ d.Letter + d.Letter + d.Letter + d.Letter + d.Letter + d.Letter+ d.Letter + d.Letter + d.Letter + d.Letter + d.Letter + d.Letter+ d.Letter + d.Letter + d.Letter+ d.Letter + d.Letter + d.Letter + d.Letter + d.Letter + d.Letter+ d.Letter + d.Letter + d.Letter + d.Letter + d.Letter + d.Letter+ d.Letter + d.Letter + d.Letter + d.Letter + d.Letter + d.Letter+ d.Letter + d.Letter + d.Letter + d.Letter + d.Letter + d.Letter+ d.Letter + d.Letter + d.Letter + d.Letter + d.Letter + d.Letter+ d.Letter + d.Letter + d.Letter + d.Letter + d.Letter + d.Letter + d.Letter + d.Letter + d.Letter+ d.Letter + d.Letter + d.Letter + d.Letter + d.Letter})
+		.attr('font-family', 'Monospaced')		
+		.attr('class','scaletext')		
+		.on('click', function(d){
+			
+	//bind and draw the rectangles
+	svg.append('g')
+		.attr('transform','translate(' + margin.barbuffer + ',0)')		
+		.attr('class','coverup').selectAll('rect')
+		.data(data)
+		.enter()
+		.append('rect')
+		.attr('x', function(d) {return scalewidth(d.Language)})
+		.attr('width', function(d){return height - scalewidth(d.Language) })
+		.attr('height', rectheight)
+		.attr('y', function(d,i) {return scaley(i)});
+		
+	});
+	
+		
+	
+// end hanging function	
+	
+	});	
+	
+			
+	</script>
+</html>
+		
+
+	
