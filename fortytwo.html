@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+	<head>
+	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+		</script>
+		<style>
+
+.bar {
+  fill: steelblue;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.button {
+	fill: black;
+	opacity: .2; 
+	}
+.button:hover {
+	opacity: .4;
+	fill: black;
+	}	
+
+</style>
+	</head>
+	<body>
+	<p>Frequency of letters in written...</p>
+
+	<script>
+
+				
+		var margin = {
+			'top':10,
+			'left':50,
+			'bottom':50,
+			'right':50},
+			height = 200 - margin.top - margin.bottom,
+			width = 1000 - margin.right - margin.left;
+							
+		var x = d3.scale.ordinal()
+			.rangeRoundBands([0,width], .1);
+		
+		var y = d3.scale.linear()
+			.range([height, 0]);
+		
+		var xAxis = d3.svg.axis()
+			.scale(x)
+			.orient('bottom');
+			
+		var yAxis = d3.svg.axis()
+			.scale(y)
+			.orient('left');
+			
+		var svg = d3.select('body').append('svg')
+				.attr('height',height + margin.top + margin.bottom)
+				.attr('width', width + margin.left + margin.right)
+			.append('g')
+				.attr('transform','translate(' + margin.left + ',' + margin.top + ')');
+		
+		var letterbox;
+		
+		var buttondrawer = function (order, label, identifier) {
+			
+		svg.append('text')
+			.attr('y',15)
+			.attr('x', order * 140+5)
+			.text(label);
+
+			svg.append('g')
+			.attr('class',identifier)			
+
+			.append('rect')
+			.attr('class','button')			
+			.attr('y', 0)
+			.attr('x', order * 140)
+			.attr('height', 20)
+			.attr('width', 100);
+			
+			};
+			
+		var bardrawer1 = function(language,indentifier)	{
+			d3.select('.Iceland').on('click',function(d){
+ 	
+			x.domain(letterbox.map(function(d) {return d.Letter; }));
+			
+			y.domain([0, d3.max(letterbox, function(d) {return d.Lang1})]);
+		
+			svg.append('g')
+				.attr('class','x axis')
+				.attr('transform','translate(0,' + height + ')')
+				.call(xAxis);
+				
+			svg.append('g')
+				.attr('class','y axis')
+				.call(yAxis)
+				.append('text')
+					.attr('transform','rotate(-90)')
+					.attr('y',6)
+					.attr('dy','.71em')
+					.style('text-anchor','end')
+					.text('frequency');
+				;
+			
+			svg.append('g')
+				.selectAll('rect')
+				.data(letterbox)
+				.enter().append('rect')
+				.attr('class','bar')
+				.attr('x',function(d) {return x(d.Letter); })
+				.attr('width', x.rangeBand())
+				.attr('y', function(d) { return y(d.Lang1); })
+				.attr('height', function(d) {return height - y(d.Lang1)})
+				.style('fill','darkred');
+	});	
+	};
+
+		var bardrawer2 = function(language,indentifier)	{
+			d3.select('.Finland').on('click',function(d){
+ 	
+			x.domain(letterbox.map(function(d) {return d.Letter; }));
+			
+			y.domain([0, d3.max(letterbox, function(d) {return d.Lang2})]);
+		
+			svg.append('g')
+				.attr('class','x axis')
+				.attr('transform','translate(0,' + height + ')')
+				.call(xAxis);
+				
+			svg.append('g')
+				.attr('class','y axis')
+				.call(yAxis)
+				.append('text')
+					.attr('transform','rotate(-90)')
+					.attr('y',6)
+					.attr('dy','.71em')
+					.style('text-anchor','end')
+					.text('frequency');
+				;
+			
+			svg.append('g')
+				.selectAll('rect')
+				.data(letterbox)
+				.enter().append('rect')
+				.attr('class','bar')
+				.attr('x',function(d) {return x(d.Letter); })
+				.attr('width', x.rangeBand())
+				.attr('y', function(d) { return y(d.Lang2); })
+				.attr('height', function(d) {return height - y(d.Lang2)})
+				.style('fill','darkred');
+	});	
+	};
+
+		var bardrawer3 = function(language,indentifier)	{
+			d3.select('.Iceland').on('click',function(d){
+ 	
+			x.domain(letterbox.map(function(d) {return d.Letter; }));
+			
+			y.domain([0, d3.max(letterbox, function(d) {return d.Lang3})]);
+		
+			svg.append('g')
+				.attr('class','x axis')
+				.attr('transform','translate(0,' + height + ')')
+				.call(xAxis);
+				
+			svg.append('g')
+				.attr('class','y axis')
+				.call(yAxis)
+				.append('text')
+					.attr('transform','rotate(-90)')
+					.attr('y',6)
+					.attr('dy','.71em')
+					.style('text-anchor','end')
+					.text('frequency');
+				;
+			
+			svg.append('g')
+				.selectAll('rect')
+				.data(letterbox)
+				.enter().append('rect')
+				.attr('class','bar')
+				.attr('x',function(d) {return x(d.Letter); })
+				.attr('width', x.rangeBand())
+				.attr('y', function(d) { return y(d.Lang3); })
+				.attr('height', function(d) {return height - y(d.Lang3)})
+				.style('fill','darkred');
+	});	
+	};
+
+		
+	d3.tsv('worldletters.tsv', function(error, data) { 
+		data.forEach(function(d) {
+			d.Lang1 = +d.Icelandic;
+			d.Lang2 = +d.Finnish;
+			d.Lang3 = +d.Swedish;
+			letterbox = data;
+			
+			});
+ 	buttondrawer(1,'... Icelandic ...','Iceland');
+ 	bardrawer1('Lang1','Iceland');
+ 	buttondrawer(2,'... Finnish ...','Finland');
+ 	bardrawer2('Lang2','Finland');
+ 	buttondrawer(3,'... Swedish ...','Sweden');
+ 	bardrawer3('Lang3','Sweden');
+				
+});
+		</script>
+	</body>
+</html> 
