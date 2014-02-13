@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<style type="text/css">
+	.axis path,
+	.axis line {
+		fill: none;
+		stroke: black;
+		shape-rendering: crispEdges;
+	}
+	.axis text {
+		font-family: sans-serif;
+		font-size: 11px;
+	}
+		body {
+		font-family: sans-serif;
+		font-size: 15px;
+		
+	}
+	.country text {
+		font-family: sans-serif;
+		font-size: 6;
+		}
+	.forest {
+		fill: green;
+		}
+</style>
+
+</head>
+
+<body>
+<p>Forest cover</p>
+
+ 	<script type="text/javascript">
+
+//data independent
+	
+ 	//Define global variables
+	
+	//Set margin with an array pointing to top, bottom, left, and right
+		//Define width as height - margin.left - margin.right
+	var margin = {
+		'top': 10,
+		'bottom': 50,
+		'left': 2,
+		'right': 200},
+		height = (5000 - margin.top - margin.bottom),
+		width = (600 - margin.right - margin.left);	
+	
+
+	//Define the SVG space with width, height
+	var svg = d3.select('body').append('svg')
+		.attr('height', height + margin.top + margin.bottom)
+		.attr('width', width + margin.top + margin.bottom)
+		.append('g')
+		.attr('transform','translate(' + margin.left + ', ' + margin.top + ')');
+	
+	//declare scales
+	var scalex = d3.scale.linear()
+		.range([0,width]);
+	
+	var scaley = d3.scale.linear()
+		.range([0,height]);
+
+ 		
+	var arab;	
+//data dependent
+
+	//import dataset, leave hanging function
+	d3.tsv('arable.tsv',function(error,data){
+		data.forEach(function(d){
+			d.Area = +d.Area;
+			d.Forest = +d.Forest;
+			arab = data;
+		});
+
+
+		
+	scalex.domain([0,d3.max(data, function(d){return d.Forest;})]) ;
+	scaley.domain([0,data.length]);
+		
+ 		svg.selectAll('rect')
+ 			.data(data)
+ 			.enter()
+ 			.append('rect') 			
+ 			.attr('class','forest')
+ 			.attr('width',function(d){return scalex(d.Forest); })
+ 			.attr('y',function(d,i){return (i * (height/data.length)); })
+ 			.attr('x',0)
+ 			.attr('height',height/data.length-2);
+
+		svg.selectAll('text')
+			.data(data)
+			.enter()
+			.append('text')				
+			.attr('x', function(d){return scalex(d.Forest)+2;})
+			.attr('y',function(d,i){return ((i+1) * (height/data.length)-6); })
+			.text(function(d){return d.Country + ' ' + d.Forest})
+			.attr('class','country');
+		//Draw axes
+			//add groups to the drawing space and do .call(myaxis)
+	
+		//Add text
+			//add objects, bind them, and give them scaled attributes including .text
+			//format as needed
+
+	//end hanging function				
+});		
+	</script>
+</html>
+		
