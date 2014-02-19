@@ -148,7 +148,7 @@
 		
 	var keycon = svg.append('g')
 		.attr('class','key')
-		.attr('transform','translate(' + (width + 10) + ',' + (margin.hed) + ')');
+		.attr('transform','translate(' + (width + 25) + ',' + (margin.hed) + ')');
 		
 	var viscon = svg.append('g')
 		.attr('class','vis')
@@ -303,13 +303,14 @@
 		.attr('x',function(d){return scalex(d.start)})
 		.attr('y',margin.key - 15)
 		.text(function(d){return d.start.getFullYear();})
-		.attr('fill','white');	
+		.attr('fill','white')
+		.attr('font-weight','bold'');	
 
 //draw axes
-	viscon.append('g').attr('id','xaxis').call(xaxis).attr('class','axis')
-		.attr('transform','translate(5,' + (-5) +')');
-	viscon.append('g').attr('id','xaxis').call(xaxis2).attr('class','axis')
-		.attr('transform','translate(0,' + (height + 10) +')');
+//	viscon.append('g').attr('id','xaxis').call(xaxis).attr('class','axis')
+//		.attr('transform','translate(5,' + (-5) +')');
+//	viscon.append('g').attr('id','xaxis').call(xaxis2).attr('class','axis')
+//		.attr('transform','translate(0,' + (height + 10) +')');
 //	viscon.append('g').attr('id','yaxis').call(yaxis).attr('class','axis').attr('stroke','none');
 
 
