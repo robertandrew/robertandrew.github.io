@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head><script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<style type="text/css">
+
+</head>
+
+<body></body>
+
+ 	<script type="text/javascript">
+
+//data independent
+	
+//Define global variables
+
+//Set margin with an array pointing to top, bottom, left, and right
+	//Define width as height - margin.left - margin.right
+var margin = {
+	'top': 50,
+	'bottom': 50,
+	'left': 50,
+	'right': 50,},
+	height = (400 - margin.top - margin.bottom),
+	width = (400 - margin.right - margin.left);	
+
+//Define the spaces
+var svg = d3.select('body').append('svg')
+	.attr('height',height + margin.top + margin.bottom)
+	.attr('width',width + margin.left + margin.right);
+
+var viscon = svg.append('g')
+	.attr('transform','translate(' + margin.left + ',' + margin.top + ')');
+
+var oz;
+
+var color = d3.scale.category10();	
+
+var radius = Math.min(width,height)/2;
+
+var subtype = 'population';
+
+//var piemake = function (da)var pier = d3.layout.pie()
+//		.value(function(d){return d[subtype]});		
+		
+var piemaker = function(inner,outer,subtype,ident,dataset) {
+
+
+	var pie = d3.layout.pie()
+		.value(function(d){return d[subtype]}); 
+		
+	var arcer = d3.svg.arc()
+			.innerRadius(inner * radius)
+			.outerRadius(outer * radius);	
+		
+	var drawarc = viscon.append('g').selectAll('g.arc')
+		.data(pie(dataset))
+		.enter()
+		.append('g')
+		.attr('class','arc' + ident)
+		.attr('transform','translate(' + radius + ',' + radius + ')');
+	
+	drawarc.append('path')
+		.attr('fill',function(d,i){return color(i);})
+		.attr('d',arcer)
+		.attr('class','wedge' + ident)
+		.append('title')
+		.text(function(d){return d.data.state + ": " + d.data.population;});	
+	
+	};
+
+//DATA DEPENDENT
+d3.tsv('ozstates.tsv',function(error,data){
+	data.forEach(function(d){
+		d.gdp = +d.gdp;
+		d.population = +d.population;
+		d.percap = +d.percap;
+		d.area = +d.area;
+		oz = data;
+	});
+piemaker(.4,1,'population','hat',oz);
+
+//end hanging function				
+});		
+	</script>
+</html>
+		
