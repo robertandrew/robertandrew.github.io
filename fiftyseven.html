@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head><script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<style type="text/css">
+
+</head>
+
+<body></body>
+
+ 	<script type="text/javascript">
+
+//data independent
+	
+//Define global variables
+
+//Set margin with an array pointing to top, bottom, left, and right
+	//Define width as height - margin.left - margin.right
+var margin = {
+	'top': 50,
+	'bottom': 50,
+	'left': 50,
+	'right': 50,},
+	height = (400 - margin.top - margin.bottom),
+	width = (400 - margin.right - margin.left);	
+
+//Define the spaces
+var svg = d3.select('body').append('svg')
+	.attr('height',height + margin.top + margin.bottom)
+	.attr('width',width + margin.left + margin.right);
+
+var viscon = svg.append('g')
+	.attr('transform','translate(' + margin.left + ',' + margin.top + ')');
+
+var colors = (['pink','red','orange','yellow','green','blue','purple','grey','#999','pink']);
+	
+var colorize = d3.scale.ordinal()
+	.range(colors);
+
+var oz;
+
+var color = d3.scale.category10();	
+
+var radius = Math.min(width,height)/2;
+
+var subtype = 'population';
+
+//var piemake = function (da)var pier = d3.layout.pie()
+//		.value(function(d){return d[subtype]});	
+
+var buttonizer = function(order,texts) {
+	d3.selectAll()	
+	}
+
+var scaley = d3.scale.linear()
+	.domain([0,2])
+	.range([Math.min(width,height),0]);
+			
+var piemaker = function(inner,outer,subtype,dataset) {
+
+
+	var pie = d3.layout.pie()
+		.sort(null)
+		.value(function(d){return d[subtype]}); 
+		
+	var arcer = d3.svg.arc()
+			.innerRadius(inner * radius)
+			.outerRadius(outer * radius);	
+		
+	var drawarc = viscon.append('g').selectAll('g.arc')
+		.data(pie(dataset))
+		.enter()
+		.append('g')
+		.attr('id','arc' + subtype)
+		.attr('transform','translate(' + radius + ',' + radius + ')');
+	
+	drawarc.append('path')
+		.attr('fill',function(d){return colorize(d.data.state);})
+		.attr('d',arcer)
+		.attr('id','wedge' + subtype)
+		.append('title')
+		.text(function(d){return d.data.state + ": " + d.data[subtype];});	
+	
+	viscon.append('text')
+		.attr('x',width/2)
+		.attr('y',scaley(outer - 0.15) - radius)
+		.attr('dy','.8em')
+		.attr('text-anchor','middle')
+		.text(subtype)
+		.attr('font-weight','bold')
+		.attr('id','label' + subtype)
+		.attr('font-family','sans-serif');
+		
+	d3.selectAll('#label' + subtype)
+		.on('mouseover',function(d){
+			d3.select(this)
+				.attr('font-weight','light');		
+		});
+		
+	d3.selectAll('#label' + subtype)
+		.on('mouseout',function(d){
+			d3.select(this)
+				.attr('font-weight','bold');		
+		});
+
+
+	
+	};
+
+//DATA DEPENDENT
+d3.tsv('ozstates.tsv',function(error,data){
+	data.forEach(function(d){
+		d.gdp = +d.gdp;
+		d.population = +d.population;
+		d.percap = +d.percap;
+		d.area = +d.area;
+		oz = data;
+	});
+	
+//set scalar ranges
+	colorize.domain(function(d){return data.state});
+
+//draw the pies
+piemaker(.9,1,'area',oz);
+piemaker(.6,.7,'population',oz);
+piemaker(.3,.4,'gdp',oz);
+
+
+
+
+//end hanging function				
+});		
+	</script>
+</html>
+		
