@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head><script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<style type="text/css">
+
+
+	.axis path {
+		fill: none;
+		stroke: black;
+	}
+
+	.axis line {
+		fill: none;
+		stroke: black;
+	}
+
+	.axis text {
+		font-family: sans-serif;
+		font-size: 10px;
+		font-weight: light;
+		text-anchor: end;
+	}
+		
+	.dots {
+		stroke-width:1px;
+		opacity: .25;
+		}		
+		
+	.dots:hover {
+		stroke: yellow;
+		opacity: .75;
+		stroke-width:2.5px;	
+		}
+
+	.hed text {
+		font-family:serif;
+		font-size: 60px;	
+	}
+
+
+	.dek text {
+		font-family:serif;
+		font-size: 15px;
+		opacity: 0.5;	
+	}
+
+	body text {
+		font-family: sans-serif;
+		font-size: 12px;
+	}
+
+
+</style>
+
+
+</head>
+
+
+<body>
+
+ 	<script type="text/javascript">
+
+//data independent
+	
+//Define global variables
+
+//Set margin with an array pointing to top, bottom, left, and right
+	//Define width as height - margin.left - margin.right
+var margin = {
+	'top': 50,
+	'bottom': 50,
+	'left': 100,
+	'right': 50,
+	'labels': 50,},
+	height = (8000 - margin.top - margin.bottom),
+	width = (500 - margin.right - margin.left);	
+
+//Define the spaces
+var svg = d3.select('body').append('svg')
+	.attr('height',height + margin.top + margin.bottom)
+	.attr('width',width + margin.left + margin.right);
+
+var viscon = svg.append('g')
+	.attr('transform','translate(' + margin.left + ',' + margin.top + ')');
+
+var dist;
+
+var groupheight = 150;
+var groupbuffer = 50;
+
+
+var keycolor = [
+{'group':"Median", 'colors':'black', 'order':1}, 
+{'group':"Dem Median", 'colors':'blue', 'order':2}, 
+{'group':"Safe Dem", 'colors':'blue', 'order':3}, 
+{'group':"At-risk Dem", 'colors':'blue', 'order':4}, 
+{'group':"Solid Dem", 'colors':'blue', 'order':5}, 
+{'group':"Likely Dem", 'colors':'blue', 'order':6}, 
+{'group':"Lean Dem", 'colors':'blue', 'order':7}, 
+{'group':"Tossup Dem", 'colors':'blue', 'order':8}, 
+
+{'group':"Rep Median", 'colors':'red', 'order':10}, 
+{'group':"Safe Rep", 'colors':'red', 'order':11}, 
+{'group':"At-risk Rep", 'colors':'red', 'order':12}, 
+{'group':"Solid Rep", 'colors':'red', 'order':13}, 
+{'group':"Likely Rep", 'colors':'red', 'order':14}, 
+{'group':"Lean Rep", 'colors':'red', 'order':15}, 
+{'group':"Tossup Rep", 'colors':'red', 'order':16}
+];
+
+var layout = [
+{'subtype':'black','order':1,'label':'Black alone'},
+{'subtype':'hispanic','order':2,'label':'Hispanic of any race'},
+{'subtype':'manufacturing','order':3, 'label':'Share of labor force employed in manufacturing'},
+{'subtype':'nonhispanicwhite','order':4, 'label':'Non-Hispanic white alone'},
+{'subtype':'nonwhite','order':5, 'label':'Nonwhite or mixed race'},
+{'subtype':'old','order':6, 'label':'Population over age 55'},
+{'subtype':'poverty','order':7, 'label':'Share of families and individuals earning below the poverty level in the past 12 months'},
+{'subtype':'rich','order':8, 'label':'Share of households earning more than $100,000 a year'},
+{'subtype':'rural','order':9, 'label':'Rural population'},
+{'subtype':'urban','order':10, 'label':'Urban population'},
+{'subtype':'white','order':11, 'label':'White alone'},
+
+];
+
+//declare scales and axes
+var scalex = d3.scale.linear()
+	.domain([0,100])
+	.range([0,width - margin.labels]);
+
+var scaley = d3.scale.ordinal()
+	.domain(keycolor.map(function(d){return d.group}))
+	.rangePoints([0,groupheight],.2);
+
+var scalebar = d3.scale.ordinal()
+	.rangeRoundBands([0,groupheight],.2);
+
+var partycolor = d3.scale.ordinal()
+	.domain(keycolor.map(function(d){return d.group}))
+	.range(keycolor.map(function(d){return d.colors}));
+
+var xaxis = d3.svg.axis()
+	.scale(scalex)
+	.orient('top');
+	
+var yaxis = d3.svg.axis()
+	.scale(scaley)
+	.orient('left');
+	
+	
+
+
+var charter = function(subtype, order, label){ 
+
+	viscon.append('g').attr('class',subtype + 'group').selectAll('circle')
+		.data(dist)
+		.enter()
+		.append('circle')
+		.attr('cx',function(d){return scalex(d[subtype])})
+		.attr('cy',function(d){return scaley(d.Cookrating)})
+		.attr('r',function(d){return scalebar.rangeBand()/2})
+		.attr('class','dots')
+		.attr('id','dots' + subtype)
+		.attr('fill',function(d){return partycolor(d.Cookrating)})		
+		
+		
+		.append('title')
+		.text(function(d){return d.Code + " " + d[subtype]});
+		;
+	
+	viscon.select('g.' + subtype + 'group')
+		.attr('transform','translate(0,' + ((order - 1) * (groupheight + groupbuffer)) + ')');
+	
+	viscon.select('g.' + subtype + 'group')
+		.append('g').call(xaxis).attr('class','axis');
+
+	viscon.select('g.' + subtype + 'group')
+		.append('g').call(yaxis).attr('class','axis');
+
+	viscon.select('g.' + subtype + 'group').append('text')
+		.attr('x',0)
+		.attr('y',0)
+		.text(label)
+		.attr('transform','translate(0,' + (groupbuffer * -.5) + ')');
+	
+	};
+
+
+d3.tsv('districts.tsv',function(error,data){
+	data.forEach(function(d){
+		d.black = +d.black;
+		d.hispanic = +d.hispanic;
+		d.manufacturing = +d.manufacturing;
+		d.nonhispanicwhite = +d.nonhispanicwhite;
+		d.old = +d.old;
+		d.poverty = +d.poverty;
+		d.urban = +d.urban;
+		d.rural = +d.rural;
+		d.white = +d.white;
+		d.rich = +d.rich;
+		d.nonwhite = +d.nonwhite;
+		dist = data;
+	});
+
+
+//define domain
+//scaley.domain(data.map(function(d){return d.Cookrating}));
+scalebar.domain(data.map(function(d){return d.Cookrating}));
+
+
+
+//call functions;
+layout.forEach(function(d){
+	
+	charter(d.subtype,d.order,d.label)
+	
+})
+
+//end hanging function				
+});		
+	</script>
+	</body>
+</html>
+		
