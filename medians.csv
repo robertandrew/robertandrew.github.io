@@ -1,0 +1,13 @@
+subtype	demMed	repMed	demSafeMed	demRiskMed	repSafeMed	repRiskMed	med	order	label
+ag	1.7	0.5	0.5	1.6	1.7	1.5	1.2	0	Share of labor force employed in agriculture
+black	6.2	9.4	10.4	4.5	6.2	5.8	7	1	Black alone
+hispanic	6.9	15.3	15.55	13.7	7.2	6.3	10.4	2	Hispanic of any race
+manufacturing	11	8.7	8.65	9.4	11.1	8.6	9.9	3	Share of labor force employed in manufacturing
+nonhispanicwhite	75.85	50.7	47.85	69.7	75.2	79.8	68.3	4	Non-Hispanic white alone
+nonwhite	15.9	31.8	33.65	19	16.1	13	22.4	5	Nonwhite or mixed race
+old	26.9	25	24.75	27.7	26.9	27.1	26.2	6	Population over age 55
+poverty	10.4	12.4	12.6	11	10.5	9.6	10.9	7	Share of families and individuals earning below the poverty level in the past 12 months
+rich	18.05	19.9	20.05	19.5	18.1	16.9	19.1	8	Share of households earning more than $100,000 a year
+rural	27.5	2.3	1.45	18.5	28	21.1	13.3	9	Rural population
+urban	72.5	97.7	98.55	81.5	72	78.9	86.7	10	Urban population
+white	84.1	68.2	66.35	81	83.9	87	77.6	11	White alone
