@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head><script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<style type="text/css">
+
+
+	.axis path {
+		fill: none;
+		stroke: black;
+	}
+
+	.axis line {
+		fill: none;
+		stroke: black;
+	}
+
+	.axis text {
+		font-family: sans-serif;
+		font-size: 10px;
+		font-weight: light;
+		text-anchor: end;
+	}
+		
+	.dots {
+		stroke-width:1px;
+		opacity: .25;
+		}		
+		
+	.dots:hover {
+		stroke: yellow;
+		opacity: .75;
+		stroke-width:2.5px;	
+		}
+
+	.lit {
+		stroke-width:3px;
+		stroke: orange;		
+		opacity: 1;
+		}		
+
+
+	.hed text {
+		font-family:serif;
+		font-size: 60px;	
+	}
+
+
+	.dek text {
+		font-family:serif;
+		font-size: 15px;
+		opacity: 0.5;	
+	}
+
+	body text {
+		font-family: sans-serif;
+		font-size: 12px;
+	}
+
+
+</style>
+
+
+</head>
+
+
+
+<body>
+
+ 	<script type="text/javascript">
+
+//data independent
+	
+//Define global variables
+
+//Set margin with an array pointing to top, bottom, left, and right
+	//Define width as height - margin.left - margin.right
+var margin = {
+	'top': 50,
+	'bottom': 50,
+	'left': 200,
+	'right': 100,
+	'labels': 50,},
+	height = (8000 - margin.top - margin.bottom),
+	width = (800 - margin.right - margin.left);	
+
+//Define the spaces
+var svg = d3.select('body').append('svg')
+	.attr('height',height + margin.top + margin.bottom)
+	.attr('width',width + margin.left + margin.right);
+
+var viscon = svg.append('g')
+	.attr('transform','translate(' + margin.left + ',' + margin.top + ')');
+	
+var labelcon =	svg.append('g')
+	.attr('class','label')
+	.attr('transform','translate(0,' + margin.top +')');
+
+
+var dist;
+
+var groupheight = 80;
+var groupbuffer = 50;
+
+
+var keycolor = [ 
+{'group':"Solid Dem", 'colors':'grey', 'order':5}, 
+{'group':"Likely Dem", 'colors':'blue', 'order':6}, 
+{'group':"Lean Dem", 'colors':'blue', 'order':7}, 
+{'group':"Tossup Dem", 'colors':'blue', 'order':8}, 
+
+{'group':"Solid Rep", 'colors':'grey', 'order':13}, 
+{'group':"Likely Rep", 'colors':'red', 'order':14}, 
+{'group':"Lean Rep", 'colors':'red', 'order':15}, 
+{'group':"Tossup Rep", 'colors':'red', 'order':16}
+];
+
+var layout;
+
+//declare scales and axes
+var scalex = d3.scale.linear()
+	.domain([0,100])
+	.range([0,width - margin.labels]);
+
+var scaley = d3.scale.ordinal()
+	.domain(keycolor.map(function(d){return d.group}))
+	.rangePoints([0,groupheight],.2);
+
+var scalebar = d3.scale.ordinal()
+	.rangeRoundBands([0,groupheight],.2);
+
+var partycolor = d3.scale.ordinal()
+	.domain(keycolor.map(function(d){return d.group}))
+	.range(keycolor.map(function(d){return d.colors}));
+	
+var scalestate = d3.scale.ordinal()
+	.rangePoints([0,1000]);
+
+var xaxis = d3.svg.axis()
+	.scale(scalex)
+	.orient('top');
+	
+var yaxis = d3.svg.axis()
+	.scale(scaley)
+	.orient('left');
+
+
+
+var charter = function(subtype, order, label){ 
+
+	viscon.append('g').attr('class',subtype + 'group').selectAll('circle')
+		.data(dist)
+		.enter()
+		.append('circle')
+		.attr('cx',function(d){return scalex(d[subtype])})
+		.attr('cy',function(d){return scaley(d.Cookrating)})
+		.attr('r',function(d){return scalebar.rangeBand()/2})
+		.attr('class','dots')
+		.attr('id',(function(d){return 'dots' + d.State}))
+		.attr('fill',function(d){return partycolor(d.Cookrating)})		
+		
+		
+//		.append('title')
+//		.text(function(d){return d.Code + " " + d[subtype]});
+		;
+	
+	viscon.select('g.' + subtype + 'group')
+		.attr('transform','translate(0,' + ((order ) * (groupheight + groupbuffer)) + ')');
+	
+	viscon.select('g.' + subtype + 'group')
+		.append('g').call(xaxis).attr('class','axis');
+
+	viscon.select('g.' + subtype + 'group')
+		.append('g').call(yaxis).attr('class','axis');
+
+	viscon.select('g.' + subtype + 'group').append('text')
+		.attr('x',0)
+		.attr('y',0)
+		.text(label)
+		.attr('transform','translate(0,' + (groupbuffer * -.5) + ')');
+	
+	};
+
+var light = function(d) {
+				d3.select(this)
+					.attr('font-weight','bold')
+					.attr('fill','grey');
+				viscon.selectAll('#dots' + d3.select(this).data())
+					.attr('class','lit');
+			};
+
+var dark = function(d){
+				d3.select(this)
+					.attr('font-weight','light')
+					.attr('fill','black')
+					;
+				viscon.selectAll('#dots' + d3.select(this).data())
+					.attr('class','dots');			
+			
+			};
+
+var tooltip = function(d) {
+	var xpos = parseFloat(d3.select(this).attr('cx'));
+	var ypos = parseFloat(d3.select(this).attr('cy'));
+	viscon.append('text')
+		.attr('id','tooltip')
+		.attr('class','label')
+		.attr('x',(xpos + scalebar.rangeBand()/2))
+		.attr('y',ypos)
+		.text(d.Code)
+		.attr('dy','0.3em');
+	};
+		
+var cleanup = function(d){
+	d3.selectAll('#tooltip').remove();};
+var labeler = function(subtype){
+		
+		var labelgrouper = labelcon.selectAll('g')
+		.data(scalestate.domain())
+		.enter()
+		.append('g');
+		
+		labelgrouper.append('rect')
+			.attr('height',12)
+			.attr('width',12)
+			.attr('y', function(d,i){return scalestate(d)})
+			.attr('x',0)
+			.attr('class','button')
+			.attr('stroke','black')
+			.attr('fill','white')	
+	;		
+				
+		labelgrouper.append('text')
+		.attr('x', 15)
+		.attr('y', function(d,i){return scalestate(d)})
+		.attr('class','label')
+		.text(function(d){return d})
+		.attr('dy','1em')
+		;
+		
+		labelcon.selectAll('text')
+			.on('mouseover',light)
+			.on('mouseout',dark);
+		labelcon.selectAll('rect')			
+			.on('click',light);
+			
+		viscon.selectAll('.dots')
+			.on('mouseover',tooltip)
+			.on('mouseout',cleanup);
+		
+		
+	};
+
+
+d3.tsv('districts2.tsv',function(error,data){
+	data.forEach(function(d){
+		d.black = +d.black;
+		d.hispanic = +d.hispanic;
+		d.manufacturing = +d.manufacturing;
+		d.nonhispanicwhite = +d.nonhispanicwhite;
+		d.old = +d.old;
+		d.poverty = +d.poverty;
+		d.urban = +d.urban;
+		d.rural = +d.rural;
+		d.white = +d.white;
+		d.rich = +d.rich;
+		d.nonwhite = +d.nonwhite;
+		dist = data;
+	});
+	d3.tsv('medians.csv',function(error,data1){
+		data1.forEach(function(d){
+		d.order = +d.order;
+		d.demMed = +d.demMed;
+		d.repMed = +d.repMed;
+		d.demSafeMed = +d.demSafeMed;
+		d.demRiskMed = +d.demRiskMed;
+		d.repSafeMed = +d.repSafeMed;
+		d.repRiskMed = +d.repRiskMed;
+		d.med = +d.med;
+
+		layout = data1;
+	});		
+		
+
+//define domain
+//scaley.domain(data.map(function(d){return d.Cookrating}));
+scalebar.domain(data.map(function(d){return d.Cookrating}));
+scalestate.domain(data.map(function(d){return d.State}));
+
+
+
+//call functions;
+layout.forEach(function(d){
+	
+	charter(d.subtype,d.order,d.label)
+	
+})
+labeler();
+
+//end hanging function				
+
+	});
+
+
+});		
+	</script>
+	</body>
+</html>
+		
