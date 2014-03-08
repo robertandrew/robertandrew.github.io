@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head><script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+<style type="text/css">
+
+	.hed {
+		font-family:sans-serif;
+	}
+
+	.dek text {
+		font-family:sans-serif;
+		font-size: 15px;
+		opacity: 0.5;	
+	}
+		
+	.tooltip {
+		font-family:sans-serif;
+		}
+	.dots {
+		stroke: black;
+		stroke-width: 0.1px;}
+		
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}
+	.axis text {
+		font-family: sans-serif;
+		font-size:6px;}
+
+</style>
+
+
+</head>
+
+<body>
+ 	<script type="text/javascript">
+
+//data independent
+	
+//Define global variables
+
+//Set margin with an array pointing to top, bottom, left, and right
+	//Define width as height - margin.left - margin.right
+var margin = {
+	'top': 50,
+	'bottom': 50,
+	'left': 50,
+	'right': 50,},
+	height = (400 - margin.top - margin.bottom),
+	width = (1200 - margin.right - margin.left);	
+
+//Define the spaces
+var svg = d3.select('body').append('svg')
+	.attr('height',height + margin.top + margin.bottom)
+	.attr('width',width + margin.left + margin.right);
+
+var viscon = svg.append('g')
+	.attr('transform','translate(' + margin.left + ',' + margin.top + ')');
+
+
+//Define scales
+
+var colors = (['pink','red','orange','yellow','green','blue','purple','grey','#999','#888','#777','#666']);
+	
+var colorize = d3.scale.ordinal()
+	.range(colors);
+	
+var scalex = d3.scale.linear()
+	.range([0,width]);
+	
+var scaley = d3.scale.ordinal()
+	.rangeRoundBands([0,height],0.2);
+
+var ukr;
+var redukr;
+var getpop;
+var getvalues;
+
+var yaxis = d3.svg.axis().scale(scaley).orient('left');
+var xaxis = d3.svg.axis().scale(scalex).orient('top');
+
+var drawer = function(d) {
+	getpop = function(d){return d.popper};
+	getvalues = function(d){return d.values};
+//	scalex.domain([0,d3.max(redukr,function(d){return getpop(getvalues(d))})]);
+	var oblast = viscon.selectAll('g')
+		.data(redukr).enter()
+		.append('g')
+		.attr('id',(function(d){return d.key}));
+	var x = function(d){return (scalex(d));};
+	var y = function(d){return scaley(d);};
+	oblast.selectAll('circle')
+		.data(function(d){return d.values;})
+		.enter()
+		.append('circle')
+		.attr('cx',function(d){return scalex(d.popper);})
+		.attr('cy',function(d){return scaley(d.region);})
+		.attr('r',scaley.rangeBand()/2)
+		.attr('class','dots')
+		.attr('fill',function(d){return colorize(d.nation);})
+		//add titles to each circle
+		.append('title')
+		.text(function(d){return d.nation + ', ' + (d3.round(d.popper/1000,1)) + ' mil' + ' or ' + d.y2001 + '%' ;})		
+		;
+};
+
+
+//DATA DEPENDENT
+d3.tsv( 'ukraine.tsv', function(error, data){
+	data.forEach(function(d){
+		d.popper = +d.pop;
+		d.y2001 = +d.y2001;
+		d.y1989 = +d.y1989;	
+	ukr = d3.nest().key(function(d) {return d.region;})
+		.sortKeys(d3.ascending)
+		.entries(data);
+	redukr = ukr.filter(function(d){return d.key != 'Ukraine'});
+	
+	});
+
+//Set scale ranges
+scalex.domain([0,d3.max(data,function(d){return d.popper})]);
+scaley.domain(data.map(function(d){return d.region}));
+colorize.domain(data.map(function(d){return d.nation}));
+
+//Call functions
+drawer();
+
+
+viscon.append('g').call(yaxis).attr('class','axis');
+viscon.append('g').call(xaxis).attr('class','axis');
+
+
+//end hanging function				
+});		
+
+	</script>
+	</body>
+</html>
+		
