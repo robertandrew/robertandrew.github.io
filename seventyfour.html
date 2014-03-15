@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head><script src="d3.v3.min.js" charset="utf-8"></script>
+<style type="text/css">
+
+	.hed {
+		font-family: sans-serif;
+		font-size: 20px;
+		font-weight: bold;
+	}
+
+	.dek text {
+		font-family:sans-serif;
+		font-size: 15px;
+		opacity: 0.5;	
+	}
+		
+	.tooltip {
+		font-family:sans-serif;
+		}
+		
+	.line line {
+	fill:none;}
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}
+	.axis text {
+		font-family: sans-serif;
+		font-size:9px;}
+
+</style>
+
+
+</head>
+
+<body>
+ 	<script type="text/javascript">
+
+//data independent
+	
+//Define global variables
+
+//Set margin with an array pointing to top, bottom, left, and right
+	//Define width as height - margin.left - margin.right
+var margin = {
+	'top': 50,
+	'bottom': 50,
+	'left': 100,
+	'right': 200,
+	'hed':20},
+	height = (300 - margin.top - margin.bottom - margin.hed),
+	width = (700 - margin.right - margin.left);	
+
+//Define the spaces
+var svg = d3.select('body').append('svg')
+	.attr('height',height + margin.top + margin.bottom)
+	.attr('width',width + margin.left + margin.right);
+	
+var hedcon = svg.append('g')
+	.attr('transform','translate(' + margin.left + ',' + margin.top + ')');
+
+var viscon = svg.append('g')
+	.attr('transform','translate(' + (margin.left) + ',' + (margin.top + margin.hed) + ')');
+
+//Define scales
+
+var colors = (['blue','grey','red','yellow','#999','#888','#777','#666']);
+var nations = (['Ukrainians', 'Other', 'Russians', 'CrimeanTatars' ]);
+var radius = 4.2;
+var duration = 500;
+	
+var colorize = d3.scale.ordinal()
+	.range(colors)
+	.domain(nations);
+var parseDate = d3.time.format('%Y').parse;	
+	
+var krim;
+
+var scaley = d3.scale.linear()
+	.domain([0,100])
+	.range([height,0]);
+	
+var scalex = d3.time.scale()
+	.range([0,width]);
+	
+var xaxis = d3.svg.axis()
+	.scale(scalex)
+	.orient('bottom');
+	
+var yaxis = d3.svg.axis()
+	.scale(scaley)
+	.orient('left')
+	.tickFormat(function(d){return d + '%';})
+	;
+		
+	
+
+	
+var liner = function(nation){
+
+	var area = d3.svg.area()
+		.x(function(d){return scalex(d.year);})
+		.y0(height)
+		.y1(function(d){return scaley(d[nation]);})
+		.interpolate('cardinal');
+
+
+	var liney =	d3.svg.line()
+		.x(function(d){return scalex(d.year);})
+		.y(function(d){return scaley(d[nation]);})
+		.interpolate('cardinal');
+		
+		
+	viscon.append('g').append('path')
+		.datum(krim)
+		.attr('class', 'area')
+		.attr('d',area)
+		.style('stroke','none')
+		.style('fill',colorize(nation));
+
+
+	viscon.append('g').append('path')
+		.datum(krim)
+		.attr('d',liney)
+		.attr('class','line')
+		.style('stroke',colorize(nation))
+		.style('stroke-width','3px')		
+		.style('fill','none');
+		
+	viscon.append('text').attr('class','label')
+		.attr('x',width + 10)
+		.attr('y',function(d){return scaley(krim[krim.length-1][nation])})
+		.style('fill',colorize(nation))
+		.style('font-weight','bolder')
+		.style('font-family','sans-serif')
+		.attr('dy','0.4em')
+		.text(krim[krim.length-1]['label' + nation] + '% ' + nation);
+		};
+
+var circler = function(nation){
+	var dotter = viscon.append('g');
+	
+	dotter.selectAll('circle')
+		.data(krim)
+		.enter()
+		.append('circle')
+		.attr('cx',function(d){return scalex(d.year)})
+		.attr('cy',function(d){return scaley(d[nation])})
+		.attr('r',radius)
+		.style('fill','white')
+		.style('stroke',colorize(nation))
+		.style('stroke-width','3px');
+		
+	dotter.selectAll('circle')
+		.on('mouseover',function(d){
+
+			d3.select(this).transition()
+				.duration(duration)
+				.attr('r',radius * 5);
+			var xPos = parseFloat(d3.select(this).attr('cx'));
+			var yPos = parseFloat(d3.select(this).attr('cy'));
+		
+			dotter.append('text')
+				.attr('x',xPos)
+				.attr('y',yPos)
+				.attr('class','tooltip')
+				.style('fill',colorize(nation))
+				.style('font-weight','bolder')
+				.style('font-family','sans-serif')
+				.style('font-size','1px')
+				.style('text-anchor','middle')
+				.text(d[nation] + '%')
+				.style('opacity',0);
+				
+				dotter.selectAll('text.tooltip')
+					.transition()
+					.duration(duration)
+					.attr('dy','0.5em')
+					.style('font-size','12px')
+					.style('opacity',1)
+				})
+		
+		
+		.on('mouseout',function(d){
+			d3.selectAll('.tooltip').remove();		
+			d3.select(this)
+		.transition()
+		.duration(duration)
+		.attr('r',radius);		
+		});
+
+	};
+
+hedcon.append('text').attr('class','hed')
+	.attr('x',width/2)
+	.attr('y',0)
+	.attr('text-anchor','middle')
+	.text('Ethnic composition of the Crimean Peninsula');
+
+//DATA DEPENDENT
+
+d3.tsv('krim.tsv',function(error, data){
+		data.forEach(function(d){
+			d.year = parseDate(d.year);
+			d.labelRussians = +d.Russians;
+			d.labelUkrainians = +d.Ukrainians;
+			d.labelCrimeanTatars = +d.CrimeanTatars;
+			d.labelOther = d3.round(100 - d.labelRussians - d.labelUkrainians - d.labelCrimeanTatars,2);
+			d.CrimeanTatars = (+d.CrimeanTatars);
+			d.Russians = (+d.Russians) + d.CrimeanTatars;
+			d.Other = (d.labelOther + d.Russians);
+			d.Ukrainians = (+d.Ukrainians) + d.Other;
+			krim = data;
+		});		
+	scalex.domain(d3.extent(krim,function(d){return d.year}));
+	
+	viscon.append('g').attr('class','axis').call(xaxis)
+		.attr('transform','translate(0,' + height + ')');
+	
+	viscon.append('g').attr('class','axis').call(yaxis);
+
+	
+	nations.forEach(function(d){return liner(d)});
+	nations.forEach(function(d){return circler(d)});
+
+	
+//end hanging function				
+});		
+
+	</script>
+	</body>
+</html>
+		
