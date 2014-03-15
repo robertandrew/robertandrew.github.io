@@ -202,7 +202,7 @@ hedcon.append('text').attr('class','hed')
 
 //DATA DEPENDENT
 
-d3.tsv('krim.tsv',function(error, data){
+d3.tsv('krim2.tsv',function(error, data){
 		data.forEach(function(d){
 			d.year = parseDate(d.year);
 			d.labelRussians = +d.Russians;
