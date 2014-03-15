@@ -172,7 +172,7 @@ var circler = function(nation){
 				.style('font-family','sans-serif')
 				.style('font-size','1px')
 				.style('text-anchor','middle')
-				.text(d[nation] + '%')
+				.text(d['label' + nation] + '%')
 				.style('opacity',0);
 				
 				dotter.selectAll('text.tooltip')
