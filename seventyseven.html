@@ -201,7 +201,7 @@ var percapper = function(){
 		.data(water)
 		.enter()
 		.append('circle')
-		.attr('r',function(d){return scaler(d.waterpercap)}))
+		.attr('r',function(d){return scaler(d.waterpercap)})
 		.attr('cx',margin.left/2)
 		.attr('cy',function(d){return scaley(d.country)})
 		.style('fill','black')
