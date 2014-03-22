@@ -78,10 +78,10 @@ var viscon = svg.append('g')
 	
 var nutria;
 
-d3.json('world-110m2.json', function(error, topology) {
+d3.json('http://bl.ocks.org/mbostock/raw/4090846/us.json', function(json) {
 	nutria = topology;	
 	viscon.selectAll('path')
-		.data(topojson.object(topology, topology.objects.countries).geometries)
+		.data(json.features)
 		.enter().append('path')
 		.attr('d',path)
 	
