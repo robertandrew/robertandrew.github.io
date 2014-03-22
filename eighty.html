@@ -1,94 +1,49 @@
 <!DOCTYPE html>
-<html>
-<head><script src="d3.v3.min.js" charset="utf-8"></script>
-<script src="topojson.js"></script>
-<style type="text/css">
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<script type="text/javascript" src="d3.v3.js"></script>
+		<style type="text/css">
+					
+		</style>
+	</head>
+	<body>
+		<script type="text/javascript">
+
+			var w = 500;
+			var h = 300;
+
+			var svg = d3.select("body")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h);
 
 
-	path {
-		fill: gray;
-		stroke: white;
-		stroke-width:2px;
-	}
 
-	
-	.hed {
-		font-family:serif;
-		font-size: 30px;	
-	}
+			var projection = d3.geo.albersUsa()
+								   .translate([w/2, h/2])
+								   .scale([500]);
 
-	.highlight {
-		font-family: sans-serif;
-		font-size: 15px;
-		font-weight: bolder;
-		fill: lightgrey;
-		opacity: 1;}
+			var path = d3.geo.path()
+							 .projection(projection);
+
+			var colorize = d3.scale.ordinal()
+				.range(['red','orange','yellow','green','steelblue','purple','grey','lightgrey','lightgreen'])
+				.domain([0,1,2,3,4,5,6,7,8,9,10])
+
+			d3.json("us-states.json", function(json) {
+				
+				svg.selectAll("path")
+				   .data(json.features)
+				   .enter()
+				   .append("path")
+				   .attr("d", path)
+				   .style('fill',function(d,i){return colorize(i)})
+				   .style('stroke','white')
+				   .style('stroke-width','2');
 		
-	.lowlight {
-		opacity:0;}
-
-	.dek text {
-		font-family:serif;
-		font-size: 15px;
-		opacity: 0.5;	
-	}
-
-
-</style>
-
-
-</head>
-
-<body>
-
- 	<script type="text/javascript">
-
-//data independent
-	
-//Define global variables
-
-//Set margin with an array pointing to top, bottom, left, and right
-	//Define width as height - margin.left - margin.right
-var margin = {
-	'top': 50,
-	'bottom': 50,
-	'left': 50,
-	'right': 50,
-	'hed': 0,
-	'key': 0},
-	height = (900 - margin.top - margin.bottom - margin.key - margin.hed),
-	width = (900 - margin.right - margin.left);	
-
-var projection = d3.geo.mercator()
-	.center([0,5])
-	.scale(900)
-	.rotate([-180,0]);
-	
-var svg = d3.select('body')
-	.append('svg')
-	.attr('width',width + margin.right + margin.left)
-	.attr('height',height + margin.hed + margin.top + margin.bottom);
-	
-var path = d3.geo.path()
-	.projection(projection);
-	
-var viscon = svg.append('g')
-	.attr('transform','translate(' + margin.left + ',' + (margin.top + margin.hed) + ')')
-	;
-	
-var nutria;
-
-d3.json('http://bl.ocks.org/mbostock/raw/4090846/us.json', function(json) {
-	nutria = topology;	
-	viscon.selectAll('path')
-		.data(json.features)
-		.enter().append('path')
-		.attr('d',path)
-	
-
-});
-
-	</script>
+			});
+			
+		</script>
 	</body>
 </html>
-		
