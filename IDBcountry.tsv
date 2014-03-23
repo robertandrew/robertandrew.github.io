@@ -1,0 +1,229 @@
+fips	name	area	world
+AF	Afghanistan	652230	3
+AL	Albania	27398	2
+AG	Algeria	2381741	3
+AQ	American Samoa	199	3
+AN	Andorra	468	1
+AO	Angola	1246700	3
+AV	Anguilla	91	3
+AC	Antigua and Barbuda	442.6	3
+AR	Argentina	2736690	3
+AM	Armenia	28203	2
+AA	Aruba	180	3
+AS	Australia	7682300	1
+AU	Austria	82445	1
+AJ	Azerbaijan	82629	2
+BF	Bahamas, The	10010	3
+BA	Bahrain	760	3
+BG	Bangladesh	130168	3
+BB	Barbados	430	3
+BO	Belarus	202900	2
+BE	Belgium	30278	1
+BH	Belize	22806	3
+BN	Benin	110622	3
+BD	Bermuda	54	3
+BT	Bhutan	38394	3
+BL	Bolivia	1083301	3
+BK	Bosnia and Herzegovina	51187	2
+BC	Botswana	566730	3
+BR	Brazil	8459417	3
+BX	Brunei	5265	3
+BU	Bulgaria	108489	2
+UV	Burkina Faso	273800	3
+BM	Burma	653508	3
+BY	Burundi	25680	3
+CV	Cabo Verde	4033	3
+CB	Cambodia	176515	3
+CM	Cameroon	472710	3
+CA	Canada	9093507	1
+CJ	Cayman Islands	264	3
+CT	Central African Republic	622984	3
+CD	Chad	1259200	3
+CI	Chile	743812	3
+CH	China	9569901	2
+CO	Colombia	1038700	3
+CN	Comoros	2235	3
+CF	Congo (Brazzaville)	341500	3
+CG	Congo (Kinshasa)	2267048	3
+CW	Cook Islands	236	3
+CS	Costa Rica	51060	3
+IV	Cote d'Ivoire	318003	3
+HR	Croatia	55974	2
+CU	Cuba	109820	2
+UC	Curacao	444	3
+CY	Cyprus	9241	1
+EZ	Czech Republic	77247	2
+DA	Denmark	42434	1
+DJ	Djibouti	23180	3
+DO	Dominica	751	3
+DR	Dominican Republic	48320	3
+EC	Ecuador	276841	3
+EG	Egypt	995450	3
+ES	El Salvador	20721	3
+EK	Equatorial Guinea	28051	3
+ER	Eritrea	101000	3
+EN	Estonia	42388	2
+ET	Ethiopia	1000000	3
+FO	Faroe Islands	1393	1
+FJ	Fiji	18274	3
+FI	Finland	303815	1
+FR	France	640427	1
+FP	French Polynesia	3827	3
+GB	Gabon	257667	3
+GA	Gambia, The	10000	3
+GZ	Gaza Strip	360	3
+GG	Georgia	69700	2
+GM	Germany	348672	1
+GH	Ghana	227533	3
+GI	Gibraltar	6.5	1
+GR	Greece	130647	1
+GL	Greenland	2166086	1
+GJ	Grenada	344	3
+GQ	Guam	544	3
+GT	Guatemala	107159	3
+GK	Guernsey	78	1
+GV	Guinea	245717	3
+PU	Guinea-Bissau	28120	3
+GY	Guyana	196849	3
+HA	Haiti	27560	3
+HO	Honduras	111890	3
+HK	Hong Kong	1054	1
+HU	Hungary	89608	2
+IC	Iceland	100250	1
+IN	India	2973193	3
+ID	Indonesia	1811569	3
+IR	Iran	1531595	3
+IZ	Iraq	437367	3
+EI	Ireland	68883	1
+IM	Isle of Man	572	1
+IS	Israel	20330	1
+IT	Italy	294140	1
+JM	Jamaica	10831	3
+JA	Japan	364485	1
+JE	Jersey	116	1
+JO	Jordan	88802	3
+KZ	Kazakhstan	2699700	2
+KE	Kenya	569140	3
+KR	Kiribati	811	3
+KN	Korea, North	120408	2
+KS	Korea, South	96920	1
+KV	Kosovo	10887	2
+KU	Kuwait	17818	3
+KG	Kyrgyzstan	191801	2
+LA	Laos	230800	3
+LG	Latvia	62249	2
+LE	Lebanon	10230	3
+LT	Lesotho	30355	3
+LI	Liberia	96320	3
+LY	Libya	1759540	3
+LS	Liechtenstein	160	1
+LH	Lithuania	62680	2
+LU	Luxembourg	2586	1
+MC	Macau	28.2	2
+MK	Macedonia	25433	2
+MA	Madagascar	581540	3
+MI	Malawi	94080	3
+MY	Malaysia	328657	3
+MV	Maldives	298	3
+ML	Mali	1220190	3
+MT	Malta	316	1
+RM	Marshall Islands	181	3
+MR	Mauritania	1030700	3
+MP	Mauritius	2030	3
+MX	Mexico	1943945	3
+FM	Micronesia, Federated States of	702	3
+MD	Moldova	32891	2
+MN	Monaco	2	1
+MG	Mongolia	1553556	2
+MJ	Montenegro	13452	2
+MH	Montserrat	102	3
+MO	Morocco	446300	3
+MZ	Mozambique	786380	3
+WA	Namibia	823290	3
+NR	Nauru	21	3
+NP	Nepal	143351	3
+NL	Netherlands	33893	1
+NC	New Caledonia	18275	3
+NZ	New Zealand	267710	1
+NU	Nicaragua	119990	3
+NG	Niger	1266700	3
+NI	Nigeria	910768	3
+CQ	Northern Mariana Islands	464	3
+NO	Norway	304282	1
+MU	Oman	309500	3
+PK	Pakistan	770875	3
+PS	Palau	459	3
+PM	Panama	74340	3
+PP	Papua New Guinea	452860	3
+PA	Paraguay	397302	3
+PE	Peru	1279996	3
+RP	Philippines	298170	3
+PL	Poland	304255	2
+PO	Portugal	91470	1
+RQ	Puerto Rico	8867.6	1
+QA	Qatar	11586	3
+RO	Romania	229891	2
+RS	Russia	16377742	2
+RW	Rwanda	24668	3
+TB	Saint Barthelemy	21	3
+SH	Saint Helena	308	3
+SC	Saint Kitts and Nevis	261	3
+ST	Saint Lucia	606	3
+RN	Saint Martin	54.4	3
+SB	Saint Pierre and Miquelon	242	3
+VC	Saint Vincent and the Grenadines	389	3
+WS	Samoa	2821	3
+SM	San Marino	61	1
+TP	Sao Tome and Principe	964	3
+SA	Saudi Arabia	2149690	3
+SG	Senegal	192530	3
+RI	Serbia	77474	2
+SE	Seychelles	455	3
+SL	Sierra Leone	71620	3
+SN	Singapore	687	1
+NN	Sint Maarten	34	3
+LO	Slovakia	48105	2
+SI	Slovenia	20151	2
+BP	Solomon Islands	27986	3
+SO	Somalia	627337	3
+SF	South Africa	1214470	1
+OD	South Sudan	644329	3
+SP	Spain	498980	1
+CE	Sri Lanka	64630	3
+SU	Sudan	1861484	3
+NS	Suriname	156000	3
+WZ	Swaziland	17204	3
+SW	Sweden	410335	1
+SZ	Switzerland	39997	1
+SY	Syria	183630	3
+TW	Taiwan	32260	1
+TI	Tajikistan	141510	2
+TZ	Tanzania	885800	3
+TH	Thailand	510890	3
+TT	Timor-Leste	14874	3
+TO	Togo	54385	3
+TN	Tonga	717	3
+TD	Trinidad and Tobago	5128	3
+TS	Tunisia	155360	3
+TU	Turkey	769632	3
+TX	Turkmenistan	469930	2
+TK	Turks and Caicos Islands	948	3
+TV	Tuvalu	26	3
+UG	Uganda	197100	3
+UP	Ukraine	579330	2
+AE	United Arab Emirates	83600	3
+UK	United Kingdom	241930	1
+US	United States	9147593	1
+UY	Uruguay	175015	3
+UZ	Uzbekistan	425400	2
+NH	Vanuatu	12189	3
+VE	Venezuela	882050	3
+VM	Vietnam	310070	3
+VI	Virgin Islands, British	151	3
+VQ	Virgin Islands, U.S.	346	3
+WF	Wallis and Futuna	142	3
+WE	West Bank	5640	3
+WI	Western Sahara	266000	3
+YM	Yemen	527968	3
+ZA	Zambia	743398	3
+ZI	Zimbabwe	386847	3
