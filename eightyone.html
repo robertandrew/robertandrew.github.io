@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head><script src="d3.v3.min.js" charset="utf-8"></script>
+<style type="text/css">
+
+
+	.axis path {
+		fill: none;
+		stroke: none;
+	}
+
+	.axis line {
+		fill: none;
+		stroke: none;
+	}
+
+	.axis text {
+		font-family: sans-serif;
+		font-size: 12px;
+		font-weight: bolder;
+		text-anchor: end;
+		fill: grey;
+	}
+	
+	.countryline {
+	fill: none;
+	opacity: 1;
+	stroke-width: 2px;
+	stroke: purple;	
+	}	
+	
+	.hed {
+		font-family:serif;
+		font-size: 30px;	
+	}
+
+	.highlight {
+		font-family: sans-serif;
+		font-size: 15px;
+		font-weight: bolder;
+		fill: lightgrey;
+		opacity: 1;}
+		
+	.lowlight {
+		opacity:0;}
+
+	.dek text {
+		font-family:serif;
+		font-size: 15px;
+		opacity: 0.5;	
+	}
+
+
+</style>
+
+
+</head>
+
+<body>
+
+ 	<script type="text/javascript">
+
+//data independent
+	
+//Define global variables
+
+//Set margin with an array pointing to top, bottom, left, and right
+	//Define width as height - margin.left - margin.right
+var margin = {
+	'top': 0,
+	'bottom': 50,
+	'left': 100,
+	'right': 50,
+	'hed': 0,
+	'key': 0},
+	height = (200 - margin.top - margin.bottom - margin.key - margin.hed),
+	width = (500 - margin.right - margin.left);	
+
+//set global variables
+
+var countries;
+var populations;
+var poplines;
+var duration = 800;
+
+//draw containers
+
+var svg = d3.select('body').append('svg')
+	.attr('height',height + margin.top + margin.bottom +margin.key + margin.hed)
+	.attr('width',width + margin.right + margin.left);
+	
+var hedcon = svg.append('g')
+	.attr('id','hed')
+	.attr('transform','translate(' + margin.left + ',' + margin.top + ')');
+
+var viscon = svg.append('g')
+	.attr('id','vis')
+	.attr('transform','translate(' + margin.left + ',' + (margin.hed + margin.top) + ')');
+
+//declare scales for the cross-referencers
+var countryname = d3.scale.ordinal();
+var worldlevel = d3.scale.ordinal()
+
+//declare functions
+	var parsedate = d3.time.format('%Y').parse;
+	
+	
+	
+	//drawing groups for each country
+	var grouper = function(d){
+	
+			viscon	.selectAll('g')
+						.data(poplines)
+						.enter()
+						.append('g');
+								
+			//define line generator
+			var linegen = d3.svg.line()
+				.x(function(d){return scalex(d.year);})
+				.y(function(d){return scaley(d.pop);})
+				.interpolate('linear');
+		
+			//draw lines for each country
+			var linedraw = viscon.selectAll('g')
+				.append('path')
+				.attr('d',linegen)
+				.attr('class','countryline');
+		
+		
+		//end group-drawing function
+		};
+
+		//set scales based on the overall dataset
+		var scaley = d3.scale.linear()
+			.range([height,0]);
+		var scalex = d3.time.scale()
+			.range([0,width]);	
+			//set axes based on the scales
+			var xaxis = d3.svg.axis()
+								.scale(scalex)
+								.orient('bottom');
+			var yaxis = d3.svg.axis()
+								.scale(scaley)
+								.orient('left');
+
+	//generating lines for each country
+	var linegen = d3.svg.line()
+		.x(function(d){return scalex(d.year);})
+		.y(function(d){return scaley(d.pop);})
+		.interpolate('linear');
+
+	var linedraw = viscon.selectAll('g')
+		.append('path')
+		.attr('d',linegen)
+		.attr('class','countryline');
+
+//******data dependent******
+
+//load the tsv that allows each dataset to talk to each other
+
+d3.tsv('IDBcountry.tsv',function(error,data){
+	data.forEach(function(d){
+		d.area = +d.area;		
+		});
+	countries = data;
+		
+	//Set scales for the dataset cross-referencers	
+	countryname.domain(data.map(function(d){return d.fips}));
+	countryname.range(data.map(function(d){return d.name}));	
+
+	worldlevel.domain(data.map(function(d){return d.fips}));
+	worldlevel.range(data.map(function(d){return d.world}));	
+
+	//load the TSV that contains midyear populations	
+	d3.tsv('IDBpop.tsv',function(error, popdata){
+		popdata.forEach(function(d){
+			d.country = countryname(d.fips);			
+			d.year = parsedate(d.year);
+			d.pop = parseFloat(d.pop);
+			});
+		populations = popdata;
+		
+		//set scales for the max pop, and the year range
+		scaley.domain([0,d3.max(populations,function(d){return d.pop})]);
+		scalex.domain(d3.extent(populations,function(d){return d.year}));
+		
+		//nest the results into country-by-year
+		var popnest = d3.nest()
+			.key(function(d) {return d.country})
+			.sortKeys(d3.ascending)
+			.entries(popdata);
+			
+		poplines = d3.map(popnest, function(d){return d.values;});
+			
+		//DATA LOADED, call functions
+
+			//call axes
+			viscon.append('g').call(xaxis).attr('class','axis')
+					.attr('transform','translate(0,' + height + ')');
+			viscon.append('g').call(yaxis).attr('class','axis');		
+				
+			//call functions	
+			grouper();			
+			
+			
+			
+	//end the population TSV
+	});	
+//end the country tsv import	
+});
+
+	</script>
+	</body>
+</html>
+		
