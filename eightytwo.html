@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<script type="text/javascript" src="d3.v3.js"></script>
+		<style type="text/css">
+					
+		</style>
+	</head>
+	<body>
+		<script type="text/javascript">
+
+			var w = 500;
+			var h = 300;
+
+			var svg = d3.select("body")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h);
+
+
+
+			var projection = d3.geo.albersUsa()
+								   .translate([w/2, h/2])
+								   .scale([500]);
+
+			var path = d3.geo.path()
+							 .projection(projection);
+
+			var colorize = d3.scale.ordinal()
+				.range(['red','orange','yellow','green','steelblue','purple','grey','lightgrey','lightgreen'])
+				.domain([0,1,2,3,4,5,6,7,8,9,10])
+
+			d3.json("us-states.json", function(error, usa) {
+				
+				svg.selectAll("path")
+				   .data(usa.features)
+				   .enter()
+				   .append("path")
+				   .attr("d", path)
+				   .style('fill',function(d,i){return d3.rgb(i * (255/52), 0, i * (255/52))})
+				   .style('stroke','white')
+				   .style('stroke-width','1');
+		
+			});
+			
+		</script>
+	</body>
+</html>
