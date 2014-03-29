@@ -199,9 +199,9 @@ var keyer = function(d){
 	
 	var listener = function(order, multiplier, label){
 		hedcon.append('text').attr('class','dek')
-			.attr('x',order * 75)
+			.attr('x',order * 85)
 			.attr('y',60)
-			.text('<<' + label + '>>')
+			.text('<' + label + '>')
 			.on('click',function(d){
 				viscon.selectAll('circle')
 				.transition().duration(duration)
