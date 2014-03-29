@@ -69,7 +69,7 @@
 	//Define width as height - margin.left - margin.right
 var margin = {
 	'top': 50,
-	'hed':70,
+	'hed':85,
 	'bottom': 50,
 	'left': 50,
 	'right': 50,
@@ -200,8 +200,8 @@ var keyer = function(d){
 	var listener = function(order, multiplier, label){
 		hedcon.append('text').attr('class','dek')
 			.attr('x',order * 75)
-			.attr('y',50)
-			.text('<' + label + '>')
+			.attr('y',60)
+			.text('<<' + label + '>>')
 			.on('click',function(d){
 				viscon.selectAll('circle')
 				.transition().duration(duration)
