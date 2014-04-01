@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head><script src="d3.v3.min.js" charset="utf-8"></script>
+<style type="text/css">
+
+	.hed {
+		font-family:sans-serif;
+	}
+	
+	.dek text {
+		font-family:sans-serif;
+		font-size: 15px;
+		opacity: 0.5;	
+	}
+		
+	.tooltip text {
+		font-family:sans-serif;
+		font-size: 10px;
+		font-weight: bold;
+		}
+	
+	.circles {
+		opacity: 0.7;
+		stroke-width: 1px;
+		stroke: while;
+}
+		
+	.highlighted {
+		opacity: 1;
+		stroke-width: 1px;
+		stroke: black;		
+		}
+		
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}
+	.axis text {
+		font-family: sans-serif;
+		font-size:9px;}
+
+
+</style>
+
+
+</head>
+
+<body>
+
+ 	<script type="text/javascript">
+
+//data independent
+	
+//Define global variables
+
+//Set margin with an array pointing to top, bottom, left, and right
+	//Define width as height - margin.left - margin.right
+var margin = {
+	'top': 100,
+	'hed':0,
+	'bottom': 50,
+	'left': 50,
+	'right': 300,
+	'label': 0},
+	height = (2000 - margin.top - margin.hed - margin.bottom),
+	width = (1000 - margin.right - margin.left - margin.label);	
+
+//Define the spaces
+var svg = d3.select('body').append('svg')
+	.attr('height',height + margin.top + margin.hed + margin.bottom)
+	.attr('width' ,width + margin.left + margin.right + margin.label );
+
+var hedcon = svg.append('g')
+	.attr('transform','translate(' + (margin.left + margin.label) + ',' + margin.top + ')');
+
+var viscon = svg.append('g')
+	.attr('transform','translate(' + (margin.left + margin.label) + ',' + (margin.top + margin.hed) + ')');
+
+var labelcon = svg.append('g')
+	.attr('transform','translate(' + margin.left + ',' + (margin.top + margin.hed) + ')');
+
+var toolcon = svg.append('g')
+	.attr('transform','translate(' + (margin.left + margin.label + width) + ',' + (margin.top + margin.hed) + ')');
+
+var colors = (['steelblue','red','orange','yellow','green','blue','purple','grey','#999','pink']);
+
+var color = d3.scale.category10();	
+
+var counter = 0;
+
+var radius = width/8;
+
+var duration = 5070;
+
+var empires;
+
+//drop some universal text
+
+var scalex = d3.scale.linear()
+	.range([0, width]).nice();
+	
+var scaley = d3.scale.linear()
+	.range([0, height]).nice();
+	
+var scaler = d3.scale.sqrt()
+	.range([0,radius])
+	
+var xaxis = d3.svg.axis()
+	.scale(scalex)
+	.orient('bottom');
+
+var yaxis = d3.svg.axis()
+	.scale(scaley)
+	.orient('left');
+	
+//define functions
+
+
+
+
+var firstdraw = function(d){viscon.selectAll('g')
+	.data(empires)
+	.enter()
+	.append('g')
+	.attr('id',function(d){return d.id})
+	.append('circle').attr('cy',height).attr('r',0)
+	.append('title')
+	.text(function(d){return d.empire});
+	
+	viscon.selectAll('text')
+		.data(empires)
+		.enter()
+		.append('text')
+		.attr('class','tooltip')
+		.attr('id',function(d){return d.id})
+		.attr('x',function(d){return scalex(d.peak)})
+		.attr('y',function(d){return scaley(d.km)})
+		.attr('fill','white')
+		.attr('opacity',0);
+	};
+
+var groupmover = function(id, xval, yval, counter, empire){
+	var grouped = d3.selectAll('g#' + id);
+	var grouped2 = grouped//.transition()
+//		.duration(duration)
+		.attr('transform','translate(' + scalex(xval) + ',0)');
+	grouped2.select('circle')
+			.transition()
+			.delay(counter * 66)//function(d,i){return (scalex(xval)) * 66})
+			.duration(4000)
+			.attr('cx',0)
+			.attr('cy',scaley(yval))
+			.attr('r',scaler(yval))
+			.attr('fill',function(d,i){return color(xval);})
+			.attr('class','circles');		
+//		var texter = grouped.append('text').attr('class','tooltip');
+//		d3.select('#tooltip')
+//			.transition()
+//			.delay(counter*66)
+//			.text((-1 * (counter - empires.length)) + ": " + empire)
+//			.attr('y', 10 * counter);
+	viscon.selectAll('text#' + id)
+			.transition()
+			.delay(counter*66)
+			.duration(1000)
+			.attr('font-family','sans-serif')
+			.attr('font-face','bold')
+			.attr('font-size','20px')
+			.attr('opacity',.8)
+			.transition()
+			.delay(counter*66)
+			.duration(3000)								
+			.attr('x',width +  70)
+			.attr('y',function(d,i){return (empires.length - counter + i) * 10})
+			.attr('fill',color(counter))
+			.attr('opacity',1)
+			.text((empires.length - counter) + ' ' + empire + ' ' + xval + ' ' + yval + 'km')
+			.attr('font-size','9px')
+			.attr('text-anchor','beginning')
+			.attr('font-family','sans serif');
+
+	};
+
+
+//DATA DEPENDENT
+d3.tsv('empires.tsv',function(error,data){
+	data.forEach(function(d){
+		d.peak = +d.peak;
+		d.km = +d.km;
+		empires = data;
+	});
+	
+	//set the domains
+	scalex.domain(d3.extent(empires, function(d){return d.peak;}));
+	scaley.domain([d3.max(empires,function(d){return d.km;}), 0]);
+	scaler.domain([0,d3.max(empires, function(d){return d.km;})]);
+	
+	//call the axes
+	viscon.append('g').attr('class','axis').attr('id','x').call(xaxis)
+			.attr('transform','translate(0,' + height + ')');
+	viscon.append('g').attr('class','axis').attr('id','y').call(yaxis);
+	
+	//call the functions
+	firstdraw();	
+	empires.forEach(function(d){
+		groupmover(d.id,d.peak,d.km,counter, d.empire, d.id);
+		counter = counter + 1
+	});
+	
+});	
+	</script>
+	</body>
+	
+</html>
+		
