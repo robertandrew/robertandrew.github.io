@@ -1,0 +1,229 @@
+fips,country,continent,area,world
+AA,Aruba,samerica,180,w3
+AC,Antigua and Barbuda,samerica,442.6,w3
+AE,United Arab Emirates,asia,83600,w3
+AF,Afghanistan,asia,652230,w3
+AG,Algeria,africa,2381741,w3
+AJ,Azerbaijan,asia,82629,w2
+AL,Albania,europe,27398,w2
+AM,Armenia,europe,28203,w2
+AN,Andorra,europe,468,w1
+AO,Angola,africa,1246700,w3
+AQ,American Samoa,oceania,199,w3
+AR,Argentina,samerica,2736690,w3
+AS,Australia,oceania,7682300,w1
+AU,Austria,europe,82445,w1
+AV,Anguilla,samerica,91,w3
+BA,Bahrain,asia,760,w3
+BB,Barbados,samerica,430,w3
+BC,Botswana,africa,566730,w3
+BD,Bermuda,namerica,54,w3
+BE,Belgium,europe,30278,w1
+BF,"Bahamas, The",namerica,10010,w3
+BG,Bangladesh,asia,130168,w3
+BH,Belize,samerica,22806,w3
+BK,Bosnia and Herzegovina,europe,51187,w2
+BL,Bolivia,samerica,1083301,w3
+BM,Burma,asia,653508,w3
+BN,Benin,africa,110622,w3
+BO,Belarus,europe,202900,w2
+BP,Solomon Islands,oceania,27986,w3
+BR,Brazil,samerica,8459417,w3
+BT,Bhutan,asia,38394,w3
+BU,Bulgaria,europe,108489,w2
+BX,Brunei,asia,5265,w3
+BY,Burundi,africa,25680,w3
+CA,Canada,africa,9093507,w1
+CB,Cambodia,africa,176515,w3
+CD,Chad,africa,1259200,w3
+CE,Sri Lanka,africa,64630,w3
+CF,Congo (Brazzaville),africa,341500,w3
+CG,Congo (Kinshasa),africa,2267048,w3
+CH,China,africa,9569901,w2
+CI,Chile,africa,743812,w3
+CJ,Cayman Islands,africa,264,w3
+CM,Cameroon,africa,472710,w3
+CN,Comoros,africa,2235,w3
+CO,Colombia,africa,1038700,w3
+CQ,Northern Mariana Islands,africa,464,w3
+CS,Costa Rica,africa,51060,w3
+CT,Central African Republic,africa,622984,w3
+CU,Cuba,africa,109820,w2
+CV,Cabo Verde,africa,4033,w3
+CW,Cook Islands,africa,236,w3
+CY,Cyprus,africa,9241,w1
+DA,Denmark,africa,42434,w1
+DJ,Djibouti,africa,23180,w3
+DO,Dominica,africa,751,w3
+DR,Dominican Republic,africa,48320,w3
+EC,Ecuador,africa,276841,w3
+EG,Egypt,africa,995450,w3
+EI,Ireland,africa,68883,w1
+EK,Equatorial Guinea,africa,28051,w3
+EN,Estonia,africa,42388,w2
+ER,Eritrea,africa,101000,w3
+ES,El Salvador,africa,20721,w3
+ET,Ethiopia,africa,1000000,w3
+EZ,Czech Republic,africa,77247,w2
+FI,Finland,africa,303815,w1
+FJ,Fiji,africa,18274,w3
+FM,"Micronesia, Federated States of",africa,702,w3
+FO,Faroe Islands,africa,1393,w1
+FP,French Polynesia,africa,3827,w3
+FR,France,africa,640427,w1
+GA,"Gambia, The",africa,10000,w3
+GB,Gabon,africa,257667,w3
+GG,Georgia,africa,69700,w2
+GH,Ghana,africa,227533,w3
+GI,Gibraltar,africa,6.5,w1
+GJ,Grenada,africa,344,w3
+GK,Guernsey,africa,78,w1
+GL,Greenland,africa,2166086,w1
+GM,Germany,africa,348672,w1
+GQ,Guam,africa,544,w3
+GR,Greece,africa,130647,w1
+GT,Guatemala,africa,107159,w3
+GV,Guinea,africa,245717,w3
+GY,Guyana,africa,196849,w3
+GZ,Gaza Strip,africa,360,w3
+HA,Haiti,africa,27560,w3
+HK,Hong Kong,africa,1054,w1
+HO,Honduras,africa,111890,w3
+HR,Croatia,africa,55974,w2
+HU,Hungary,africa,89608,w2
+IC,Iceland,africa,100250,w1
+ID,Indonesia,africa,1811569,w3
+IM,Isle of Man,africa,572,w1
+IN,India,africa,2973193,w3
+IR,Iran,africa,1531595,w3
+IS,Israel,africa,20330,w1
+IT,Italy,africa,294140,w1
+IV,Cote d'Ivoire,africa,318003,w3
+IZ,Iraq,africa,437367,w3
+JA,Japan,africa,364485,w1
+JE,Jersey,africa,116,w1
+JM,Jamaica,africa,10831,w3
+JO,Jordan,africa,88802,w3
+KE,Kenya,africa,569140,w3
+KG,Kyrgyzstan,africa,191801,w2
+KN,"Korea, North",africa,120408,w2
+KR,Kiribati,africa,811,w3
+KS,"Korea, South",africa,96920,w1
+KU,Kuwait,africa,17818,w3
+KV,Kosovo,africa,10887,w2
+KZ,Kazakhstan,africa,2699700,w2
+LA,Laos,africa,230800,w3
+LE,Lebanon,africa,10230,w3
+LG,Latvia,africa,62249,w2
+LH,Lithuania,africa,62680,w2
+LI,Liberia,africa,96320,w3
+LO,Slovakia,africa,48105,w2
+LS,Liechtenstein,africa,160,w1
+LT,Lesotho,africa,30355,w3
+LU,Luxembourg,africa,2586,w1
+LY,Libya,africa,1759540,w3
+MA,Madagascar,africa,581540,w3
+MC,Macau,africa,28.2,w2
+MD,Moldova,africa,32891,w2
+MG,Mongolia,africa,1553556,w2
+MH,Montserrat,africa,102,w3
+MI,Malawi,africa,94080,w3
+MJ,Montenegro,africa,13452,w2
+MK,Macedonia,africa,25433,w2
+ML,Mali,africa,1220190,w3
+MN,Monaco,africa,2,w1
+MO,Morocco,africa,446300,w3
+MP,Mauritius,africa,2030,w3
+MR,Mauritania,africa,1030700,w3
+MT,Malta,africa,316,w1
+MU,Oman,africa,309500,w3
+MV,Maldives,africa,298,w3
+MX,Mexico,africa,1943945,w3
+MY,Malaysia,africa,328657,w3
+MZ,Mozambique,africa,786380,w3
+NC,New Caledonia,africa,18275,w3
+NG,Niger,africa,1266700,w3
+NH,Vanuatu,africa,12189,w3
+NI,Nigeria,africa,910768,w3
+NL,Netherlands,africa,33893,w1
+NN,Sint Maarten,africa,34,w3
+NO,Norway,africa,304282,w1
+NP,Nepal,africa,143351,w3
+NR,Nauru,africa,21,w3
+NS,Suriname,africa,156000,w3
+NU,Nicaragua,africa,119990,w3
+NZ,New Zealand,africa,267710,w1
+OD,South Sudan,africa,644329,w3
+PA,Paraguay,africa,397302,w3
+PE,Peru,africa,1279996,w3
+PK,Pakistan,africa,770875,w3
+PL,Poland,africa,304255,w2
+PM,Panama,africa,74340,w3
+PO,Portugal,africa,91470,w1
+PP,Papua New Guinea,africa,452860,w3
+PS,Palau,africa,459,w3
+PU,Guinea-Bissau,africa,28120,w3
+QA,Qatar,africa,11586,w3
+RI,Serbia,africa,77474,w2
+RM,Marshall Islands,africa,181,w3
+RN,Saint Martin,africa,54.4,w3
+RO,Romania,africa,229891,w2
+RP,Philippines,africa,298170,w3
+RQ,Puerto Rico,africa,8867.6,w1
+RS,Russia,africa,16377742,w2
+RW,Rwanda,africa,24668,w3
+SA,Saudi Arabia,africa,2149690,w3
+SB,Saint Pierre and Miquelon,africa,242,w3
+SC,Saint Kitts and Nevis,africa,261,w3
+SE,Seychelles,africa,455,w3
+SF,South Africa,africa,1214470,w1
+SG,Senegal,africa,192530,w3
+SH,Saint Helena,africa,308,w3
+SI,Slovenia,africa,20151,w2
+SL,Sierra Leone,africa,71620,w3
+SM,San Marino,africa,61,w1
+SN,Singapore,africa,687,w1
+SO,Somalia,africa,627337,w3
+SP,Spain,africa,498980,w1
+ST,Saint Lucia,africa,606,w3
+SU,Sudan,africa,1861484,w3
+SW,Sweden,africa,410335,w1
+SY,Syria,africa,183630,w3
+SZ,Switzerland,africa,39997,w1
+TB,Saint Barthelemy,africa,21,w3
+TD,Trinidad and Tobago,africa,5128,w3
+TH,Thailand,africa,510890,w3
+TI,Tajikistan,africa,141510,w2
+TK,Turks and Caicos Islands,africa,948,w3
+TN,Tonga,africa,717,w3
+TO,Togo,africa,54385,w3
+TP,Sao Tome and Principe,africa,964,w3
+TS,Tunisia,africa,155360,w3
+TT,Timor-Leste,africa,14874,w3
+TU,Turkey,africa,769632,w3
+TV,Tuvalu,africa,26,w3
+TW,Taiwan,africa,32260,w1
+TX,Turkmenistan,africa,469930,w2
+TZ,Tanzania,africa,885800,w3
+UC,Curacao,africa,444,w3
+UG,Uganda,africa,197100,w3
+UK,United Kingdom,africa,241930,w1
+UP,Ukraine,africa,579330,w2
+US,United States,africa,9147593,w1
+UV,Burkina Faso,africa,273800,w3
+UY,Uruguay,africa,175015,w3
+UZ,Uzbekistan,africa,425400,w2
+VC,Saint Vincent and the Grenadines,africa,389,w3
+VE,Venezuela,africa,882050,w3
+VI,"Virgin Islands, British",africa,151,w3
+VM,Vietnam,africa,310070,w3
+VQ,"Virgin Islands, U.S.",africa,346,w3
+WA,Namibia,africa,823290,w3
+WE,West Bank,africa,5640,w3
+WF,Wallis and Futuna,africa,142,w3
+WI,Western Sahara,africa,266000,w3
+WS,Samoa,africa,2821,w3
+WZ,Swaziland,africa,17204,w3
+YM,Yemen,africa,527968,w3
+ZA,Zambia,africa,743398,w3
+ZI,Zimbabwe,africa,386847,w3
