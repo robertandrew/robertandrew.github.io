@@ -42,14 +42,14 @@
 	  fill: none;
 	  stroke: #000;
 	  shape-rendering: crispEdges;
-
+	}
 	.hed {
-		font-family:serif;
+		font-family: monospace;;
 		font-size: 30px;	
 	}
-	.dek text {
-		font-family:serif;
-		font-size: 15px;
+	.dek {
+		font-family: monospace;
+		font-size: 12px;
 		opacity: 0.5;	
 	}
 
@@ -70,11 +70,11 @@
 //Set margin with an array pointing to top, bottom, left, and right
 	//Define width as height - margin.left - margin.right
 var margin = {
-	'top': 10,
+	'top': 50,
 	'bottom': 20,
 	'left': 50,
 	'right': 50,
-	'hed': 25,
+	'hed': 100,
 	'key': 0},
 	height = (1200 - margin.top - margin.bottom - margin.key - margin.hed),
 	width = (600 - margin.right - margin.left);	
@@ -130,6 +130,27 @@ var yaxis = d3.svg.axis()
 	.scale(scaley)
 	.orient('left')
 	.tickFormat(function(d){return d + "%";});
+
+
+//add some permanent fixtures
+hedcon.append('text')
+	.attr('x',0)
+	.attr('y',0)
+	.attr('class','hed')
+	.text('#secondworldproblems');
+
+hedcon.append('text')
+	.attr('x',0)
+	.attr('y',20)
+	.attr('class','dek')
+	.text('the "second world" is a collection of post-communist leftovers');	
+
+hedcon.append('text')
+	.attr('x',0)
+	.attr('y',36)
+	.attr('class','dek')
+	.text('with a collection of post-communist problems');	
+
 
 //declare global functions
 
