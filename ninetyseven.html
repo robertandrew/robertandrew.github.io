@@ -279,6 +279,7 @@ var chgliner = function(nation){
 	
 	viscon.selectAll('path.line').on('mouseover', function(d){
 		d3.select(this).attr('stroke-width','2px');
+	});
 
 	viscon.selectAll('path.line').on('mouseout', function(d){
 		d3.select(this).attr('stroke-width','1px');
