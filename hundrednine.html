@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head><script src="d3.v3.min.js" charset="utf-8"></script>
+<style type="text/css">
+
+	.axis text {
+		font-family: sans-serif;
+		font-size: 10px;
+		font-weight: lighter;
+		text-anchor: end;
+		fill: black;
+	}	
+	
+	.label text {
+		font-family: sans-serif;
+		font-size: 10px;
+		text-anchor: beginning;
+		font-weight: light;
+		dy; 0em;
+		fill: black;
+	}	
+			
+	.highlight text {
+		font-family: sans-serif;
+		font-size: 10px;
+		font-weight: bold;
+		text-anchor: beginning;
+		dy; 0em;
+		fill: black;
+	}	
+	
+	.lowline {
+	fill: none;
+	stroke-width: 0;}
+
+	.line {
+	fill: none;
+	stroke-width: 1.5px;
+	opacity: 0.7;
+	}
+	
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}
+	.hed {
+		font-family: monospace;;
+		font-size: 30px;	
+	}
+	
+	.dek {
+		font-family: monospace;
+		font-size: 12px;
+		opacity: 0.5;	
+	}
+
+
+</style>
+
+
+</head>
+
+<body>
+
+ 	<script type="text/javascript">
+
+//data independent
+var margin = {
+	'top': 15,
+	'bottom': 20,
+	'left': 50,
+	'right': 50,
+	'hed': 60,
+	'key': 0},
+	height = (200 - margin.top - margin.bottom - margin.key - margin.hed),
+	width = (700 - margin.right - margin.left);	
+
+//set global variables
+
+var duration = 1500;
+var drop;
+
+//draw containers
+var svg = d3.select('body').append('svg')
+	.attr('height',height + margin.top + margin.bottom +margin.key + margin.hed)
+	.attr('width',width + margin.right + margin.left);
+	
+var hedcon = svg.append('g')
+	.attr('id','hed')
+	.attr('transform','translate(' + margin.left + ',' + margin.top + ')');
+
+var viscon = svg.append('g')
+	.attr('id','vis')
+	.attr('transform','translate(' + margin.left + ',' + (margin.hed + margin.top) + ')');
+
+
+//declare scales
+
+var colorize = d3.scale.ordinal()
+	.domain(['black','white','asian','hispanic','total'])
+	.range(['red','orange','green','purple','black']);
+	
+var racenum = d3.scale.ordinal();
+
+var scaley = d3.scale.linear()
+	.range([height,0]);
+	
+var scalex = d3.time.scale()
+	.range([0, width]);
+	
+var xaxis = d3.svg.axis()
+	.scale(scalex)
+	.orient('bottom');
+
+var yaxis = d3.svg.axis()
+	.scale(scaley)
+	.orient('left')
+	.tickFormat(function(d){return d + "%";});
+	
+
+//declare global functions
+var parsedate = d3.time.format('%Y').parse; 		
+ 
+var linedrawer = function(race){	
+	var totalline = d3.svg.line()
+		.x(function(d){return scalex(d.year);})
+		.y(function(d){return scaley(d.overall); })
+		.interpolate('cardinal');		
+	
+	var path = viscon.append('path')
+		.attr('class','line')
+		.attr('d',totalline(drop[racenum(race)].values))
+	.transition()
+		.duration(4000)
+		.attrTween('d',tweener)
+		.attr('stroke',function(d){return colorize(race)});		
+	
+	function tweener() {
+		var interpolate = d3.scale.quantile()
+			.domain([0,1])
+			.range(d3.range(1, drop[racenum(race)].values.length+1));
+			
+		return function(t) {
+			return totalline(drop[racenum(race)].values.slice(0,interpolate(t)) );
+						};
+
+	};
+};
+		
+var lineupdater = function(subtype){
+
+	d3.selectAll('text.dek')
+		.transition()
+		.duration(duration)
+		.attrTween('d',tweener)
+		.text('High-school dropout rate, U.S. ' + subtype + ', by race');
+		
+	var line = d3.svg.line()
+		.x(function(d){return scalex(d.year)})
+		.y(function(d){return scaley(d[subtype]) })
+		.interpolate('cardinal');			
+		
+	
+	viscon.selectAll('path.line')
+		.transition()
+		.duration(duration)
+		.attr('d',line);
+	
+	};		
+	
+var linesplitter;
+	
+var keyer = function(d){
+	
+	var height = 10;	
+	var rectwidth = width/colorize.domain().length;
+	
+	var heder = hedcon.append('text')
+		.attr('x',0)
+		.attr('y',0)
+		.attr('class','dek')
+		.text('High-school dropout rate, U.S. total, by race');
+	
+	var hedbox = 	hedcon.selectAll('g').data(colorize.domain()).enter().append('g')		
+		.attr('class','label');
+	
+	hedbox.append('rect')
+		.style('fill',function(d){return colorize(d)})
+		.attr('width',(rectwidth) - height)
+		.attr('height',height)
+		.attr('x',function(d,i){return i * rectwidth})
+		.attr('y',margin.hed - height);
+		
+	hedbox.append('text')
+		.attr('x',function(d,i){return i * rectwidth})
+		.attr('y',margin.hed - height - 2)
+		.text(function(d){return d})
+		.style('fill',function(d){return colorize(d)});
+
+	var buttonset = (['overall','males','females']); 
+	
+	var buttonbox = hedcon.append('g').attr('id','buttons')
+		.selectAll('g')
+		.data(buttonset)
+		.enter()
+		.append('g')
+		
+		.attr('id',function(d){return d})
+		.attr('class','label');
+
+	buttonbox.append('text')
+		.text(function(d){return 'show ' + d})
+		.attr('x',function(d,i){return i * (rectwidth)})
+		.attr('y',margin.hed/2);
+		
+	buttonbox.on('click',function(d){
+		d3.selectAll('g.highlight').attr('class','label');
+		d3.select(this)
+			.transition()
+			.duration(duration)
+			.attr('class','highlight');
+
+		lineupdater(d);
+		})
+		
+	};
+
+ 
+//******data dependent******
+d3.tsv('drop.tsv',function(error, data){
+		data.forEach(function(d){
+		
+			d.year = parsedate(d.year);
+			d.students = +d.students;
+			d.males = +d.males;
+			d.females = +d.females;
+			d.overall = +d.overall;
+		});
+		drop = data;
+
+		scalex.domain(d3.extent(drop, function(d){return d.year}));
+		scaley.domain([0,d3.max(drop, function(d){return Math.max(d.males, d.females)})]);		
+
+		//nest the dataset
+		drop = d3.nest()
+			.key(function(d){return d.type})
+			.entries(drop);
+	
+		//set the scales that depend on nesting
+			racenum.range(d3.range(0,drop.length));
+			racenum.domain(drop.map(function(d){return d.key}));
+
+		
+	//call the initial axes
+	viscon.append('g').attr('id','x')
+		.call(xaxis)
+		.attr('class','axis')
+		.attr('transform','translate(0,' + height + ')');
+	viscon.append('g').attr('id','y')
+		.call(yaxis)
+		.attr('class','axis');	
+		
+
+	//call functions
+	keyer();
+	colorize.domain().forEach(function(d){return linedrawer(d)});
+});
+
+	</script>
+	</body>
+</html>
+		
