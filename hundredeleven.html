@@ -180,7 +180,7 @@ function keyer() {
 	};
  
 //******data dependent******
-d3.tsv('medians.tsv',function(error, data){
+d3.tsv('medianincomes.tsv',function(error, data){
 		data.forEach(function(d){
 		
 			d.year = parsedate(d.year);
