@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head><script src="d3.v3.min.js" charset="utf-8"></script>
+<style type="text/css">
+
+	.axis text {
+		font-family: sans-serif;
+		font-size: 10px;
+		font-weight: lighter;
+		text-anchor: end;
+		fill: black;
+	}	
+	
+	.label text {
+		font-family: sans-serif;
+		font-size: 10px;
+		text-anchor: beginning;
+		font-weight: light;
+		dy; 1em;
+		fill: black;
+	}	
+			
+	.highlight text {
+		font-family: sans-serif;
+		font-size: 10px;
+		font-weight: bold;
+		text-anchor: beginning;
+		dy; 0em;
+		fill: black;
+	}	
+	
+	.lowline {
+	fill: none;
+	stroke-width: 0;}
+
+	.line {
+	fill: none;
+	stroke-width: 1.5px;
+	opacity: 0.7;
+	}
+	
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}
+	.hed {
+		font-family: monospace;
+		font-size: 30px;	
+	}
+	
+	.dek {
+		font-family: monospace;
+		font-size: 12px;
+		opacity: 0.5;	
+	}
+
+	.tooltip {
+		font-family: sans-serif;
+		font-size: 7 px;
+		dy: 1em;
+		opacity: 0.5;
+		}
+
+	
+	.button {
+		font-family: sans-serif;
+		font-size: 8 px;
+		dy: 1em;	
+		font-weight: bold;
+		opacity: 1;
+	}
+
+	
+	.buttoff {
+		font-family: sans-serif;
+		font-size: 7 px;
+		dy: 1em;	
+		font-weight: light;
+		opacity: 0.5;
+	}
+</style>
+
+
+</head>
+
+<body>
+
+ 	<script type="text/javascript">
+
+//data independent
+var margin = {
+	'top': 15,
+	'bottom': 20,
+	'left': 50,
+	'right': 50,
+	'hed': 30,
+	'key': 0},
+	height = (200 - margin.top - margin.bottom - margin.key - margin.hed),
+	width = (500 - margin.right - margin.left);	
+
+//set global variables
+var duration = 2000;
+var medNest;
+var med;
+
+//draw containers
+var svg = d3.select('body').append('svg')
+	.attr('height',height + margin.top + margin.bottom +margin.key + margin.hed)
+	.attr('width',width + margin.right + margin.left);
+	
+var hedcon = svg.append('g')
+	.attr('id','hed')
+	.attr('transform','translate(' + margin.left + ',' + margin.top + ')');
+
+var viscon = svg.append('g')
+	.attr('id','vis')
+	.attr('transform','translate(' + margin.left + ',' + (margin.hed + margin.top) + ')');
+
+
+//declare scales
+
+var colorize = d3.scale.ordinal()
+	.domain(['black','white','nhwhite','asian','hispanic','overall'])
+	.range(['red','orange','green','blue','purple','black']);
+	
+var racenum = d3.scale.ordinal();
+
+var scaley = d3.scale.linear()
+	.range([height,0]);
+	
+var scalex = d3.time.scale()
+	.range([0, width]);
+	
+var xaxis = d3.svg.axis()
+	.scale(scalex)
+	.orient('bottom');
+
+var yaxis = d3.svg.axis()
+	.scale(scaley)
+	.orient('left')
+	.tickFormat(function(d){return '$' + d ;});
+	
+
+//declare global functions
+var parsedate = d3.time.format('%Y').parse; 		
+
+	
+//liner will produce a total path with the requested ID
+	function liner(ident) {
+	
+		var line = d3.svg.line()
+			.x(function(d){return scalex(d.year)})
+			.y(function(d){return scaley(d.median2012)})
+			.interpolate('cardinal');	
+		
+		viscon.append('g')
+				.append('path')
+				.attr('class','line')
+				.attr('id',ident)
+				.attr('d',line(med[racenum('overall')].values))			
+				.attr('stroke','black')
+				.append('title')	
+				.text('overall');
+//			tooltipper('overall');
+	}; 
+	
+//updater will produce a liner path, 
+//then select it and transition it to the race in question	
+	function updater(race){
+	
+		var raceline = d3.svg.line()
+			.x(function(d){return scalex(d.year)})	
+			.y(function(d){return scaley(d.median2012)})
+			.interpolate('cardinal');
+			
+			d3.selectAll('path#' + race).remove();
+			liner('placeholder');
+			d3.select('path#initial')
+				.transition()
+				.duration(duration)
+				.attr('d',raceline(med[racenum(race)].values))
+				.attr('stroke',colorize(race));
+			d3.select('path#initial')
+				.attr('id',race);
+			d3.select('path#placeholder')
+				.attr('id','initial');
+			tooltipper(race);
+	};
+	
+	function downdater(race){
+		
+		var line = d3.svg.line()
+			.x(function(d){return scalex(d.year)})
+			.y(function(d){return scaley(d.median2012)})
+			.interpolate('cardinal');	
+
+		d3.selectAll('path#' + race)
+			.transition()
+			.duration(duration)
+			.attr('d',line(med[racenum('overall')].values))
+			.attr('stroke','black')
+			.remove();
+		
+		
+	};	
+	
+	//called to add tooltips to any line	
+	function tooltipper(race){
+		viscon.append('g')
+			.attr('class','tooltip')
+			.append('text')	
+			.attr('x', width)
+			.attr('y',function(d){
+				return scaley(med[racenum(race)]
+						.values[med[racenum(race)]
+						.values.length - 1]
+						.median2012)})	
+			.text(race)
+			.attr('id',race)
+			.style('fill',colorize(race))
+			.style('dy','1em');	
+		
+	};
+
+	//called to update any line's tooltips
+
+
+	function keyer() {
+
+		//add listeners that tooltip every path
+		d3.selectAll('path.line')
+			.on('mouseover',function(d){
+				tooltipper(d);		
+				console.log(d);
+			});
+
+		//add key buttons to the top of the screen
+		var keys = hedcon.selectAll('g')
+				.data(colorize.domain())
+				.enter()
+				.append('g')
+				.attr('class','buttoff')				
+				.append('text')
+				.attr('x',function(d,i)
+					{return i * width/colorize.domain()
+					.length })
+				.attr('y',0) 
+				.text(function(d){return d})
+				.attr('fill',function(d){return colorize(d)});
+		
+		hedcon.selectAll('g.buttoff').on('click',function(d){
+			if(d3.select(this).attr('class') == 'buttoff') {
+			d3.select(this)
+				.transition()
+				.duration(duration)			
+				.attr('class','button');
+			updater(d);
+			}
+			else {
+			d3.select(this)
+				.transition()
+				.duration(duration)				
+				.attr('class','buttoff');
+			console.log(d);			
+			downdater(d);
+			d3.selectAll('text#' + d)
+				.transition()
+				.duration(duration/4)
+				.attr('fill','white')
+				.remove();			
+			};
+		});
+		
+	};
+;
+ 
+//******data dependent******
+d3.tsv('medians.tsv',function(error, data){
+		data.forEach(function(d){
+		
+			d.year = parsedate(d.year);
+			d.households = +d.households;
+			d.currentmean = +d.currentmean;
+			d.mean2012 = +d.mean2012;
+			d.currentmedian = +d.currentmedian;
+			d.median2012 = +d.median2012;
+
+				});
+		med = data;
+
+		scalex.domain(d3.extent(med, function(d){return d.year}));
+		scaley.domain([0,d3.max(med, function(d){return d.median2012})]);		
+
+		//nest the dataset
+		med = d3.nest()
+			.key(function(d){return d.race})
+			.entries(med);
+	
+		//set the scales that depend on nesting
+			racenum.range(d3.range(0,med.length));
+			racenum.domain(med.map(function(d){return d.key}));
+
+		
+	//call the initial axes
+	viscon.append('g').attr('id','x')
+		.call(xaxis)
+		.attr('class','axis')
+		.attr('transform','translate(0,' + height + ')');
+	viscon.append('g').attr('id','y')
+		.call(yaxis)
+		.attr('class','axis');	
+		
+
+	//call functions
+	keyer();
+	liner('initial');
+});
+
+	</script>
+	</body>
+</html>
+		
