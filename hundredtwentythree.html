@@ -1,6 +1,7 @@
+
 <!DOCTYPE html>
-<!-- saved from url=(0034)http://localhost:8888/medbars.html -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><script src="d3.v3.min.js" charset="utf-8"></script>
+<html>
+<head><script src="d3.v3.min.js" charset="utf-8"></script>
 <style type="text/css">
 
 	.axis text {
@@ -30,7 +31,7 @@
 	}	
 	
 	.recto {
-	fill: lightgrey;
+	fill: pink;
 	stroke: purple;
 	stroke-width: 3;}
 
@@ -75,11 +76,12 @@
 <!--here goes the HTML-->
 
 <p>
-<label for="rHeight" style:"display:="" inline-block;="" width:="" 500px;="" text-align:="" right"="">
-	rHeight = <span id="rHeight-value">150</span>	
+<label for="rHeight"
+	style:"display: inline-block; width: 500px; text-align: right">
+	<p>The rectangle's height is <span id = "rHeight-value">...</span> px	</p>
 	
 	</label>
-	<input type="range" min="1960" max="2012" id="rHeight">
+	<input type ='range' min='1' max='100' id='rHeight'>
 </p>
 
 
@@ -93,12 +95,12 @@
 var margin = {
 	'top': 15,
 	'bottom': 20,
-	'left': 50,
+	'left': 2,
 	'right': 50,
-	'hed': 30,
+	'hed': 10,
 	'key': 0},
 	height = (200 - margin.top - margin.bottom - margin.key - margin.hed),
-	width = (500 - margin.right - margin.left);	
+	width = (300 - margin.right - margin.left);	
 
 //set global variables
 var duration = 2000;
@@ -123,20 +125,17 @@ var viscon = svg.append('g')
 var colorize = d3.scale.ordinal()
 	.domain(['black','white','nhwhite','asian','hispanic','overall'])
 	.range(['red','orange','green','blue','purple','black']);
-
-var scaleheight = d3.scale.linear()
-	.domain([1960,2012])
-	.range([0,width]);	
+	
 
 var scaley = d3.scale.linear()
 	.range([height,0]);
 	
 //draw rect
 viscon.append('rect')
-	.attr('x',width*(1/3))
+	.attr('x',0)
 	.attr('y',0)
 	.attr('height',height/3)
-	.attr('width',width/3)
+	.attr('width',width)
 	.attr('class','recto');
 	
 
@@ -145,17 +144,18 @@ viscon.append('rect')
 //create listener	
 d3.select('#rHeight').on('input', function(){
 	update(+this.value);	
+	console.log(this.value);
 })	
 
 update(20);
 
 function update(rHeight){
 	
-	
+	console.log(rHeight);	
 	d3.select('#rHeight-value').text(rHeight);
 	d3.select('#rHeight').property('value',rHeight);
 	viscon.selectAll('rect')
-		.attr('height',scaleheight(rHeight));
+		.attr('height',rHeight);
 	}	
 	
 //declare global functions
@@ -184,8 +184,7 @@ d3.tsv('medians.tsv',function(error, data){
 	//call functions
 });
 
-	</script><svg height="200" width="500"><g id="hed" transform="translate(50,15)"></g><g id="vis" transform="translate(50,45)"><rect x="133.33333333333331" y="0" height="150" width="133.33333333333334" class="recto"></rect></g></svg>
-	
-
+	</script>
+	</body>
+</html>
 		
-</body></html>
