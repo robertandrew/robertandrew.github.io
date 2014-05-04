@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<!-- saved from url=(0034)http://localhost:8888/medbars.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><script src="d3.v3.min.js" charset="utf-8"></script>
+<style type="text/css">
+
+	.axis text {
+		font-family: sans-serif;
+		font-size: 10px;
+		font-weight: lighter;
+		text-anchor: end;
+		fill: black;
+	}	
+	
+	.label text {
+		font-family: sans-serif;
+		font-size: 10px;
+		text-anchor: beginning;
+		font-weight: light;
+		dy; 1em;
+		fill: black;
+	}	
+			
+	.highlight text {
+		font-family: sans-serif;
+		font-size: 10px;
+		font-weight: bold;
+		text-anchor: beginning;
+		dy; 0em;
+		fill: black;
+	}	
+	
+	.recto {
+	fill: lightgrey;
+	stroke: purple;
+	stroke-width: 3;}
+
+	.line {
+	fill: none;
+	stroke-width: 1.5px;
+	opacity: 0.7;
+	}
+	
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}
+	.hed {
+		font-family: monospace;
+		font-size: 30px;	
+	}
+	
+	.dek {
+		font-family: monospace;
+		font-size: 12px;
+		opacity: 0.5;	
+	}
+
+	.tooltip {
+		font-family: sans-serif;
+		font-size: 7 px;
+		dy: 1em;
+		opacity: 0.5;
+		}
+
+	
+</style>
+
+
+</head>
+
+<body>
+
+<!--here goes the HTML-->
+
+<p>
+<label for="rHeight" style:"display:="" inline-block;="" width:="" 500px;="" text-align:="" right"="">
+	rHeight = <span id="rHeight-value">150</span>	
+	
+	</label>
+	<input type="range" min="1960" max="2012" id="rHeight">
+</p>
+
+
+<!--here ends that same HTML-->
+
+
+
+ 	<script type="text/javascript">
+
+//data independent
+var margin = {
+	'top': 15,
+	'bottom': 20,
+	'left': 50,
+	'right': 50,
+	'hed': 30,
+	'key': 0},
+	height = (200 - margin.top - margin.bottom - margin.key - margin.hed),
+	width = (500 - margin.right - margin.left);	
+
+//set global variables
+var duration = 2000;
+var medNest;
+var med;
+
+//draw containers
+var svg = d3.select('body').append('svg')
+	.attr('height',height + margin.top + margin.bottom +margin.key + margin.hed)
+	.attr('width',width + margin.right + margin.left);
+	
+var hedcon = svg.append('g')
+	.attr('id','hed')
+	.attr('transform','translate(' + margin.left + ',' + margin.top + ')');
+
+var viscon = svg.append('g')
+	.attr('id','vis')
+	.attr('transform','translate(' + margin.left + ',' + (margin.hed + margin.top) + ')');
+
+//declare scales
+
+var colorize = d3.scale.ordinal()
+	.domain(['black','white','nhwhite','asian','hispanic','overall'])
+	.range(['red','orange','green','blue','purple','black']);
+
+var scaleheight = d3.scale.linear()
+	.domain([1960,2012])
+	.range([0,width]);	
+
+var scaley = d3.scale.linear()
+	.range([height,0]);
+	
+//draw rect
+viscon.append('rect')
+	.attr('x',width*(1/3))
+	.attr('y',0)
+	.attr('height',height/3)
+	.attr('width',width/3)
+	.attr('class','recto');
+	
+
+//draw status text
+	
+//create listener	
+d3.select('#rHeight').on('input', function(){
+	update(+this.value);	
+})	
+
+update(20);
+
+function update(rHeight){
+	
+	
+	d3.select('#rHeight-value').text(rHeight);
+	d3.select('#rHeight').property('value',rHeight);
+	viscon.selectAll('rect')
+		.attr('height',scaleheight(rHeight));
+	}	
+	
+//declare global functions
+var parsedate = d3.time.format('%Y').parse; 			
+ 
+//******data dependent******
+d3.tsv('medians.tsv',function(error, data){
+		data.forEach(function(d){
+			d.year = parsedate(d.year);
+			d.households = +d.households;
+			d.currentmean = +d.currentmean;
+			d.mean2012 = +d.mean2012;
+			d.currentmedian = +d.currentmedian;
+			d.median2012 = +d.median2012;
+
+				});
+		med = data;
+
+		scaley.domain([0,d3.max(med, function(d){return d.median2012})]);		
+
+		//nest the dataset
+		med = d3.nest()
+			.key(function(d){return d.race})
+			.entries(med);
+
+	//call functions
+});
+
+	</script><svg height="200" width="500"><g id="hed" transform="translate(50,15)"></g><g id="vis" transform="translate(50,45)"><rect x="133.33333333333331" y="0" height="150" width="133.33333333333334" class="recto"></rect></g></svg>
+	
+
+		
+</body></html>
