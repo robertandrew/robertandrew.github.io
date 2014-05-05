@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!-- saved from url=(0034)http://localhost:8888/medbars.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><script src="d3.v3.min.js" charset="utf-8"></script>
+<style type="text/css">
+			
+	.highlight text {
+		font-family: sans-serif;
+		font-size: 10px;
+		font-weight: bold;
+		text-anchor: beginning;
+		dy; 0em;
+		fill: black;
+	}	
+	.hed {
+		font-family: monospace;
+		font-size: 30px;	
+	}
+	
+	.dek {
+		font-family: monospace;
+		font-size: 12px;
+		opacity: 0.5;	
+	}
+
+	.liston {
+		font-family: monospace;
+		font-size: 15px;
+		opacity: 1;	
+	}
+
+	.listoff {
+		font-family: monospace;
+		font-size: 15px;
+		opacity: 0.5;	
+	}
+
+
+
+	.tooltip {
+		font-family: sans-serif;
+		font-size: 7 px;
+		dy: 1em;
+		opacity: 0.5;
+		}
+
+	
+</style>
+
+<script type="text/javascript">
+//declare all the functions
+
+var parsedate = d3.time.format('%Y').parse;
+
+function listener(ident){
+	d3.select('div#' + ident).on('click',function(d){
+		console.log(d);
+		})
+};
+
+
+//begin the data-dependent stuff
+d3.tsv('portfolio.tsv', function(error,data) {
+	data.forEach(function(d){
+		d.date = parseDate(d.date);	
+	});
+
+});
+
+listener('static');
+listener('interactive');
+
+</script>
+
+
+
+</head>
+
+<body>
+
+<!--here goes the HTML-->
+
+<div class="hed">port</div>
+<div class="liston" id="static">a few good static</div>
+<div class="liston" id="interactive">a few good interactive</div>
+<div class="listoff" id="about">about/contact</div>
+
+<!--here ends that same HTML-->
+		
+</body></html>
