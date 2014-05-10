@@ -13,7 +13,8 @@
 	}	
 	.hed {
 		font-family: monospace;
-		font-size: 30px;	
+		font-size: 30px;
+		fill: pink;
 	}
 	
 	.dek {
@@ -92,7 +93,7 @@ function grouper(){
 				
 				tipBox.selectAll('tspan')
 					.data(function(d){return d.values
-						.filter(function(d){return d.tier == "one"})})
+						.filter(function(d){return d.tier == "three"})})
 					.enter()
 					.append('tspan')
 					.attr('class','listItem')
@@ -152,8 +153,8 @@ grouper();
 
 <!--here goes the HTML-->
 
-<div class="hed">ravd</div>
-<div class="listOff" id="about"><p>about/contact</p></div>
+<div class="hed">rad things</div>
+<div class="listOn" id="about"><p>about/contact</p></div>
 
 <!--here ends that same HTML-->
 		
