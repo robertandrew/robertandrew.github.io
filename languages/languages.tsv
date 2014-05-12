@@ -145,7 +145,6 @@ z	German	1.13
 ŭ	German	0
 ź	German	0
 ż	German	0
-letter	Spanish	Spanish
 a	Spanish	12.53
 b	Spanish	2.22
 c	Spanish	4.14
@@ -219,7 +218,6 @@ z	Spanish	0.52
 ŭ	Spanish	0
 ź	Spanish	0
 ż	Spanish	0
-letter	Portuguese	Portuguese
 a	Portuguese	14.63
 b	Portuguese	1.04
 c	Portuguese	3.88
@@ -293,7 +291,6 @@ z	Portuguese	0.47
 ŭ	Portuguese	0
 ź	Portuguese	0
 ż	Portuguese	0
-letter	Esperanto	Esperanto
 a	Esperanto	12.12
 b	Esperanto	0.98
 c	Esperanto	0.78
@@ -367,7 +364,6 @@ z	Esperanto	0.49
 ŭ	Esperanto	0.52
 ź	Esperanto	0
 ż	Esperanto	0
-letter	Italian	Italian
 a	Italian	11.75
 b	Italian	0.93
 c	Italian	4.5
@@ -441,7 +437,6 @@ z	Italian	1.18
 ŭ	Italian	0
 ź	Italian	0
 ż	Italian	0
-letter	Turkish	Turkish
 a	Turkish	11.68
 b	Turkish	2.95
 c	Turkish	0.97
@@ -515,7 +510,6 @@ z	Turkish	1.5
 ŭ	Turkish	0
 ź	Turkish	0
 ż	Turkish	0
-letter	Swedish	Swedish
 a	Swedish	9.38
 b	Swedish	1.54
 c	Swedish	1.49
@@ -589,7 +583,6 @@ z	Swedish	0.07
 ŭ	Swedish	0
 ź	Swedish	0
 ż	Swedish	0
-letter	Polish	Polish
 a	Polish	11.5
 b	Polish	1.74
 c	Polish	3.9
@@ -663,7 +656,6 @@ z	Polish	5.85
 ŭ	Polish	0
 ź	Polish	0.08
 ż	Polish	0.71
-letter	Dutch	Dutch
 a	Dutch	7.49
 b	Dutch	1.58
 c	Dutch	1.24
@@ -737,7 +729,6 @@ z	Dutch	1.37
 ŭ	Dutch	0
 ź	Dutch	0
 ż	Dutch	0
-letter	Danish	Danish
 a	Danish	6.03
 b	Danish	2
 c	Danish	0.57
@@ -811,7 +802,6 @@ z	Danish	0.03
 ŭ	Danish	0
 ź	Danish	0
 ż	Danish	0
-letter	Icelandic	Icelandic
 a	Icelandic	10.11
 b	Icelandic	1.04
 c	Icelandic	0
@@ -885,7 +875,6 @@ z	Icelandic	0
 ŭ	Icelandic	0
 ź	Icelandic	0
 ż	Icelandic	0
-letter	Finnish	Finnish
 a	Finnish	12.22
 b	Finnish	0.28
 c	Finnish	0.28
