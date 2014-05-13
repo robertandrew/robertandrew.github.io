@@ -1,0 +1,90 @@
+
+	body, html{
+	}
+		
+		.		
+	.highlight text {
+		font-family: sans-serif;
+		font-size: 10px;
+		font-weight: bold;
+		text-anchor: beginning;
+		dy; 0em;
+		fill: black;
+	}	
+	
+	.letterBox{
+		fill: pink;
+		
+			}
+	.hed {
+		font-family: monospace;
+		font-size: 30px;
+		width: 100%;	
+	}
+	
+	.dek {
+		font-family: monospace;
+		font-size: 12px;
+		opacity: 0.5;	
+	}
+
+	.listOn {
+		font-family: monospace;
+		font-size: 15px;
+		opacity: 1;	
+		
+	}
+
+	.listOff {
+		font-family: monospace;
+		font-size: 15px;
+		opacity: 0.5;	
+	}
+	
+	.listItem {
+		font-family: monospace;
+		font-size: 12px;
+		opacity: 1;	
+		fill: black;
+		position: relative;
+		left: 1%;
+		width: 50%;
+		line-height: 140%;
+		}
+		
+	.topLabel{
+		text-anchor: middle;
+		font-family: sans-serif;
+		font-size: 8px;		
+		}
+		
+	.scaleText{
+		text-align: middle;
+		dy:0.5em;
+		font-family: serif;
+		opacity:.7;		
+		}
+		
+	.tooltip {
+		font-family: sans-serif;
+		font-size: 7 px;
+		dy: 1em;
+		opacity: 0.5;
+		}
+	
+	.headdek {
+		width: 960px;
+		font-family: Arial;
+	}
+	
+	.title {
+		font-weight: bold;
+	}
+	
+	#chart-container {
+		width: 800px;
+		height: 400px;
+		border: 1px solid black;
+	}
+
+
