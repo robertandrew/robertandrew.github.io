@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="jquery.min.js"></script>
+<script src="d3.v3.min.js" charset="utf-8"></script>
+<style type="text/css">
+
+	.axis text {
+		font-family: sans-serif;
+		font-size: 10px;
+		font-weight: lighter;
+		text-anchor: end;
+		fill: black;
+	}	
+	
+	.axis line {
+
+		stroke-width:0.5px;
+
+	}
+
+
+	.label text {
+		font-family: sans-serif;
+		font-size: 10px;
+		text-anchor: beginning;
+		font-weight: light;
+		dy; 0em;
+		fill: black;
+	}	
+			
+	.highlight text {
+		font-family: sans-serif;
+		font-size: 10px;
+		font-weight: bold;
+		text-anchor: beginning;
+		dy; 0em;
+		fill: black;
+	}	
+
+	.line {
+	fill: none;
+	stroke-width: 1.5px;
+	opacity: 0.7;
+	}
+	
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}
+	.hed {
+		font-family: monospace;;
+		font-size: 30px;	
+	}
+	
+	.dek {
+		font-family: monospace;
+		font-size: 12px;
+		opacity: 0.5;	
+	}
+
+	.circle{
+		opacity:0.5;
+		stroke:white;
+		stroke-width:0.5;
+	}
+
+
+</style>
+
+
+</head>
+
+<body>
+
+ 	<script type="text/javascript">
+
+//data independent
+var margin = {
+	'top': 15,
+	'bottom': 20,
+	'left': 50,
+	'right': 50,
+	'hed': 60,
+	'key': 0},
+	height = (450 - margin.top - margin.bottom - margin.key - margin.hed),
+	width = (700 - margin.right - margin.left);	
+
+//set global variables
+
+var duration = 500;
+var drop;
+var flat = {};
+
+//draw containers
+var svg = d3.select('body').append('svg')
+	.attr('height',height + margin.top + margin.bottom +margin.key + margin.hed)
+	.attr('width',width + margin.right + margin.left);
+	
+var hedcon = svg.append('g')
+	.attr('id','hed')
+	.attr('transform','translate(' + margin.left + ',' + margin.top + ')');
+
+var viscon = svg.append('g')
+	.attr('id','vis')
+	.attr('transform','translate(' + margin.left + ',' + (margin.hed + margin.top) + ')');
+
+
+//declare scales
+
+var colorize = d3.scale.ordinal()
+	.domain(['black','white','asian','hispanic','total'])
+	.range(['violet','blue','steelbue','purple','black']);
+	
+var racenum = d3.scale.ordinal();
+
+var scaley = d3.scale.linear()
+	.range([height, 0]);
+	
+var scalex = d3.time.scale()
+	.range([0, width]);
+	
+var xaxis = d3.svg.axis()
+	.scale(scalex)
+	.orient('bottom');
+
+var yaxis = d3.svg.axis()
+	.scale(scaley)
+	.orient('left');
+	
+
+//declare global functions
+var parsedate = d3.time.format('%Y').parse; 		
+ 
+var prime;
+
+function circler(){
+	var grouper = viscon.selectAll('g')
+	.data(prime)
+	.enter()
+	.append('g');
+
+	circleLayer = grouper.selectAll('circle')
+		.data(function(d){return d.values})
+		.enter()
+		.append('circle')
+		.attr('cx',function(d){return scalex(d.yearParsed)})
+		.attr('cy',height);
+
+	circleLayer
+		.attr('cx',function(d){return scalex(d.yearParsed)})
+		.attr('cy',function(d){return scaley(d.digits)})
+		.attr('r',4)
+		.attr('class','circle')
+		.attr('fill','purple');
+};
+ 
+//******data dependent******
+d3.csv('primat.csv',function(error,data){
+	data.forEach(function(d){
+		d.yearParsed = parsedate(d.year);
+		d.rank = +d.rank;
+		d.digits = +d.digits;
+	})
+
+
+	prime = data;
+
+	scaley.domain([0,d3.max(prime,function(d){return d.digits})]);
+	scalex.domain(d3.extent(prime,function(d){return d.yearParsed}));
+
+	//call axes
+	viscon.append('g').call(yaxis)
+		.attr('class','axis');
+	viscon.append('g').call(xaxis)
+			.attr('class','axis')
+			.attr('transform','translate(0,' + height +')');
+
+	prime = d3.nest()
+		.key(function(d){return d.year})
+		.sortKeys(d3.ascending)
+		.entries(prime);
+
+
+		circler();
+});
+
+	</script>
+	</body>
+</html>
+		
