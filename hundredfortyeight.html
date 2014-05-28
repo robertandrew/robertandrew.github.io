@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="jquery.min.js"></script>
+<script src="d3.v3.min.js" charset="utf-8"></script>
+<style type="text/css">
+
+	.axis text {
+		font-family: sans-serif;
+		font-size: 10px;
+		font-weight: lighter;
+		fill: black;
+	}	
+	
+	.axis line {
+		stroke: black;
+		stroke-width:0.5px;
+
+	}
+
+
+	.label {
+		font-family: sans-serif;
+		font-size: 12px;
+		text-anchor: beginning;
+		font-weight: bold;
+		dy: 1em;
+		fill: black;
+	}	
+	
+	.table {
+		font-family: sans-serif;
+		font-size: 12px;
+		text-anchor: middle;
+		font-weight: light;
+		dy: 1em;
+	
+	}
+			
+	.highlight text {
+		font-family: sans-serif;
+		font-size: 10px;
+		font-weight: bold;
+		text-anchor: beginning;
+		dy; 0em;
+		fill: black;
+	}	
+
+	.line {
+	fill: none;
+	stroke-width: 1.5px;
+	opacity: 0.7;
+	}
+	
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}
+	.hed {
+		font-family: monospace;;
+		font-size: 30px;	
+	}
+	
+	.dek {
+		font-family: monospace;
+		font-size: 12px;
+		opacity: 0.5;	
+	}
+
+	.dots {
+		opacity:0.5;
+		stroke:none;
+	}
+
+	.dotsUp {
+		opacity:1;
+		stroke:white;
+		stroke-width:1;
+	}
+	.dotsDown {
+		opacity:0.2;
+		stroke:none;
+	}
+
+
+
+</style>
+
+
+</head>
+
+<body>
+
+ 	<script type="text/javascript">
+
+//data independent
+var margin = {
+	'top': 15,
+	'bottom': 40,
+	'left': 50,
+	'right': 150,
+	'hed': 00,
+	'key': 0,
+	'table': 00},
+	height = (300 - margin.top - margin.bottom - margin.key - margin.hed),
+	width = (600 - margin.right - margin.table - margin.left);	
+
+//set global variables
+
+var duration = 500;
+var delay = 100;
+var radius = 5;
+var mig;
+var migNest;
+var flashBoys;
+
+
+//draw containers
+var svg = d3.select('body').append('svg')
+	.attr('height',height + margin.top + margin.bottom +margin.key + margin.hed)
+	.attr('width',width + margin.table + margin.right + margin.left);
+	
+var hedcon = svg.append('g')
+	.attr('id','hed')
+	.attr('transform','translate(' + (margin.table + margin.left) + ',' + margin.top + ')');
+
+var viscon = svg.append('g')
+	.attr('id','vis')
+	.attr('transform','translate(' + (margin.table + margin.left ) + ',' + (margin.hed + margin.top + margin.key) + ')');
+
+var keycon = svg.append('g')
+	.attr('id','key')
+	.attr('transform','translate(' + (margin.table + margin.left + width) + ',' + (margin.hed + margin.top) + ')');
+
+var tablecon = svg.append('g')
+	.attr('id','table')
+	.attr('transform','translate(' + (margin.table + margin.left) + ',' + (margin.hed + margin.key + margin.top) + ')')
+
+//declare scales
+
+var scalex = d3.scale.linear()
+	.range([0,width]);
+	
+var scaley = d3.scale.linear()
+	.range([height,0]);
+
+var colorize = d3.scale.ordinal()
+	.range(['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'magenta', 'black']);
+	
+var colorise = d3.scale.category10(); 	
+	
+var xaxis = d3.svg.axis()
+	.scale(scalex)
+	.orient('bottom');
+
+var yaxis = d3.svg.axis()
+	.scale(scaley)
+	.orient('left');
+	
+	
+//declare global functions
+var parsedate = d3.time.format('%Y').parse; 		
+
+function circulate(){
+
+	var cGroups = viscon.append('g');
+
+
+
+	cGroups.selectAll('circle')
+			.data(mig)
+			.enter()
+			.append('circle')
+			.attr('cx',0)
+			.attr('cy',height)
+			.attr('fill','white');
+	cGroups
+			.selectAll('circle')
+			.transition()
+			.delay(function(d,i){return i * delay})
+			.duration(duration)
+			.attr('cx',function(d){return scalex(d.gdp)})
+			.attr('r',radius)
+			.attr('class','dots')
+			.attr('fill',function(d){return colorise(d.Region)})
+			.each('end',function(d,i){
+				d3.select(this)
+					.transition()
+					.delay(function(d,i){return i * delay + duration})
+					.duration(duration)
+					.attr('cy',function(d){return scaley(d.inc)})
+					});	
+			};			
+
+	
+function axiser(){
+
+	//call the x axis
+
+	viscon.append('g')
+		.call(xaxis)
+		.attr('class','axis')
+		.attr('transform','translate(0,' + height + ')')
+		.append('text')
+		.text("GDP per capita, (ppp basis)")
+		.attr('text-anchor','beginning')
+		.attr('x', 3)
+		.attr('y', -3);
+			
+	//draw and label the y axis
+	
+	viscon.append('g')
+		.call(yaxis)
+		.attr('class','axis')
+		.append('text')
+		.text("U.S. incomes, by country of ancestry")
+		.attr('text-anchor','end')
+		.attr('x',0)
+		.attr('y',10)
+		.attr('transform','rotate(270)','translate(-40,0)');	
+
+};
+
+function keyer(){
+	var keygroup = keycon.selectAll('g')
+		.data(colorize.domain())
+		.enter()
+		.append('g')
+		.attr('id',function(d){return colorize(d)});
+	
+	keygroup.append('rect')
+		.attr('class','dots')
+		.attr('y',function(d,i){return ((i + 1) * (height/colorize.domain().length)) + radius })
+		.attr('x',(margin.right * 0.1))
+		.attr('width',margin.right * 0.8)
+		.attr('height',radius)
+		.attr('fill',function(d){return colorise(d)})
+		.append('title')
+		.text(function(d){return d});
+		
+	keygroup.append('text')
+		.attr('class','table')
+		.attr('y',function(d,i){return (i + 1) * (height/colorize.domain().length)})
+		.attr('x',margin.right/2)
+//		.attr('fill',function(d){return colorise(d)})
+		.text(function(d){return d});
+
+	keygroup.on('mouseover',function(d){
+	
+		viscon.selectAll("circle#" + d3.select(this).attr('id'))
+			.transition()
+			.duration(duration)
+			.attr('class','dotsUp')
+//			.attr('r', (radius * 2))
+			.selectAll('circle.dots')
+			.transition()
+			.duration(duration)
+			.attr('class','dotsDown')
+//			.attr('r', radius);
+	});
+
+	keygroup.on('mouseout',function(d){
+		viscon.selectAll('circle')
+			.transition()
+			.duration()
+			.attr('class','dots')
+			.attr('r',radius);	
+	
+	});
+
+}
+
+//******data dependent******
+d3.tsv('migrantMoney.tsv',function(error,data){
+	data.forEach(function(d){
+		d.gdp = +d.gdpPPP;
+		d.inc = +d.usIncome;
+	});
+	mig = data;
+	migNest = d3.nest()
+		.key(function(d){return d.Region})		
+		.sortKeys(d3.ascending)
+		.entries(data);
+
+//set domains
+scaley.domain([0,d3.max(mig, function(d){return d.inc})]);
+scalex.domain([0,d3.max(mig, function(d){return d.inc})]);
+colorize.domain(migNest.map(function(d){return d.key}));
+
+//call axes
+
+
+	//DROP IN THE STARTING FURNITURE
+
+	viscon.append('text')
+		.attr('x',width)
+		.attr('y',0)
+		.attr('dy','1em')
+		.attr('class','dek')
+		.attr('id','flasher')
+		.attr('text-anchor','end')
+		.text('flash');
+
+keyer();
+axiser();
+circulate();
+});
+
+	</script>
+	</body>
+</html>
+		
