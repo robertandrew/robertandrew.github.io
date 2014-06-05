@@ -1,0 +1,53 @@
+/*
+	WIP style for full portfolio
+*/
+
+/* body p would select a paragraph element within a body */
+
+	body {
+		margin:5px;
+		padding:5px;
+		height:100%;
+		background-color:cyan;
+		font-family: Georgia, cursive, monospace;
+		line-height: 1em;
+	}
+	
+	.column {
+		float: left;
+		width: 20%;
+		background-color: yellow;
+		border: 5px solid white;
+		padding: 10px;		
+		margin-right: 20px;
+		margin-top:30px;
+	}
+		
+	.description {
+		background-color: magenta;
+		border: 1px solid yellow;
+		margin: 1px, 3px;		
+	} 
+	
+	.hed {
+		width: 100%;
+		font-size: 300%;		
+		}
+	
+	a {
+		text-decoration: none;		
+		}
+	
+	a:link {
+		color:cyan;
+			
+		}
+		
+	a:visited {
+		color:magenta;		
+		}
+		
+	a:hover {
+		color:white;
+		font-weight:bolder;		
+		}
