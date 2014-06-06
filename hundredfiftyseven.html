@@ -83,7 +83,7 @@ var labelcon = svg.append('g')
 
 var colors = (['steelblue','red','orange','yellow','green','blue','purple','grey','#999','pink']);
 
-var color = d3.scale.category10();	
+var color = d3.scale.category20();	
 
 var counter = 0
 
@@ -143,7 +143,7 @@ var groupmover = function(id, xval, yval){
 			.attr('cx',0)
 			.attr('cy',scaley(yval))
 			.attr('r',scaler(yval))
-			.attr('fill',function(d,i){return colors(xval);})
+			.attr('fill',function(d,i){color(xval);})
 			.attr('class','circles');		
 		var texter = grouped.append('text').attr('class','tooltip');
 		d3.select('#tooltip')
