@@ -64,7 +64,7 @@ var margin = {
 	'left': 50,
 	'right': 150,
 	'label': 0},
-	height = (200 - margin.top - margin.hed - margin.bottom),
+	height = (900 - margin.top - margin.hed - margin.bottom),
 	width = (600 - margin.right - margin.left - margin.label);	
 
 //Define the spaces
@@ -144,13 +144,15 @@ var groupmover = function(id, xval, yval){
 			.attr('cy',scaley(yval))
 			.attr('r',scaler(yval))
 			.attr('fill',function(d,i){color(xval);})
-			.attr('class','circles');		
-		var texter = grouped.append('text').attr('class','tooltip');
-		d3.select('#tooltip')
-			.transition()
-			.delay(function(d,i){return (scalex(xval)) * 66})
+			.attr('class','circles')
+			.each('end',function(d){
+				var texter = grouped.append('text').attr('class','tooltip');
+				d3.select('#tooltip')
+					.transition()
+					.delay(function(d,i){return (scalex(xval)) * 66})
 			//.attr('x',0).attr('y',0).attr('id','tooltip').attr('class','axis')
-			.text(function(d){return xval});
+					.text(function(d){return xval});
+			});
 	};
 
 
