@@ -72,7 +72,7 @@ function letterer(){
 
 //DATA DEPENDENT
 //load the tsv
-d3.tsv('languages.tsv',function(error,data){
+d3.tsv('alphabets/languages.tsv',function(error,data){
 	data.forEach(function(d){
 		d.frequency = +d.frequency;
 			});		
