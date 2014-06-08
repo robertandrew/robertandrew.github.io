@@ -1,0 +1,75 @@
+/*
+
+Page:
+HED DIV
+	h3
+	full-width
+KEY DIV
+	full-width
+	includes all languages as separate divs
+LETTERS DIV
+	split into infinite horizontal divs
+		width set by d3 as a percentage of page
+		a label hed at the top of each (full width)
+		a ul to hold letters (full width)
+			li for each letter within the ul
+
+*/
+	body, html{
+		font-family: arial, sans-serif;
+		}
+		
+
+	.hed {
+		font-size: 100%;
+		width: 100%;
+		padding: 10,0,10,0;
+		color: lightgrey;
+		background-color: grey;	
+		}
+			
+	.key  {
+		width: 100%;
+		float: left;
+		background-color: lightgrey;
+		padding: 10,0,10,0;		
+		}
+		
+		.key div {
+			float: left;
+			padding: 5px;
+			border-color: white;
+			width: auto;					
+			}
+			.buttOn {
+				opacity: 1;	
+				font-weight: bold;
+				}
+		
+			.buttOff {
+				opacity: 0.3;
+				font-weight: light;	
+				}
+	.viz {
+		width: 100%;
+		float: left;
+		padding: 10, 0, 10, 0;		
+		background-color: ivory;
+		text-anchor: middle;
+		text-align: center;
+		}
+		
+		.column {
+			text-anchor: middle;
+			width: auto;
+			float: left;
+			}
+		
+			.label {
+				font-weight: light;
+				font-size: 80%;
+				padding: 10,0,10,0;						
+				}
+			.letters {
+				background-color: none;		
+				}
