@@ -77,19 +77,19 @@ function changeBars(startYear,endYear){
 
 //DATA DEPENDENT
 //load the tsv
-d3.tsv('eiSeries.tsv',function(error,data){		
+d3.tsv('ei/eiSeries.tsv',function(error,data){		
 	eiSeries = data;		
 	seriesLabeler
 		.domain(eiSeries.map(function(d){return d.series_id}))
 		.range(eiSeries.map(function(d){return d.series_name}));
 		
-	d3.tsv('eiPeriod.tsv', function(error1,data1){		
+	d3.tsv('ei/eiPeriod.tsv', function(error1,data1){		
 		eiPeriod = data1;
 		monthLabeler
 			.domain(eiPeriod.map(function(d){return d.period}))	
 			.range(eiPeriod.map(function(d){return d.period_name}));
 		
-		d3.tsv('eiHarmoniz.tsv', function(error2, data2){
+		d3.tsv('ei/eiHarmoniz.tsv', function(error2, data2){
 					
 			data2.forEach(function(d){
 				d.value = + d.value;
