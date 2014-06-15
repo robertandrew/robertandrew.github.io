@@ -77,7 +77,7 @@ function drawLines(eachData, order, subSet){
 
 //DATA DEPENDENT
 //load the csv
-d3.csv('claims.csv',function(error,data){		
+d3.csv('claims/claims.csv',function(error,data){		
 	data.forEach(function(d){
 		d.date = parseDate(d.date);
 //		d.iNSA = + d.iNSA;
