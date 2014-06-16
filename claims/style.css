@@ -1,26 +1,18 @@
 /*
 
-Page:
-HED DIV
-	h3
-	full-width
-KEY DIV
-	full-width
-	includes all languages as separate divs
-LETTERS DIV
-	split into infinite horizontal divs
-		width set by d3 as a percentage of page
-		a label hed at the top of each (full width)
-		a ul to hold letters (full width)
-			li for each letter within the ul
-
 */
-	body, html{
-		font-family: arial, sans-serif;
-		}
+	body {
+		text-align: right;
+		font-family: sans-serif;
+		font-weight: light;
+		font-size: 10px;		
+		overflow:hidden;	
+		line-height: 100%;
+		}		
+
 
 	.hed {
-		font-size: 400%;
+		font-size: 50%;
 		width: 100%;
 		padding: 10,0,10,0;
 		color: lightgrey;
@@ -28,11 +20,20 @@ LETTERS DIV
 		text-align: left;	
 		line-height: 100%;
 		}
+		
+	.dek {
+		font-size: 150%;
+		opacity: 0.5;
+		fill: black;
+		font-family: monospace;	
+		dy: 0em;	
+		}
 			
 	.key  {
 		width: 100%;
+		color:white;
 		float: left;
-		background-color: lightgrey;
+		background-color: white;
 		padding: 10,0,10,0;		
 		}
 		
@@ -62,50 +63,10 @@ LETTERS DIV
 		background-color: ivory;
 		}
 		
-		.barCon {
-			text-anchor: end;
-			width: 100%;
-			margin: 10,0,10,0;
-			background-color: lightgrey;
-			display: block;
-			}
-		
-			.labelCon {
-				width: 30%;				
-				background-color: lightgrey;;		
-				float: left;
-				}
-				body {
-					text-align: right;
-					font-family: sans-serif;
-					font-weight: light;
-					font-size: 10px;		
-					overflow:hidden;	
-					line-height: 100%;
-					}		
-			.bars {
-				width: 70%;				
-				float: right;
-				background-color: lightgrey;
-				}		
-			
-		.hiddenColumn {
-			display:none;
-			}
-		
-			.label {
-				font-weight: bolder;
-				font-size: 80%;
-				padding: 10,0,10,0;						
-				}
-			.letters {
-				background-color: none;	
-				display: block;	
-				}
 				
 	.axis text {
 		font-family: sans-serif;
-		font-size: 10px;
+		font-size: 14px;
 		font-weight: lighter;
 		fill: black;
 		text-anchor: start;
@@ -118,9 +79,15 @@ LETTERS DIV
 	  shape-rendering: crispEdges;
 	}
 	
-	.path {
+	.pathOff {
 		fill: none;
-		stroke: purple;
-		stroke-width: 2px;
+		stroke-width: 0px;
 		opacity:0.5;
 		}
+	.pathRest {
+		fill: none;
+		stroke-width: 1px;
+		opacity: 0.1;	
+		stroke: lightgrey;	
+		}	
+		
