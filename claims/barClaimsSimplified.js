@@ -222,7 +222,7 @@ function resizer(){
 
 //DATA DEPENDENT
 //load the csv
-d3.csv('claims.csv',function(error,data){		
+d3.csv('claims/claims.csv',function(error,data){		
 	data.forEach(function(d){
 		d.realDate = parseDate(d.realDate);
 //		d.iNSA = + d.iNSA;
