@@ -172,9 +172,9 @@ d3.csv('recessions.csv',function(error,data){
 	
 	recessions = data;	
 	
-	d3.csv('allPayrolls.csv',function(error,data){
+	d3.csv('cpi.csv',function(error,data){
 		data.forEach(function(d){
-			d.payrolls = +d.payrolls;
+			d.cpi = +d.cpi;
 			d.date = parseDate(d.date);
 			})//CLOSE cpi forEach
 		
