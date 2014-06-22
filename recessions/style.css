@@ -1,0 +1,87 @@
+/*
+
+*/
+	body {
+		text-align: right;
+		font-family: sans-serif;
+		font-weight: light;
+		font-size: 10px;		
+		overflow:hidden;	
+		line-height: 100%;
+		}		
+
+
+	.hed {
+		font-size: 50%;
+		width: 100%;
+		padding: 10,0,10,0;
+		color: lightgrey;
+		background-color: grey;
+		text-align: left;	
+		line-height: 100%;
+		}
+		
+	.box {
+		float: left;		
+		}	
+		
+	.dek {
+		font-size: 150%;
+		opacity: 0.5;
+		fill: black;
+		font-family: monospace;	
+		dy: 0em;	
+		}
+
+	.h,.v {
+		stroke:black;
+		stroke-dasharray:4 4;
+		stroke-width:1;
+		stroke-opacity:.5;}
+
+	.title {
+		font-size: 140%;
+		text-anchor: start;
+		font-family: sans-serif;
+		font-weight: bolder;	
+		dy: 0em;	
+		}
+
+	.viz {
+		width: 100%;
+		float: left;
+		padding: 10, 0, 10, 0;		
+		background-color: ivory;
+		}
+		
+				
+	.axis text {
+		font-family: sans-serif;
+		font-size: 8px;
+		font-weight: lighter;
+		fill: black;
+		text-anchor: start;
+	}	
+	
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}
+	
+	.pathOff {
+		fill: none;
+		stroke-width: 2px;
+		opacity: 1;
+		}
+	.pathRest {
+		fill: none;
+		stroke-width: 1px;
+		opacity: 0.1;	
+		stroke: lightgrey;	
+		}	
+	.recessions {
+		fill: lightgrey;
+		opacity: 0.4;		
+		}
