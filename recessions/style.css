@@ -12,10 +12,10 @@
 
 
 	.hed {
-		font-size: 50%;
+		font-size: 125%;
 		width: 100%;
 		padding: 10,0,10,0;
-		color: lightgrey;
+		color: white;
 		background-color: grey;
 		text-align: left;	
 		line-height: 100%;
@@ -33,12 +33,6 @@
 		dy: 0em;	
 		}
 
-	.h,.v {
-		stroke:black;
-		stroke-dasharray:4 4;
-		stroke-width:1;
-		stroke-opacity:.5;}
-
 	.title {
 		font-size: 140%;
 		text-anchor: start;
@@ -51,24 +45,29 @@
 		width: 100%;
 		float: left;
 		padding: 10, 0, 10, 0;		
-		background-color: ivory;
 		}
 		
 				
 	.axis text {
 		font-family: sans-serif;
-		font-size: 8px;
+		font-size: 10px;
 		font-weight: lighter;
 		fill: black;
 		text-anchor: start;
 	}	
 	
-	.axis path,
 	.axis line {
 	  fill: none;
 	  stroke: #000;
 	  shape-rendering: crispEdges;
 	}
+
+	.axis path {
+	  fill: none;
+	  stroke: none;
+	  shape-rendering: crispEdges;
+	}
+
 	
 	.pathOff {
 		fill: none;
@@ -81,7 +80,7 @@
 		opacity: 0.1;	
 		stroke: lightgrey;	
 		}	
-	.recessions {
+	.recession {
 		fill: lightgrey;
-		opacity: 0.4;		
+		opacity: 0.3;		
 		}
