@@ -103,7 +103,7 @@ function porter(){
 
 //DATA DEPENDENT
 //load the csv
-d3.tsv('krim.tsv',function(error,data){		
+d3.tsv('krim3.tsv',function(error,data){		
 	data.forEach(function(d){
 		d.year = parseDate(d.year);
 		d.share = +d.share;
