@@ -1,0 +1,110 @@
+/*
+
+*/
+	body {
+		font-family: sans-serif;
+		font-weight: light;
+		font-size: 10px;		
+		line-height: 100%;
+		}		
+
+
+	.hed {
+		font-size: 125%;
+		width: 100%;
+		padding: 10,0,10,0;
+		color: white;
+		background-color: grey;
+		text-align: left;	
+		line-height: 100%;
+		}
+				
+	.dek {
+		font-size: 150%;
+		opacity: 0.5;
+		fill: black;
+		font-family: monospace;	
+		dy: 0em;	
+		}
+
+	.title {
+		font-size: 170%;
+		text-anchor: start;
+		font-family: sans-serif;
+		font-weight: light;	
+		dy: 0em;	
+		fill: black;
+		}
+
+	.viz {
+		width: 100%;
+		float: left;
+		padding: 10, 0, 10, 0;		
+		}
+		
+	.key div {
+		float: left;
+		padding: 5px;		
+		}
+		
+	.key span {
+		font-family: sans-serif;
+		font-weight: bolder;
+		fill : white;
+		}	
+								
+	.axis text {
+		font-family: sans-serif;
+		font-size: 8px;
+		font-weight: lighter;
+		fill: black;
+		text-anchor: start;
+	}	
+	
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}
+	
+
+	.buttOn {
+		opacity: 1;
+				
+		}
+	.buttOff {
+		opacity: 0.5;		
+		}
+	
+	.pathOff {
+		fill: none;
+		stroke-width: 2px;
+		opacity: 1;
+		}
+	.pathOn {
+		fill: none;
+		stroke-width: 1px;
+		opacity: 1;	
+		stroke: lightgrey;	
+		}	
+	.rShade {
+		fill: lightgrey;
+		opacity: 0.5;		
+		}
+	.fullSet {
+		display: block;	
+		width: 100%;	
+		}	
+	
+	.lineBox {
+		fill: none;
+		opacity: 1;		
+		}
+	.rCon {
+		float: left;		
+		opacity: 1;
+		}	
+		
+		
+	
