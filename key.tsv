@@ -1,0 +1,15 @@
+seriesSep	seriesHire	label	industry
+JTS23000000TSL	JTS23000000HIL	Construction	construction
+JTS30000000TSL	JTS30000000HIL	Manufacturing	manufacturing
+JTS32000000TSL	JTS32000000HIL	Durable goods manufacturing	durableGoods
+JTS34000000TSL	JTS34000000HIL	Nondurable goods manufacturing	nondurableGoods
+JTS40000000TSL	JTS40000000HIL	Trade transportation utilities	transport
+JTS44000000TSL	JTS44000000HIL	Retail trade	retail
+JTS54009900TSL	JTS54009900HIL	Professional and business services	professional
+JTS60000000TSL	JTS60000000HIL	Education and health services	education
+JTS62000000TSL	JTS62000000HIL	Health care and social assistance	health
+JTS70000000TSL	JTS70000000HIL	Leisure and hospitality	leisure
+JTS71000000TSL	JTS71000000HIL	Arts entertainment recreation	arts
+JTS72000000TSL	JTS72000000HIL	Accommodation and food services	food
+JTS90000000TSL	JTS90000000HIL	Government	government
+JTS92000000TSL	JTS92000000HIL	State and local	stateGov
