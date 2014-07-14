@@ -21,9 +21,10 @@
 				
 	.dek {
 		font-size: 150%;
-		opacity: 0.5;
+		opacity: 0.7;
 		fill: black;
-		font-family: monospace;	
+		font-weight: bold;
+		font-family: sans-serif;	
 		dy: 0em;	
 		}
 
@@ -45,12 +46,16 @@
 	.key div {
 		float: left;
 		padding: 5px;		
+		display: inline;
 		}
 		
 	.key span {
 		font-family: sans-serif;
 		font-weight: bolder;
 		fill : white;
+		display: inline;
+		padding: 3px;
+		margin: 3px;
 		}	
 								
 	.axis text {
@@ -104,6 +109,7 @@
 	.rCon {
 		float: left;		
 		opacity: 1;
+		display: inline;
 		}	
 		
 		
