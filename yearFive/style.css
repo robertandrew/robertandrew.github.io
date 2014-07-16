@@ -84,14 +84,13 @@
 	
 	.pathOff {
 		fill: none;
-		stroke-width: 2px;
-		opacity: 1;
+		stroke-width: 1px;
+		opacity: 0.85;
 		}
 	.pathOn {
 		fill: none;
-		stroke-width: 1px;
-		opacity: 1;	
-		stroke: lightgrey;	
+		stroke-width: 2px;
+		opacity: 1;		
 		}	
 	.rShade {
 		fill: lightgrey;
