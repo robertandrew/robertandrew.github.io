@@ -1,0 +1,99 @@
+/* Author:
+
+ */
+
+#headDeck {
+	position:relative;
+	margin-top:8px;
+	margin-bottom:8px;
+	width:959px;
+}
+#head {
+	font-family: 'Dispatch', Georgia, 'Century Schoolbook', 'Times New Roman', Times, serif;
+	font-size: 2.8em;
+	margin-bottom: 4px;
+}
+.graphic_byline {
+	clear:both;
+	font-size: 1.2em;
+	color:#999;
+	margin-top:4px;
+}
+.dek {
+	width:959px;
+	font-size: 1.3em;
+	line-height: 1.6em;
+	background-color: pink;	
+
+}
+
+.dek h3 {
+	
+	}
+#share_holder {
+	float:right;
+	width:50px;
+	height:70px;
+	right:30px;
+	bottom:22px;
+	padding:10px;
+	margin-left:20px;
+	font-family: 'Dispatch', Georgia, 'Century Schoolbook', 'Times New Roman', Times, serif;
+	font-weight: bold;
+	font-size: 14px;
+	color:#999;
+}
+#socialtools {
+	position: relative;
+	float: right;
+	margin-top:5px;
+}
+.btns {
+	border-radius: 6px;
+	color: #999999;
+	border: solid 2px #aaa;
+	float: left;
+	padding: 1px 1px;
+	margin-top:5px;
+	margin-right:15px;
+	text-align:center;
+	min-width:110px;
+	cursor:pointer;
+}
+.btns:hover {
+	background-color: #999999;
+	color: #333;
+	border: solid 2px #333;
+}
+#sourceLine {
+	clear:both;
+	position: relative;
+	font-size: 1.1em;
+	line-height: 1.4em;
+	color: #999;
+	position:relative;
+	margin-top:8px;
+	margin-bottom:30px;
+	width:959px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.shadow {
+	-moz-box-shadow: 3px 3px 10px #444;
+	-webkit-box-shadow: 3px 3px 10px #444;
+	box-shadow: 3px 3px 10px #444;
+	/* For IE 8 */
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#444444')";
+	/* For IE 5.5 - 7 */
+	/*filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#444444');  because this conflicts with the overflow property */
+}
+.unselectable {
+	/* FOR USE WITH ELEMENTS (LIKE BUTTONS) WHERE THE TEXT SHOULD NOT BE SELECTABLE */
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
