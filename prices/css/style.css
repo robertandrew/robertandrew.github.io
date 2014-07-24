@@ -97,3 +97,24 @@
 	user-select: none;
 }
 
+.buttOn rect{
+	opacity: 1;
+		
+	}
+
+.buttOn text{
+	font-weight: bold;
+	fill: white;	
+	text-anchor: middle;
+	}
+
+.buttOff rect {
+	opacity: 0.5;	
+	}
+
+.buttOff text{
+	font-weight: light;
+	fill: black;		
+	text-anchor: middle;
+	}
+
