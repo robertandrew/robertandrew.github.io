@@ -23,7 +23,7 @@ var decader = d3.scale.ordinal()
 	.range([1940,1950,1960,1970,1980,1990,2000,2010]);
 
 
-var colors = d3.scale.category10();
+var colors = d3.scale.category20();
 
 var colorize = d3.scale.ordinal()
 	.range(['red','orange','green','blue','purple','black'])
