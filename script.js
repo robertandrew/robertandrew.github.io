@@ -76,7 +76,7 @@ function bars(){
 		.selectAll('div')
 		.data(smart)
 		.enter();
-	
+	 
 	//update
 	var svg = selection.append('svg')
 		.attr('height',chartSize + cPad + cPad)
