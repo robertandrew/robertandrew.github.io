@@ -336,7 +336,7 @@ function bars(dater){
 
 
 //DATA DEPENDENT
-d3.tsv('contribDetailFlub.csv',function(error,data){
+d3.tsv('gdpContrib.tsv',function(error,data){
 	
 	keySet = data.filter(function(d,i){return d.date == "dummy"});
 	
