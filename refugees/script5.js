@@ -61,7 +61,6 @@ var piv = [];
 
 function key(){
 	var keyData = [];
-	\;kjmkkklklkj	
 	
 	}
 
