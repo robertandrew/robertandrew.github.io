@@ -1,0 +1,106 @@
+type,label,summary
+religion,Ahmadiyya,other
+religion,Ancestral Worship,other
+religion,Animist,other
+religion,Atheist,athiest/none
+religion,Bahai,other
+religion,Baptist,christian
+religion,Buddhist,buddhist
+religion,Catholic,christian
+religion,Chaldean,christian
+religion,Christian,christian
+religion,Coptic,christian
+religion,Evangelical Christian,christian
+religion,Hindu,hindu
+religion,Jehovah Witness,christian
+religion,Jewish,jewish
+religion,Kaaka'i,other
+religion,Kirat,other
+religion,Lutheran,christian
+religion,Methodist,christian
+religion,Moslem,muslim
+religion,Moslem Shiite,muslim
+religion,Moslem Suni,muslim
+religion,No Religion,athiest/none
+religion,Orthodox,christian
+religion,Other Religion,other
+religion,Pentecostalist,christian
+religion,Protestant,christian
+religion,Russian Orthodox,christian
+religion,Sabeans-Mandean,other
+religion,Seventh Day Adventist,christian
+religion,Uniate,other
+religion,Unknown,other
+religion,Yazidi,muslim
+religion,Zoroastrian,other
+,,
+country,Afghanistan,asia
+country,Angola,africa
+country,Armenia,europe
+country,Azerbaijan,europe
+country,Belarus,europe
+country,Bhutan,asia
+country,Burma,asia
+country,Burundi,africa
+country,Cambodia,asia
+country,Central African Republic,africa
+country,Chad,africa
+country,China,asia
+country,Colombia,south america
+country,Congo,africa
+country,Cuba,central american and the caribbean
+country,Dem. Rep. Congo,africa
+country,Egypt,africa
+country,Eritrea,africa
+country,Ethiopia,africa
+country,Gabon,africa
+country,Gambia,africa
+country,Georgia,europe
+country,Ghana,africa
+country,Guatemala,central american and the caribbean
+country,Guinea,africa
+country,Honduras,central american and the caribbean
+country,India,asia
+country,Indonesia,asia
+country,Iran,asia
+country,Iraq,asia
+country,Ivory Coast,africa
+country,Jordan,asia
+country,Kazakhstan,asia
+country,Kenya,africa
+country,"Korea, North",asia
+country,Kuwait,asia
+country,Kyrgyzstan,asia
+country,Laos,asia
+country,Latvia,europe
+country,Lebanon,asia
+country,Liberia,africa
+country,Libya,africa
+country,Malaysia,asia
+country,Mauritania,africa
+country,Moldova,europe
+country,Nepal,asia
+country,Netherlands,europe
+country,Nigeria,africa
+country,Pakistan,asia
+country,Palestine,asia
+country,Russia,europe
+country,Rwanda,africa
+country,Saudi Arabia,asia
+country,Senegal,africa
+country,Sierra Leone,africa
+country,Somalia,africa
+country,Sri Lanka (Ceylon),asia
+country,Sudan,africa
+country,Sweden,europe
+country,Syria,asia
+country,Tanzania,africa
+country,Thailand,asia
+country,Togo,africa
+country,Tunisia,africa
+country,Turkmenistan,asia
+country,Uganda,africa
+country,Ukraine,europe
+country,Uzbekistan,asia
+country,Vietnam,asia
+country,Zimbabwe,africa
