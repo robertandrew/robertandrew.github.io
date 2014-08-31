@@ -1,0 +1,101 @@
+.hed {
+	font-family: 'Dispatch', Georgia, 'Century Schoolbook', 'Times New Roman', Times, serif;
+	font-size: 2.8em;
+	margin-bottom: 4px;
+}
+.source {
+	clear:both;
+	font-size: 1.2em;
+	color:#999;
+	margin-top:4px;
+}
+.dek {
+	width:959px;
+	font-size: 1.5em;
+	line-height: 1em;
+	background-color: black;
+	color: white;	
+	opacity: 0.8;
+	font-family: sans-serif;
+}
+
+.sourceLine {
+	clear:both;
+	position: relative;
+	font-size: 1.1em;
+	line-height: 1.4em;
+	color: #999;
+	position:relative;
+	margin-top:8px;
+	margin-bottom:30px;
+	width:959px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.tooltip, .label {
+	font-weight: bold;
+	fill: black;	
+	font-family: sans-serif;
+	font-size: 70%;
+	
+	}
+
+.buttOn text {
+	font-weight: bold;
+	fill: black;	
+	text-anchor: middle;
+	font-family: sans-serif;
+	}
+	
+.buttOn circle {
+	opacity: 1;	
+	}
+
+.buttOff circle {
+	opacity: 0.3;	
+	}
+
+.buttOff text { 
+	font-weight: light;
+	fill: black;		
+	text-anchor: middle;
+	font-family: sans-serif;
+	
+	}
+
+.qOn {
+	fill: black;
+	stroke-width: 1px;		
+	stroke: black;	
+
+	}	
+
+.qOff {
+	fill: white;
+	stroke-width: 1 px;
+	stroke: black;
+	}
+
+	
+	.axis text {
+		font-family: sans-serif;
+		font-size: 10px;
+		font-weight: lighter;
+		fill: black;
+		text-anchor: start;
+	}	
+	
+	.axis line {
+	  fill: none;
+	  stroke: black;
+	  stroke-weight: 1px;
+	  shape-rendering: crispEdges;
+	}
+
+	.axis path {
+	  fill: none;
+	  stroke: black;
+	  stroke-weight: 1px;
+	  shape-rendering: crispEdges;
+	}
