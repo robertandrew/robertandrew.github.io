@@ -85,6 +85,15 @@
 		fill: black;
 		text-anchor: start;
 	}	
+
+	#years text {
+		font-family: sans-serif;
+		font-size: 12px;
+		font-weight: ;
+		fill: grey;
+		text-anchor: start;
+	}	
+
 	
 	.axis line {
 	  fill: none;
@@ -95,7 +104,14 @@
 
 	.axis path {
 	  fill: none;
-	  stroke: black;
+	  stroke: none;
 	  stroke-weight: 1px;
 	  shape-rendering: crispEdges;
 	}
+	
+	.dashed {
+		stroke:black;
+		stroke-dasharray:1 2.5;
+		stroke-width:1;
+		stroke-opacity:.5		
+		}
