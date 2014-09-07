@@ -1,0 +1,246 @@
+<?php $on_local = stristr($_SERVER["SERVER_NAME"], "localhost") || stristr($_SERVER["SERVER_NAME"], "10."); ?>
+<!doctype html>
+<!--[if lt IE 7 ]>
+<html lang="en" class="no-js ie6">
+<![endif]-->
+<!--[if IE 7 ]>
+<html lang="en" class="no-js ie7">
+<![endif]-->
+
+<!--[if IE 8 ]>
+<html lang="en" class="no-js ie8">
+<![endif]-->
+
+<!--[if IE 9 ]>
+<html lang="en" class="no-js ie9">
+<![endif]-->
+
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+
+	<title>Graphic title here - WSJ.com</title><!-- EDIT ME -->
+
+	<link rel="canonical" href="FINAL LIVE URL"/>
+
+	<link rel="shortcut icon" href="http://si.wsj.net/favicon.ico"/>
+	<link rel="apple-touch-icon" href="http://s.wsj.net/apple-touch-icon.png"/>
+
+	<!-- ipad -->
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="format-detection" content="telephone=no">
+
+	<!-- meta tags -->
+	<link rel="image_src" href=""/>  <!-- this should be a promo thumbnail type image. Used by FB and others for link sharing-->
+	<meta name="author" content="Unknown" />
+	<meta name="title" content=""/>
+	<meta name="description" content=""/>
+	<meta name="keywords" content=""/>
+	<meta name="news_keywords" content="">
+
+	<meta property="og:image" content=""/>
+	<meta property="og:title" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:type" content="article"/>
+	<meta property="og:site_name" content="The Wall Street Journal"/>
+
+
+	<meta name="twitter:card" content="photo">
+	<meta name="twitter:site" content="@wsj">
+	<meta name="twitter:title" content="">
+	<meta name="twitter:domain" content="WSJ.com">
+	<meta name="twitter:description" content="">
+	<meta name="twitter:image:src" content="">
+
+   	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+   	<meta name="google-site-verification" content="JYa5qLslOJIJdzTMdzYBQUSMFSyVOW2aE1KJ-i9U_ww"/>
+
+    <!-- tracking -->
+	<script type="text/javascript" src="http://online.wsj.com/public/resources/documents/WSJ_Interactive_TrackingAndAdsv6.min.js"></script>
+
+	<!-- CUSTOM FONTS -->
+	<!-- <link rel="stylesheet" href="http://fonts.wsj.com/k/qox0wee-d.css"/> --><!-- Kulturista -->
+	<!-- <link href="http://cloud.webtype.com/css/46460709-3c3e-42ff-bb5b-e98f66f43528.css" rel="stylesheet" type="text/css" /> --><!-- Escrow -->
+	<link href="http://cloud.webtype.com/css/3b9ba193-dca7-423a-bef1-4f7e650bf91f.css" rel="stylesheet" type="text/css" /><!-- Stainless -->
+
+	<!-- This is where YOUR style sheet goes -->
+	<link rel="stylesheet" href="css/global.css"/>
+	<link rel="stylesheet" href="css/jquery.socialclimber.css"/>
+	<link rel="stylesheet" href="css/style.css"/>
+
+</head>
+
+<body>
+	<div class="top-header">
+		<a href="http://wsj.com" title="The Wall Street Journal"><img src="img/wsj.png"></a>
+	</div>
+
+	<div id="top_ad"><iframe src="http://ad.doubleclick.net/adi/interactive.wsj.com/sports_interactive;!category=;sz=728x90;ord=8921892189218921;" width="728" height="90" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no"></iframe></div>
+
+    <!-- Main Page Starts -->
+	<div id="main-wrapper">
+
+		<div id="main-content">
+
+			<header>
+				<div class="social-links"></div>
+				<h1>The Housing Interactive</h1>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. In, aperiam, animi, impedit, adipisci facilis ducimus eius perferendis dolores totam assumenda dolorem rem sunt repellendus aut incidunt tempore neque iure asperiores.</p>
+			</header>
+
+			<section>
+			
+				<div id="widgetContainer">
+					<div class="widget" id="construction">
+						<div class="widgetHeader"><p>Construction</p></div>
+						<div class="widgetHedDekWrap">
+							<p class="widgetHed">Housing starts</p>
+							<p class="widgetDek">A measure of the number of homes on which builders began construction. It usually takes around 6 months to complete a single-family home, and a full year to complete a multifamily unit, which is typically part of an apartment complex. During a traditional economic recovery, construction is a key driver of growth.<br><span>All figures are seasonally adjusted</span></p>
+						</div>
+						<div class="chartContainer">
+							<div class="longChartContainer">
+								<div class="longChartHedDekWrap">
+									<p class="chartHed">Single and multi family homes</p>
+									<p class="chartDek">Number of homes</p>
+									<div id="contructionSingleMulti"></div>
+								</div>								
+							</div><!--closes longChartContainer -->
+							<div class="shortChartContainer">
+								<div class="shortChartHedDekWrap">
+									<p class="chartHed">Single family homes</p>
+									<p class="chartDek">Change from previous month</p>
+									<div class="shortChart" id="contructionSingle"></div>
+								</div>
+								<div class="shortChartHedDekWrap">
+									<p class="chartHed">Multi family homes</p>
+									<p class="chartDek">Change from previous month</p>
+									<div class="shortChart" id="contructionMulti">
+								</div>
+								
+								</div>
+							</div><!--closes shortChartContainer -->
+						</div><!--closes chartContainer -->
+						<div class="spacer"></div>
+					</div>
+					<div class="widget" id="volume">
+						<div class="widgetHeader"><p>Volume</p></div>
+						<div class="widgetHedDekWrap">
+							<p class="widgetHed">Home sales</p>
+							<p class="widgetDek">Home sales offer the best gauge of housing demand at prevailing prices and interest rates. Sales of new homes tend to pack a bigger punch for overall economic growth, but they remain well below their pre-bubble levels.<br><span>All figures are seasonally adjusted</span></p>
+						</div>
+						<div class="chartContainer">
+							<div class="longChartContainer">
+								<div class="longChartHedDekWrap">								
+									<p class="chartHed">Existing home sales</p>
+									<p class="chartDek">Number of homes</p>
+									<div class="longChart" id="volumeExistingLong"></div>								
+								</div>
+								<div class="longChartHedDekWrap">	
+									<p class="chartHed">New home sales</p>
+									<p class="chartDek">Number of homes</p>
+									<div class="longChart" id="volumeNewLong"></div>
+								</div>
+							</div>
+							<div class="shortChartContainer">
+								<div class="shortChartHedDekWrap">
+									<p class="chartHed">Existing home sales</p>
+									<p class="chartDek">Change from previous month</p>
+									<div class="shortChart" id="volumeExistingShort"></div>
+								</div>	
+								<div class="shortChartHedDekWrap">
+									<p class="chartHed">New home sales</p>
+									<p class="chartDek">Change from previous month</p>
+									<div class="shortChart" id="volumeNewShort"></div>
+								</div>
+							</div>
+						</div><!--closes chartContainer -->
+						<div class="spacer"></div>
+					</div>
+					<div class="widget" id="value">
+						<div class="widgetHeader"><p>Value</p></div>
+						<div class="widgetHedDekWrap">
+							<p class="widgetHed">Case-Shiller index</p>
+							<p class="widgetDek">The Case-Shiller index measures prices on home resales in 20 major U.S. markets. They’re reported on a three-month moving average with a lag, meaning they don’t provide the most up-to-date picture of market conditions.</p>
+						</div>
+						<div class="chartContainer">
+							<div class="longChartContainer">
+								<div class="shortChartHedDekWrap">	
+									<p class="chartHed">Case-Shriller index</p>
+									<p class="chartDek">Cumulative change from 2000</p>
+									<div class="longChart" id="valueLong"></div>
+								</div>
+							</div>
+							<div class="shortChartContainer">							
+								<div class="shortChartHedDekWrap">	
+									<p class="chartHed">Case-Shriller index</p>
+									<p class="chartDek">Change from a year ago</p>
+									<div class="shortChart" id="valueShort"></div>
+								</div>
+							</div>
+						</div><!--closes chartContainer -->
+						<div class="spacer"></div>
+					</div>
+					<div class="widget" id="supply">
+						<div class="widgetHeader"><p>Supply</p></div>
+						<div class="widgetHedDekWrap">
+							<p class="widgetHed">Months’ supply</p>
+							<p class="widgetDek">The amount of time it would take, in months, to sell the stock of homes listed for sale at the current sales pace. The National Association of Realtors considers a six-month supply to be a balanced market.</p>
+						</div>
+						<div class="chartContainer">
+							<div class="longChartContainer">
+								<p class="chartHed">Month's supply</p>
+								<p class="chartDek">Number of months</p>
+								<div class="longChart" id="monthsSupply"></div>
+							</div>	
+						</div><!--closes chartContainer -->
+						<div class="spacer"></div>
+					</div>
+				</div><!--  closes #widgetContainer -->
+
+
+
+			</section>
+
+			<footer>
+				<div id="source-line">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, enim.</div>
+			</footer>
+
+		</div>
+
+	</div> <!-- end of #main-wrapper -->
+
+	<script type="text/javascript" src="http://fonts.wsj.com/loc2hgm.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.min.js"></script>
+	<script src="js/libs/jquery.socialclimber.js"></script>
+	<script src="js/libs/jquery.address.min.js"></script>
+	<script src="js/common.js"></script>
+
+	<!-- tracking -->
+	<script type="text/javascript">
+		var proj_id = "Interactive proj ID";
+		var proj_headline = "Interactive proj HEADLINE";
+
+		var trackingOpts = {
+			pageName_over:"WSJ_infogrfx_interactive_"+proj_id+"_"+proj_headline
+		};
+
+		window.countPage(proj_id, proj_headline, "", trackingOpts);
+	</script>
+
+	<script type="text/javascript" src="js/script.js"></script>
+
+	<script type="text/javascript">
+    (function(a,b,c,d){
+    a='//tags.tiqcdn.com/utag/wsjdn/newsgraphics/prod/utag.js';
+    b=document;c='script';d=b.createElement(c);d.src=a;d.type='text/java'+c;d.async=true;
+    a=b.getElementsByTagName(c)[0];a.parentNode.insertBefore(d,a);
+    })();
+    </script>
+</body>
+</html>
