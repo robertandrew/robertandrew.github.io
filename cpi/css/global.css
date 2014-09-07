@@ -1,0 +1,300 @@
+/** Global Styles **/
+/*this style includes a IE css hack*/	
+
+HTML {
+	background-color:#fff;
+}
+
+a.hidden {
+	display:none !important;
+}
+
+
+ul.hidden {
+	display:none !important;
+}
+
+li.hidden {
+	display:none !important;
+}
+
+tr.hidden {
+	display:none !important;
+}
+
+td.hidden {
+	display:none !important;	
+}
+
+div.hidden {
+	display:none !important;	
+}
+
+img.hidden {
+	display:none !important;	
+}
+
+table.hidden {
+	display:none !important;	
+}
+
+span.hidden {
+	display:none !important;
+}
+
+input.hidden {
+	display:none !important;
+}
+
+fieldset.hidden{
+	display:none !important;
+}
+
+h4.hidden{
+	display:none !important;
+}
+
+.ie6 .colOverflowTruncated {
+	overflow-x: hidden; /* this was only needed to prevent IE6 from stretching divs and breaking layout. making overflow-x instead of regular overflow: */
+}
+
+.ie6 .col1wide, .ie6 .col2wide, .ie6 .col3wide, .ie6 .col4wide, .ie6 .col5wide, .ie6 .col6wide, .ie6 .col7wide, .ie6 .col8wide, .ie6 .col9wide, .ie6 .col10wide {
+	display: inline;
+	/* fix for IE6's beloved 'double-margins on floats' bug */
+}
+
+.ie6 textarea {
+	overflow-y: auto;
+	/* Because IE6 shows scrollbars on textareas by default */
+}
+
+
+/*
+	
+	Date: 	4/10/08 5:37:06 PM
+	
+	File:	reset.css
+	
+	Disc: 	resets elements to a base setting
+	
+	Notes:	
+	
+*/
+
+/*	= YAHOO RESET
+---------------------------------------------------------- */
+
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}ol,ul {list-style:none;}caption,th {text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym {border:0;}
+
+ul {
+	list-style-type: none;
+}
+
+a:link {
+	color: #093d72;
+	text-decoration: none;
+}
+
+
+
+a:visited {
+	color: #093d72;
+	text-decoration: none;
+	outline:none;
+}
+
+a:hover {
+/*	color:#ff6c00;
+*/	color:#bb4606;
+	outline:none;
+}
+
+h5 {
+	font-style:normal;
+	font-weight:normal;
+	font-size:.689em;
+	display:block;
+}
+
+h5 a {
+	text-transform:uppercase;
+}
+
+img {
+	border:none;
+}
+
+/*
+	
+	Date: 	4/10/08 5:37:33 PM
+	
+	File:	grid.css
+	
+	Disc: 	Sets up the various grids used throughout the website.
+	
+	Notes:	Based on 10 Col Grid - 86px Column Widths and 11px Gutters
+	
+			the Sumatory of Col Widths Can Not Be over the Width of 
+			Their Containing Shell
+			
+			In Ie Explore Can Not Be Over 99%
+			
+			When the Width Limit Is Passed the Last Float 
+			Will Be Positioned Under the First Column, i.e. wrapped down
+			
+			
+*/
+
+.col1wide, .col2wide, .innerCol2wide, .col2wideWithMarginBig, .col3wide, .col4wide, .innerCol4wide, .col4wideWithShadow, .col6wideWithShadow, .col5wide, .col6wide, .col7wide, .col8wide, .col9wide, .col10wide {
+	float: left;
+	padding: 0;
+	margin: 0;
+}
+
+
+/* ---- MARGIN WIDTHS ---- */
+
+.margin-left {
+	margin-left: 11px;
+}
+
+.margin-right {
+	margin-right: 11px;
+}
+
+.margin-left-big {
+	margin-left: 17px;
+}
+
+.margin-right-big {
+	margin-right: 15px;
+}
+
+.padding-right-big {
+	padding-right: 15px;
+}
+
+.padding-left-big {
+	padding-left: 15px;
+}
+
+/* ---- COLUMN WIDTHS ---- */
+
+.col1wide {
+	width: 86px;
+}
+
+.col2wide, .innerCol2wide {
+	width: 183px;
+}
+
+.col2wideWithMarginBig{ /* col2wide + 17px  */
+	width:198px;
+}
+
+.col3wide {
+	width: 280px;
+}
+
+.col4wide, .innerCol4wide {
+	width: 377px;
+}
+
+.col4wideWithShadow {
+  margin-left: 7px; 	
+  width: 385px;
+}  
+
+.col5wide {
+	width: 474px;
+}
+
+.col6wide {
+	width: 571px;
+}
+
+.col6wideWithShadow {
+margin-left:7px;
+width:579px;
+}
+
+.col7wide {
+	width: 668px;
+}
+
+.col8wide {
+	width: 765px;
+}
+
+.col9wide {
+	width: 862px;
+}
+
+.col10wide {
+	width: 959px;
+}
+
+
+.centered {
+	margin: 0 auto 0 auto;
+	float: none;
+	display: block;
+}
+
+.clear-both {
+	clear: both;
+	margin: 0px;
+	padding: 0px;
+}
+
+.clear-right {
+	clear: right;
+	margin-right: 0px;
+}
+.clear-left {
+	clear: left;
+	margin-left: 0px;
+}
+
+
+/*nonSub import*/
+.fullwide {
+	background-color: white;
+	margin: 0 auto;
+	width: 993px;
+	background-image: url(../img/nonsub_bg.gif);
+	background-repeat: repeat-y;
+	background-position: top center;
+}
+
+.reallywide {
+	display: block;
+	width: 989px;
+	margin: 0 2px 0 2px;
+}
+
+/* Clearfixing fullwide */
+.fullwide:after {
+	content: " ";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+	font-size:0;
+}
+
+/* IE6 fix for same */
+* html .fullwide {
+	height: 1%;
+}
+
+/* IE7 fix for same */
+
+.fullwide {
+	zoom: 1;
+}
+
+/* add to main fullwide container to see the grid image background */
+.grid {
+	background-image: url(../img/gridBackground.png);
+}
