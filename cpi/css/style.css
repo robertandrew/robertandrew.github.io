@@ -1,190 +1,159 @@
+/* Author:
 
+ */
 
-/* default styles */
-
-#widgetContainer{
-	width: 959px;
-	margin: 0 auto;
+#headDeck {
+	position:relative;
+	margin-top:8px;
+	margin-bottom:8px;
+	width:959px;
 }
-#widgetContainer .widget{
-	width: 100%;
-	margin: 2em 0;
+#head {
+	font-family: 'Dispatch', Georgia, 'Century Schoolbook', 'Times New Roman', Times, serif;
+	font-size: 2.8em;
+	margin-bottom: 4px;
 }
-.widgetHeader{
-	height: 1.5em;
-	background-color: #666;
-	margin-bottom: 1em;
-	padding: 0.5em 0 0.5em 0;
+.graphic_byline {
+	clear:both;
+	font-size: 1.2em;
+	color:#999;
+	margin-top:4px;
 }
-.widgetHeader p{
-	color: white;
-	padding-left: 11px;
-	font-family: 'OLDStainless', Georgia, serif;
-	font-size: 1.5em;
+.dek {
+	width:959px;
+	font-size: 1.3em;
+	line-height: 1.6em;
 }
-.widgetHedDekWrap{
-	width: 183px;
-	float:left;
-	padding-left: 11px;
-	margin-top: 5px;
-	box-sizing: border-box;
-}
-.widgetHed{
-	font-size: 18px;
-	font-weight: bold;
-}
-.widgetDek{
-	margin-top:1em;
-	font-size: 13px;
-	line-height: 18px;
-}
-.widgetDek span{
-	font-weight: bold;
-	font-style: italic;
-	line-height: 20px;
-}
-.chartContainer{
-	width: 765px;
+#share_holder {
 	float:right;
-}
-.shortChartContainer{
-	float:right;
-}
-.longChartContainer{
-	float:left;
-}
-.shortChart{
-	width: 280px;
-	height: 180px;
-	margin-top: 11px;
-	border: 1px solid;
-}
-.longChart{
-	width: 474px;
-	height: 180px;
-	margin-top: 11px;
-	border: 1px solid;
-}
-.chartHed, .chartDek{
-	padding: 5px 0 0 11px;
-	box-sizing: border-box;
-}
-.shortChartHedDekWrap .chartHed, 
-.shortChartHedDekWrap .chartDek{
-	width: 280px;
-}
-.longChartHedDekWrap .chartHed, 
-.longChartHedDekWrap .chartDek{
-	width: 474px;
-}
-.chartHed{
-	font-size: 16px;
+	width:50px;
+	height:70px;
+	right:30px;
+	bottom:22px;
+	padding:10px;
+	margin-left:20px;
+	font-family: 'Dispatch', Georgia, 'Century Schoolbook', 'Times New Roman', Times, serif;
 	font-weight: bold;
+	font-size: 14px;
+	color:#999;
 }
-.chartDek{
-	font-size: 13px;
-	line-height: 16px;
+#socialtools {
+	position: relative;
+	float: right;
+	margin-top:5px;
 }
+.btns {
+	border-radius: 6px;
+	color: #999999;
+	border: solid 2px #aaa;
+	float: left;
+	padding: 1px 1px;
+	margin-top:5px;
+	margin-right:15px;
+	text-align:center;
+	min-width:110px;
+	cursor:pointer;
+}
+.btns:hover {
+	background-color: #999999;
+	color: #333;
+	border: solid 2px #333;
+}
+#sourceLine {
+	clear:both;
+	position: relative;
+	font-size: 1.1em;
+	line-height: 1.4em;
+	color: #999;
+	position:relative;
+	margin-top:8px;
+	margin-bottom:30px;
+	width:959px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.shadow {
+	-moz-box-shadow: 3px 3px 10px #444;
+	-webkit-box-shadow: 3px 3px 10px #444;
+	box-shadow: 3px 3px 10px #444;
+	/* For IE 8 */
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#444444')";
+	/* For IE 5.5 - 7 */
+	/*filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#444444');  because this conflicts with the overflow property */
+}
+.unselectable {
+	/* FOR USE WITH ELEMENTS (LIKE BUTTONS) WHERE THE TEXT SHOULD NOT BE SELECTABLE */
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+/*add in my own CSS*/
+	
+
 .spacer{
 	clear: both;
 	padding-bottom: 1em;
 }
 
-/* Default styles for individual charts */
-#contructionSingleMulti{
-	width: 474px;
-	height: 415px;
-	display: inline-block;
-	margin-top: 11px;
-	border: 1px solid;
-}
+.chartDek {
+	font-size: 1.3em;
+	font-weight:normal;	
+	}
+
+.chartLabel {
+	font-size: 1.3em;
+	font-style: italic;	
+	}	
+
+#year text {
+	font-weight: bold;
+	opacity: 0.7;	
+	}
+	
+h3 {
+	font-family: 'OLDStainless', Georgia, serif;
+	font-size: 2em;
+	font-weight: light;
+	color:grey;
+	line-height:1.2em;	
+	margin:11px
+	}
 
 
+.chart, .cpiCharts {
+	width: 959px;	
+	float: none;
+	}
 
-
-
-
-
-/* media queries */
+.chartContainer, .chartHeder, .chartDek, .chartLabel {
+	width: 765px;
+	float:none;	
+		
+	}
+	
+/* media queries from Renee */
 
 @media (max-width: 959px){
-	#widgetContainer{
+	.chart, .cpiCharts {
 		width: 650px;
-	}
-	.widgetHedDekWrap{
+		}
+	
+	.chartContainer, .chartHeder, .chartDek, .chartLabel  {
 		width: 571px;
-		margin: 0 auto;
-		float: none;
-	}
-	.chartContainer{
-		width: 571px;
-		margin: 0 auto;
-		float:none;
-		margin-top: 1.5em;
-	}
-	.shortChartContainer, .longChartContainer{
-		float:none;
-	}
-	.longChart{
-		width: 571px;
-	}
-	.shortChartHedDekWrap:first-child{
-		float:left;
-	}
-	.shortChartHedDekWrap:nth-child(2){
-		float:right;
-	}
-	.longChartHedDekWrap .chartHed, 
-	.longChartHedDekWrap .chartDek{
-		width: 571px;
+		}	
 	}
 	
-	/* styles for individual charts */
-	#contructionSingleMulti{
-		width: 571px;
-		height: 320px;
-		margin-top: 1em;
-	}
-
-}
-
+	
 @media (max-width: 650px){
-	#widgetContainer{
+	.chart, .cpiCharts {
 		width: 350px;
-	}
-	.widgetHeader p{
-		padding: 0;
-		text-align: center;
-	}
-	.widgetHedDekWrap{
-		width: 280px;
-		padding: 0;
-	}
-	.chartContainer{
-		width: 280px;
-	}
-	.shortChartContainer{
-		width: 280px;
-	}
-	.longChart{
-		width: 280px;
-	}
-	.shortChartHedDekWrap .chartHed, 
-	.shortChartHedDekWrap .chartDek{
-		width: 280px;
-	}
-	.longChartHedDekWrap .chartHed, 
-	.longChartHedDekWrap .chartDek{
-		width: 280px;
-	}
-	.chartHed, .chartDek{
-		padding: 5px 0 0 0;
-	}
+		}
 	
-	/* styles for individual charts */
-	#contructionSingleMulti{
+	.chartContainer, .chartHeder, .chartDek, .chartLabel {
 		width: 280px;
-		height: 180px;
+		}
 	}
-
-}
