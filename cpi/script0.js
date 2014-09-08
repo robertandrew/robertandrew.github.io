@@ -226,7 +226,7 @@ d3.tsv('priceItems.tsv', function(error, data) {
 	d3.tsv('priceArea.tsv', function(error1, data1) {
 		d3.tsv('priceSeries.tsv', function(error2, data2) {
 			d3.tsv('pricePeriods.tsv', function(error3, data3) {
-				d3.tsv('priceValues.tsv', function(error4, data4) {
+				d3.tsv('http://download.bls.gov/pub/time.series/ap/ap.data.0.Current', function(error4, data4) {
 
 					//SET ALL DOMAINS/RANGES
 					
