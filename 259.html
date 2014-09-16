@@ -1,0 +1,71 @@
+<html lang="en" class="no-js">
+<!--<![endif]-->
+
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+
+	<title>Graphic title here - WSJ.com</title><!-- EDIT ME -->	
+	<!-- This is where YOUR style sheet goes -->
+	<link rel="stylesheet" href="cpi/css/wsj_interactive.css"/>
+	<link rel="stylesheet" href="cpi/css/global.css"/>
+	<link rel="stylesheet" href="cpi/css/style.css"/>
+
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript" src="d3.v3.min.js"></script>	
+
+	<script type="text/javascript" src="cpi/script9.js"></script>
+</head>
+<body>
+	<div id="main-wrapper">
+		<div id="main-content"></div>
+		<div class="social-links"></div>
+
+		<!--standard WSJ stuff ends-->
+		<div class='cpiCharts'>
+		<div id="mainHed">
+			<h1>What's Changed?</h1>
+			<p class="chartDek">The Labor Department measures the prices of hundreds of items each month, and releases them sorted by both category and item. Consumer prices overall have remained steady, in global terms, over the past few decades, but that resilience masks fluctuations in individual items and categories.</p>
+		</div>	
+	
+		<div class="chart" id="LINER">
+			<div class="chartHeder">			
+			<h3>The consumer price index</h3>
+			<p class="chartDek">The most common view is year-over-year change in consumer prices, which shows inflation and, in rare cases, deflation.</p>		
+			<p class="chartLabel">Change from a year earlier in consumer prices</p>		
+			</div>
+			<div class="chartContainer"><svg></svg></div>
+		</div>
+
+		<div class="spacer"></div>
+
+		<div class="chart" id="CATTER">
+			<h3>Broad groups of goods and services</h3>
+			<p class="chartDek">In addition to the widely watched headline and core indexes, the BLS indexes the prices of goods and services in dozens of smaller categories.</p>
+			<p class="chartLabel">Change since <span id="startYear"></span> in indexed prices for major categories.</p>
+			<div class="chartContainer">
+				<div id="LINES"><svg></svg></div>
+				<div id="LABELS"></div>
+			</div>			
+		</div>
+
+		<div class="spacer"></div>
+			
+		<div class="chart" id="PRICER">
+			<h3>Specific prices for food and energy</h3>
+			<p class="chartDek">For certain consumer goods, the BLS goes a step farther and releases average price data</p>		
+			<p class="chartLabel">How prices have evolved since <span id="startYear"></span> for select consumer goods.</p>		
+			<div class="chartContainer">
+				<div class="column" id="LABELS">
+					<div class="row" id="LABELS"></div>
+					</div>
+				<div class="column" id="CELLS"></div>				
+			</div>
+		</div>
+
+		</div><!--close CPI charts-->
+	</div><!--close main wrapper-->
+	</div><!--close main content-->
+	
+	</body>
+	</html>
