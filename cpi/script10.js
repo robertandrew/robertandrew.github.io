@@ -483,10 +483,10 @@ function callAll() {
 
 
 //Load the index data
-d3.tsv('indexItems.tsv', function(iError, iData) {
-	d3.tsv('indexArea.tsv', function(iError1, iData1) {
-		d3.tsv('indexSeries.tsv', function(iError2, iData2) {
-			d3.tsv('indexValues.tsv', function(iError4, iData4) {				
+d3.tsv('http://download.bls.gov/pub/time.series/cw/cw.item', function(iError, iData) {
+	d3.tsv('http://download.bls.gov/pub/time.series/cw/cw.area', function(iError1, iData1) {
+		d3.tsv('http://download.bls.gov/pub/time.series/cw/cw.series', function(iError2, iData2) {
+			d3.tsv('http://download.bls.gov/pub/time.series/cw/cw.data.0.Current', function(iError4, iData4) {				
 				//Load the price data
 				d3.tsv('priceItems.tsv', function(error, data) {
 					d3.tsv('priceArea.tsv', function(error1, data1) {
