@@ -8,8 +8,8 @@ var cPad = 30;
 var piv = [];
 var duration = 500;
 var startDate = "II2014";
-var neg = "#cc0b24";
-var pos = "#187226";	
+var neg = "purple";
+var pos = "pink";	
 var keyPiv = [];	
 
 var dates = [];
