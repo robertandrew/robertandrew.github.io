@@ -1,0 +1,19 @@
+label	series	id	report
+Mining and logging	CES1000000001	mining	CES1000000001
+Construction	CES2000000001	construction	CES2000000001
+Durable Goods	CES3100000001	durable	CES3100000001
+Nondurable Goods	CES3200000001	nondurable	CES3200000001
+Wholesale trade	CES4142000001	wholesale	CES4142000001
+Retail trade	CES4200000001	retail	CES4200000001
+Transportation and warehousing	CES4300000001	transportation	CES4300000001
+Utilities	CES4422000001	utilities	CES4422000001
+Information	CES5000000001	information	CES5000000001
+Financial activities	CES5500000001	financial	CES5500000001
+Professional and business services	CES6000000001	business	CES6000000001
+Other services	CES8000000001	services	CES8000000001
+Government	CES9000000001	government	CES9000000001
+Health care and social assistance	CES6562000001	health	CES6562000001
+Education	CES6561000001	education	CES6561000001
+Arts, entertainment, and recreation	CES7071000001	arts	CES7071000001
+Accommodation	CES7072100001	accommodation	CES7072100001
+Food services and drinking places	CES7072200001	food	CES7072200001
