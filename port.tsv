@@ -314,3 +314,320 @@ spinning the spinner  http://robertandrew.github.io/304.html 10/29/2014	three	th
 paging the spin doctor  http://robertandrew.github.io/305.html 10/30/2014	three	this site	int
 new croutons  http://robertandrew.github.io/306.html 10/31/2014	three	this site	int
 happy croutons  http://robertandrew.github.io/307.html 11/1/2014	three	this site	int
+label	comments	url	date	tier	ran	context	type
+April job gains	This was my first attempt at the monthly unemployment report, which the WSJ treats as kind of a big deal.	http://si.wsj.net/public/resources/images/P1-BQ004A_ECONO_J_20140502182410.jpg	5/1/2014	one	WSJ front page	http://online.wsj.com/news/interactive/ECONOMY0503?ref=SB10001424052702304178104579537464110122066	static
+How health care subsides are calculated	Obamacare's subsidy caculations are hilariously arcane and nobody understands them. Except Christopher Weaver. And he explained them to me, so that I could visually explain them to everybody else.	http://si.wsj.net/public/resources/images/OG-AA948_SUBSID_G_20140311121508.jpg	2/1/2014	one	WSJ.com	http://online.wsj.com/news/articles/SB10001424052702304704504579431553433457512	static
+Divided D.C.		http://si.wsj.net/public/resources/images/OG-AB120_DCWARD_G_20140403193551.jpg	4/1/2014	two	WSJ Washington Wire	http://blogs.wsj.com/washwire/2014/04/04/politics-counts-d-c-voting-spotlights-divide-among-democrats/	static
+State of the Union versus public opinion		http://si.wsj.net/public/resources/images/NA-BZ881_POLCOU_G_20140131143905.jpg	1/1/2013	two	WSJ Washington Wire	http://blogs.wsj.com/washwire/2014/01/31/politics-counts-obamas-priorities-face-split-nation/	static
+New Jersey's different		http://si.wsj.net/public/resources/images/NA-BY821B_POLCO_G_20131107184820.jpg	11/1/2013	two	WSJ A section	http://blogs.wsj.com/washwire/2013/11/08/politics-counts-no-easy-road-for-christie/	static
+California and Texas are the same		http://si.wsj.net/public/resources/images/NA-BX769_POLCOU_J_20130823142058.jpg	8/1/2013	two	WSJ A section	http://blogs.wsj.com/washwire/2013/08/23/politics-counts-two-big-states-big-split-on-immigration/	static
+Wartime votes along party lines are old hat	I embrace any excuse to use the WSJ's bitchin' stippled hedcuts.	http://si.wsj.net/public/resources/images/WO-AP415B_POLCO_G_20130913193740.jpg	9/1/2013	one	WSJ A section	http://blogs.wsj.com/washwire/2013/09/13/politics-counts-syria-vote-vs-iraq-kosovo-somalia/	static
+Unequal South Africa	Here we have one of those charts I fought for from the ground up, and researched and built without any top-down guidance. Editors do not typically appreciate that sort of thing.	http://si.wsj.net/public/resources/images/WO-AS145_SAMINE_G_20140423185705.jpg	4/1/2014	one	WSJ A section		static
+Cardex		http://robertandrew.github.io/cardex.html	12/31/2013	three	this site		interactive
+Population trend of Japan		http://robertandrew.github.io/one.html	1/1/2014	three	this site		interactive
+Population trend of the Phillipines		http://robertandrew.github.io/two.html	1/2/2014	three	this site		interactive
+Population trend of Madagascar		http://robertandrew.github.io/three.html	1/3/2014	three	this site		interactive
+Birth rate of Puerto Rico		http://robertandrew.github.io/fourone.html	1/4/2014	three	this site		interactive
+Life expectancy in Afghanistan		http://robertandrew.github.io/five.html	1/5/2014	three	this site		interactive
+New Zealand's fertility rate		http://robertandrew.github.io/six.html	1/6/2014	three	this site		interactive
+American Samoa's population at some point		http://robertandrew.github.io/seven.html	1/7/2014	three	this site		interactive
+Population of Argentina, by age		http://robertandrew.github.io/eight.html	1/8/2014	three	this site		interactive
+Population of Equitorial Guinea, by age		http://robertandrew.github.io/nine.html	1/9/2014	three	this site		interactive
+Some mysterious barcodes, which I dare you to scan		http://robertandrew.github.io/ten.html	1/10/2014	three	this site		interactive
+Ratio of males to females in American Samoa, 2014, by age		http://robertandrew.github.io/eleven.html	1/11/2014	three	this site		interactive
+Population density of Denmark, in people per square kilometer		http://robertandrew.github.io/twelve.html	1/12/2014	three	this site		interactive
+Population of New Caledonia		http://robertandrew.github.io/thirteen.html	1/13/2014	three	this site		interactive
+Population growth of Mongolia		http://robertandrew.github.io/fourteen.html	1/14/2014	three	this site		interactive
+Deaths in Mongolia		http://robertandrew.github.io/fifteen.html	1/15/2014	three	this site		interactive
+Population of Mongolia		http://robertandrew.github.io/sixteen.html	1/16/2014	three	this site		interactive
+Birth rate of Mongolia		http://robertandrew.github.io/seventeen.html	1/17/2014	three	this site		interactive
+Population density of Finland		http://robertandrew.github.io/eighteen.html	1/18/2014	three	this site		interactive
+The area of Finland		http://robertandrew.github.io/nineteen.html	1/19/2014	three	this site		interactive
+Gross fertility rate of Estonian women		http://robertandrew.github.io/twenty.html	1/20/2014	three	this site		interactive
+Life expectancy of Estonian men		http://robertandrew.github.io/twentyone.html	1/21/2014	three	this site		interactive
+Infant mortality in Estonia		http://robertandrew.github.io/twentytwo.html	1/22/2014	three	this site		interactive
+Mortality under age 5 in South Africa		http://robertandrew.github.io/twentythree.html	1/23/2014	three	this site		interactive
+African countries by area and population		http://robertandrew.github.io/twentyfour.html	1/24/2014	three	this site		interactive
+Population of African countries, 2002		http://robertandrew.github.io/twentyfive.html	1/25/2014	three	this site		interactive
+South Africa life expectancy		http://robertandrew.github.io/twentysix.html	1/26/2014	three	this site		interactive
+South Africa infant mortality		http://robertandrew.github.io/twentyseven.html	1/27/2014	three	this site		interactive
+Console sales		http://robertandrew.github.io/twentyeight.html	1/28/2014	three	this site		interactive
+World university ranking		http://robertandrew.github.io/twentynine.html	1/29/2014	three	this site		interactive
+Islands by size		http://robertandrew.github.io/thirty.html	1/30/2014	three	this site		interactive
+Frequency of letters in the Finnish language		http://robertandrew.github.io/thirtyone.html	1/31/2014	three	this site		interactive
+Frequency of letters in the French language		http://robertandrew.github.io/thirtytwo.html	2/1/2014	three	this site		interactive
+Frequency of letters in written Spanish		http://robertandrew.github.io/thirtythree.html	2/2/2014	three	this site		interactive
+Frequency of letters in written Swedish		http://robertandrew.github.io/thirtyfour.html	2/3/2014	three	this site		interactive
+Frequency of letters in written Portuguese		http://robertandrew.github.io/thirtyfive.html	2/4/2014	three	this site		interactive
+Frequency of letters in written Spanish and French		http://robertandrew.github.io/thirtysix.html	2/5/2014	three	this site		interactive
+Frequency of letters in written Spanish and German		http://robertandrew.github.io/thirtyseven.html	2/6/2014	three	this site		interactive
+Frequency of letters in written Spanish, Portuguese or French		http://robertandrew.github.io/thirtyeight.html	2/7/2014	three	this site		interactive
+Frequency of letters in written Esperanto, Portuguese or German		http://robertandrew.github.io/thirtynine.html	2/8/2014	three	this site		interactive
+Frequency of letters in written Italian, Esperanto or Dutch		http://robertandrew.github.io/forty.html	2/9/2014	three	this site		interactive
+Frequency of letters in written Finnish		http://robertandrew.github.io/fortyone.html	2/10/2014	three	this site		interactive
+Frequency of letters in written Finnish, Swedish and Icelandic		http://robertandrew.github.io/fortytwo.html	2/11/2014	three	this site		interactive
+Forest cover		http://robertandrew.github.io/fortythree.html	2/12/2014	three	this site		interactive
+Land area		http://robertandrew.github.io/fortyfour.html	2/13/2014	three	this site		interactive
+Total area, arable land, and forested land		http://robertandrew.github.io/fortyfive.html	2/14/2014	three	this site		interactive
+Total area, agricultural land, arable land, pastureland		http://robertandrew.github.io/fortysix.html	2/15/2014	three	this site		interactive
+Every species to be removed from the Endangered Species Act		http://robertandrew.github.io/fortyseven.html	2/16/2014	three	this site		interactive
+Every species to be removed from the Endangered Species Act, v2		http://robertandrew.github.io/fortyeight.html	2/17/2014	three	this site		interactive
+Every species to be removed from the Endangered Species Act	Sometimes you see an arbitrary dataset, think âif someone cleaned this up, they could totally make a half-interesting chart.â And then this happens.	http://robertandrew.github.io/fortynine.html	2/18/2014	one	this site		interactive
+Total, agriculural, pasture and underwater land		http://robertandrew.github.io/fifty.html	2/19/2014	three	this site		interactive
+Japan population by island		http://robertandrew.github.io/fiftyone.html	2/20/2014	three	this site		interactive
+Japan population by island, circle		http://robertandrew.github.io/fiftytwo.html	2/21/2014	three	this site		interactive
+Japan area by island		http://robertandrew.github.io/fiftythree.html	2/22/2014	three	this site		interactive
+Japan area by island, mystery resize edition		http://robertandrew.github.io/fiftyfour.html	2/23/2014	three	this site		interactive
+Japan's islands by area and population		http://robertandrew.github.io/fiftyfive.html	2/24/2014	three	this site		interactive
+Australia's states by population		http://robertandrew.github.io/fiftysix.html	2/25/2014	three	this site		interactive
+Australia's states by population, area and GDP		http://robertandrew.github.io/fiftyseven.html	2/26/2014	three	this site		interactive
+US congressional districts by urban population and Cook rating		http://robertandrew.github.io/fiftyeight.html	2/27/2014	three	this site		interactive
+Districts by population characteristics		http://robertandrew.github.io/fiftynine.html	2/28/2014	three	this site		interactive
+Districts by population characteristics and state		http://robertandrew.github.io/sixty.html	3/1/2014	three	this site		interactive
+Districts by the same characteristics, with worse tooltips		http://robertandrew.github.io/sixtyone.html	3/2/2014	three	this site		interactive
+Land use, scaled by four factors	My first cohesive attempt at an interactive.	http://robertandrew.github.io/sixtytwo.html	3/3/2014	one	this site		interactive
+States by area		http://robertandrew.github.io/sixtythree.html	3/4/2014	three	this site		interactive
+Australia's states		http://robertandrew.github.io/sixtyfour.html	3/5/2014	three	this site		interactive
+Australia's states, up and down		http://robertandrew.github.io/sixtyfive.html	3/6/2014	three	this site		interactive
+Oblasts, cities and an autonomous region		http://robertandrew.github.io/sixtysix.html	3/7/2014	three	this site		interactive
+Oblasts, cities and an autonomous region		http://robertandrew.github.io/sixtyseven.html	3/8/2014	three	this site		interactive
+Oblasts, cities and a key		http://robertandrew.github.io/sixtyeight.html	3/9/2014	three	this site		interactive
+Oblasts, cities and a transposed key		http://robertandrew.github.io/sixtynine.html	3/10/2014	three	this site		interactive
+Oblasts, cities and a highlighter		http://robertandrew.github.io/seventy.html	3/11/2014	three	this site		interactive
+Oblasts, cities and tooltips	Everyone was making Ukraine charts and I didn't want to be left out.	http://robertandrew.github.io/seventyone.html	3/12/2014	one	this site		interactive
+Oblasts, cities and altered tooltips		http://robertandrew.github.io/seventytwo.html	3/13/2014	three	this site		interactive
+Ethnic composition of the Crimea		http://robertandrew.github.io/seventythree.html	3/14/2014	three	this site		interactive
+Ethnic composition of the Crimea, in a stack		http://robertandrew.github.io/seventyfour.html	3/15/2014	three	this site		interactive
+Water usage, by country		http://robertandrew.github.io/seventyfive.html	3/16/2014	three	this site		interactive
+Water usage, by country, disfunctional		http://robertandrew.github.io/seventysix.html	3/17/2014	three	this site		interactive
+Water usage, by country, sortable		http://robertandrew.github.io/seventyseven.html	3/18/2014	three	this site		interactive
+Water usage, by country and per capita		http://robertandrew.github.io/seventyeight.html	3/19/2014	three	this site		interactive
+Water usage, sortable		http://robertandrew.github.io/seventynine.html	3/20/2014	three	this site		interactive
+States colored at random		http://robertandrew.github.io/eighty.html	3/21/2014	three	this site		interactive
+A mystery scale		http://robertandrew.github.io/eightyone.html	3/22/2014	three	this site		interactive
+Purple states		http://robertandrew.github.io/eightytwo.html	3/23/2014	three	this site		interactive
+Australian states		http://robertandrew.github.io/eightythree.html	3/24/2014	three	this site		interactive
+Less functional Australian states		http://robertandrew.github.io/eightyfour.html	3/25/2014	three	this site		interactive
+A few purple circles		http://robertandrew.github.io/eightyfive.html	3/26/2014	three	this site		interactive
+More colorful and coherent circles		http://robertandrew.github.io/eightysix.html	3/27/2014	three	this site		interactive
+Prime numbers	An attempt to leverage the sheer size of a weirdly large dataset.	http://robertandrew.github.io/eightyseven.html	3/28/2014	one	this site		interactive
+Very slow empires		http://robertandrew.github.io/eightyeight.html	3/29/2014	three	this site		interactive
+Marginally useful text		http://robertandrew.github.io/eightynine.html	3/30/2014	three	this site		interactive
+Silly stack of empires		http://robertandrew.github.io/ninety.html	3/31/2014	three	this site		interactive
+Silly stack with more mousing		http://robertandrew.github.io/ninetyone.html	4/1/2014	three	this site		interactive
+Different stack		http://robertandrew.github.io/ninetytwo.html	4/2/2014	three	this site		interactive
+Not so different stack		http://robertandrew.github.io/ninetythree.html	4/3/2014	three	this site		interactive
+Nobody knows why I added labels		http://robertandrew.github.io/ninetyfour.html	4/4/2014	three	this site		interactive
+Functioning but mysterious		http://robertandrew.github.io/ninetyfive.html	4/5/2014	three	this site		interactive
+Less mystery, more functioning		http://robertandrew.github.io/ninetysix.html	4/6/2014	three	this site		interactive
+More of the same		http://robertandrew.github.io/ninetyseven.html	4/7/2014	three	this site		interactive
+Mysterious black box		http://robertandrew.github.io/ninetyeight.html	4/8/2014	three	this site		interactive
+More mystery, less box		http://robertandrew.github.io/ninetynine.html	4/9/2014	three	this site		interactive
+Used to work		http://robertandrew.github.io/hundred.html	4/10/2014	three	this site		interactive
+Works as intended		http://robertandrew.github.io/hundredone.html	4/11/2014	three	this site		interactive
+U.S. dropout rate, by race		http://robertandrew.github.io/hundredtwo.html	4/12/2014	three	this site		interactive
+U.S. dropout rate, by race and gender		http://robertandrew.github.io/hundredthree.html	4/13/2014	three	this site		interactive
+U.S. dropout rate, not working		http://robertandrew.github.io/hundredfour.html	4/14/2014	three	this site		interactive
+U.S. dropout rate, even less working		http://robertandrew.github.io/hundredfive.html	4/15/2014	three	this site		interactive
+U.S. dropout rate, least working		http://robertandrew.github.io/hundredsix.html	4/16/2014	three	this site		interactive
+Is this still dropout rate?		http://robertandrew.github.io/hundredseven.html	4/17/2014	three	this site		interactive
+cmyk drops		http://robertandrew.github.io/hundredeight.html	4/18/2014	three	this site		interactive
+Heavy drops		http://robertandrew.github.io/hundrednine.html	4/19/2014	three	this site		interactive
+Fancier, but problematic		http://robertandrew.github.io/hundredten.html	4/20/2014	three	this site		interactive
+Incomes, not dropouts		http://robertandrew.github.io/hundredeleven.html	4/21/2014	three	this site		interactive
+Pink incomes		http://robertandrew.github.io/hundredtwelve.html	4/22/2014	three	this site		interactive
+Black incomes		http://robertandrew.github.io/hundredthirteen.html	4/23/2014	three	this site		interactive
+Incomes?		http://robertandrew.github.io/hundredfourteen.html	4/24/2014	three	this site		interactive
+Incomes??		http://robertandrew.github.io/hundredfifteen.html	4/25/2014	three	this site		interactive
+Incomes and labels?		http://robertandrew.github.io/hundredsixteen.html	4/26/2014	three	this site		interactive
+Incomes and colored labels		http://robertandrew.github.io/hundredseventeen.html	4/27/2014	three	this site		interactive
+Incomes and adjusted tooltips		http://robertandrew.github.io/hundredeightteen.html	4/28/2014	three	this site		interactive
+Incomes and other tooltips		http://robertandrew.github.io/hundrednineteen.html	4/29/2014	three	this site		interactive
+Incomes and different tooltips		http://robertandrew.github.io/hundredtwenty.html	4/30/2014	three	this site		interactive
+Incomes and better tooltips		http://robertandrew.github.io/hundredtwentyone.html	5/1/2014	three	this site		interactive
+Incomes and better buttons	Cowboy up!	http://robertandrew.github.io/hundredtwentytwo.html	5/2/2014	one	this site		interactive
+Change up a pink and purple box!  http://robertandrew.github.io/hundredtwentythree.html 5/3/2014	three this site	interactive
+Port http://robertandrew.github.io/hundredtwentyfour.html 5/4/2014	three	this site		interactive
+Porter http://robertandrew.github.io/hundredtwentyfive.html 5/5/2014	three	this site		interactive
+Portest http://robertandrew.github.io/hundredtwentysix.html 5/6/2014	three	this site		interactive
+Portish http://robertandrew.github.io/hundredtwentyseven.html 5/7/2014	three	this site		interactive
+Closing in  http://robertandrew.github.io/hundredtwentyeight.html 5/8/2014	three	this site		interactive
+The latest attempt		http://robertandrew.github.io/hundredtwentynine.html 5/9/2014	three	this site	interactive
+A new structure http://robertandrew.github.io/hundredthirty.html 5/10/2014	three	this site	interactive
+Letters sized by relative frequency again http://robertandrew.github.io/languages/hundredthirtyone.html 5/11/2014	three	this site	interactive
+Letters sized by relative frequency with title http://robertandrew.github.io/languages/hundredthirtytwo.html 5/12/2014	three	this site	interactive
+Letters sized by relative frequency with key http://robertandrew.github.io/languages/hundredthirtythree.html 5/13/2014	three	this site	interactive
+Pink prime numbers http://robertandrew.github.io/hundredthirtyfour.html 5/14/2014	three	this site	interactive
+Broken index http://robertandrew.github.io/hundredthirtyfive.html 5/15/2014	three	this site	interactive
+Purple prime numbers http://robertandrew.github.io/hundredthirtysix.html 5/16/2014	three	this site	interactive
+Mobile prime numbers http://robertandrew.github.io/hundredthirtyseven.html 5/17/2014	three	this site	interactive
+Rotated prime numbers http://robertandrew.github.io/hundredthirtyeight.html 5/18/2014	three	this site	interactive
+Rotated prime numbers, fewer omissions http://robertandrew.github.io/hundredthirtynine.html 5/19/2014	three	this site	interactive
+Rotated prime numbers, nothing ventured http://robertandrew.github.io/hundredforty.html 5/19/2014	three	this site	interactive
+Rotated prime numbers, incremental improvements http://robertandrew.github.io/hundredfortyone.html 5/20/2014	three	this site	interactive
+Rotated prime numbers, fewer improvements http://robertandrew.github.io/hundredfortytwo.html 5/21/2014	three	this site	interactive
+Rough draft of things to come http://robertandrew.github.io/hundredfortythree.html 5/22/2014	three	this site	interactive
+Mysterious draft of things to come http://robertandrew.github.io/hundredfortyfour.html 5/23/2014	three	this site	interactive
+More drafts of world incomes http://robertandrew.github.io/hundredfortyfive.html 5/24/2014	three	this site	interactive
+Lacking in income functionality http://robertandrew.github.io/hundredfortysix.html 5/25/2014	three	this site	interactive
+Income functionality may come later http://robertandrew.github.io/hundredfortyseven.html 5/26/2014	three	this site	interactive
+Income begins to be sequential http://robertandrew.github.io/hundredfortyeight.html 5/27/2014	three	this site	interactive
+Income with tooltips http://robertandrew.github.io/hundredfortynine.html 5/28/2014	three	this site	interactive
+Income with clicky tooltips http://robertandrew.github.io/hundredfifty.html 5/29/2014	three	this site	interactive
+Three worlds, one color http://robertandrew.github.io/hundredfiftyone.html 5/30/2014	three	this site	interactive
+Three worlds, three colors  http://robertandrew.github.io/hundredfiftytwo.html 5/31/2014	three	this site	interactive
+Three worlds, one color  http://robertandrew.github.io/hundredfiftythree.html 6/1/2014	three	this site	interactive
+Three worlds, working buttons  http://robertandrew.github.io/hundredfiftyfour.html 6/2/2014	three	this site	interactive
+Three worlds, better scales  http://robertandrew.github.io/hundredfiftyfive.html 6/3/2014	three	this site	interactive
+Index gets worse  http://robertandrew.github.io/hundredfiftysix.html 6/4/2014	three	this site	interactive
+Empires past  http://robertandrew.github.io/hundredfiftyseven.html 6/5/2014	three	this site	interactive
+Empires pastel  http://robertandrew.github.io/hundredfiftyeight.html 6/6/2014	three	this site	interactive
+Letters again http://robertandrew.github.io/hundredfiftynine.html 6/7/2014	three	this site	interactive
+Letters again, again http://robertandrew.github.io/hundredsixty.html 6/8/2014	three	this site	interactive
+Letters again, again, again http://robertandrew.github.io/hundredsixtyone.html 6/9/2014	three	this site	interactive
+Letters again, but more broken http://robertandrew.github.io/hundredsixtytwo.html 6/10/2014	three	this site	interactive
+These bars aren't scaled right http://robertandrew.github.io/hundredsixtythree.html 6/11/2014	three	this site	interactive
+Invisible scaling improvement http://robertandrew.github.io/hundredsixtyfour.html 6/12/2014	three	this site	interactive
+Invisible other improvement http://robertandrew.github.io/165.html 6/13/2014	three	this site	interactive
+Seasonal variation in unemployment claims http://robertandrew.github.io/166.html 6/14/2014	three	this site	interactive
+Fancier seasonal variation in unemployment claims http://robertandrew.github.io/167.html 6/15/2014	three	this site	interactive
+Weekly unemployment claims http://robertandrew.github.io/168.html 6/16/2014	three	this site	interactive
+Weirder seasonal variation in unemployment claims http://robertandrew.github.io/169.html 6/17/2014	three	this site	inter
+Jobless claims http://robertandrew.github.io/170.html 6/18/2014	three	this site	inter
+Adjustible jobless claims http://robertandrew.github.io/171.html 6/19/2014	three	this site	inter
+More jobless claims http://robertandrew.github.io/172.html 6/20/2014	three	this site	inter
+Consumer prices, by recession http://robertandrew.github.io/173.html 6/21/2014	three	this site	inter
+Payrolls, by recession   http://robertandrew.github.io/174.html 6/22/2014	three	this site	inter
+Recession   http://robertandrew.github.io/175.html 6/23/2014	three	this site	inter
+Blank payrolls, by recession   http://robertandrew.github.io/176.html 6/24/2014	three	this site	inter
+Multiple things, by recession   http://robertandrew.github.io/177.html 6/25/2014	three	this site	inter
+Disordered things, by recession   http://robertandrew.github.io/178.html 6/26/2014	three	this site	inter
+Halfbaked things, by recession   http://robertandrew.github.io/179.html 6/27/2014	three	this site	inter
+Population of Crimea   http://robertandrew.github.io/180.html 6/28/2014	three	this site	inter
+Motion population of Crimea   http://robertandrew.github.io/181.html 6/29/2014	three	this site	inter
+Labeled population of Crimea   http://robertandrew.github.io/182.html 6/30/2014	three	this site	inter
+Better labeled population of Crimea   http://robertandrew.github.io/183.html 7/1/2014	three	this site	inter
+Labeled population of Crimea?   http://robertandrew.github.io/184.html 7/2/2014	three	this site	inter
+Better labeled population of Crimea   http://robertandrew.github.io/185.html 7/3/2014	three	this site	inter
+Change over each of the past 5 years   http://robertandrew.github.io/186.html 7/4/2014	three	this site	inter
+Some jolts   http://robertandrew.github.io/187.html 7/5/2014	three	this site	inter
+Trojan jolts   http://robertandrew.github.io/188.html 7/6/2014	three	this site	inter
+Trojan empires   http://robertandrew.github.io/189.html 7/7/2014	three	this site	inter
+Empires   http://robertandrew.github.io/190.html 7/8/2014	three	this site	inter
+Taller empires   http://robertandrew.github.io/191.html 7/9/2014	three	this site	inter
+More functional empires   http://robertandrew.github.io/192.html 7/10/2014	three	this site	inter
+Useless slider   http://robertandrew.github.io/193.html 7/11/2014	three	this site	inter
+Change in jolts   http://robertandrew.github.io/194.html 7/12/2014	three	this site	inter
+Five flat years   http://robertandrew.github.io/195.html 7/13/2014	three	this site	inter
+Five flat years with style   http://robertandrew.github.io/196.html 7/14/2014	three	this site	inter
+Five flat years with mouseover   http://robertandrew.github.io/197.html 7/15/2014	three	this site	inter
+Five flat years with more mouseover   http://robertandrew.github.io/198.html 7/16/2014	three	this site	inter
+Five flat years with more console mouseover   http://robertandrew.github.io/199.html 7/17/2014	three	this site	inter
+Five flat years with tooltips   http://robertandrew.github.io/200.html 7/18/2014	three	this site	inter
+Five flat years with better tooltips   http://robertandrew.github.io/201.html 7/19/2014	three	this site	inter
+Not yet consumer prices    http://robertandrew.github.io/202.html 7/20/2014	three	this site	inter
+Closer to consumer prices    http://robertandrew.github.io/203.html 7/21/2014	three	this site	inter
+A menu for consumer prices    http://robertandrew.github.io/204.html 7/22/2014	three	this site	inter
+A better menu for consumer prices    http://robertandrew.github.io/205.html 7/23/2014	three	this site	inter
+Almost the same menu for consumer prices    http://robertandrew.github.io/206.html 7/24/2014	three	this site	inter
+A redux menu for consumer prices    http://robertandrew.github.io/207.html 7/25/2014	three	this site	inter
+Almost the same menu for consumer prices    http://robertandrew.github.io/208.html 7/26/2014	three	this site	inter
+A rough look    http://robertandrew.github.io/209.html 7/27/2014	three	this site	inter
+GDP contributions    http://robertandrew.github.io/210.html 7/28/2014	three	this site	inter
+Cleaner GDP contributions    http://robertandrew.github.io/211.html 7/29/2014	three	this site	inter
+Substance to come    http://robertandrew.github.io/212.html 7/30/2014	three	this site	inter
+A waterfall    http://robertandrew.github.io/213.html 7/31/2014	three	this site	inter
+A better waterfall    http://robertandrew.github.io/214.html 8/1/2014	three	this site	inter
+An old set of bars   http://robertandrew.github.io/215.html 8/2/2014	three	this site	inter
+Slowly doling out those same old bars   http://robertandrew.github.io/216.html 8/3/2014	three	this site	inter
+Different dole, same old bars   http://robertandrew.github.io/216.html 8/4/2014	three	this site	inter
+Custom GDP waterfall with great unroll   http://robertandrew.github.io/217.html 8/5/2014	three	this site	inter
+Same bars, one weird thing   http://robertandrew.github.io/218.html 8/6/2014	three	this site	inter
+Same old bars, random gap   http://robertandrew.github.io/219.html 8/7/2014	three	this site	inter
+Hinting at the gap   http://robertandrew.github.io/220.html 8/8/2014	three	this site	inter
+Gdp is clearer   http://robertandrew.github.io/221.html 8/9/2014	three	this site	inter
+Source is new, discrepancy isn't   http://robertandrew.github.io/222.html 8/10/2014	three	this site	inter
+Pink contributions   http://robertandrew.github.io/223.html 8/11/2014	three	this site	inter
+Contributions, but broken   http://robertandrew.github.io/224.html 8/12/2014	three	this site	inter
+Contributions, but fixed adn still pink   http://robertandrew.github.io/225.html 8/13/2014	three	this site	inter
+Prices, but broken   http://robertandrew.github.io/226.html 8/14/2014	three	this site	inter
+Prices, broken but colorful   http://robertandrew.github.io/227.html 8/15/2014	three	this site	inter
+Prices, still broken but still colorful   http://robertandrew.github.io/228.html 8/16/2014	three	this site	inter
+Refugees begin   http://robertandrew.github.io/230.html 8/17/2014	three	this site	inter
+Refugees continue to begin   http://robertandrew.github.io/231.html 8/18/2014	three	this site	inter
+Refugees still beginning   http://robertandrew.github.io/232.html 8/19/2014	three	this site	inter
+Refugees take a little shape   http://robertandrew.github.io/233.html 8/20/2014	three	this site	inter
+Refugees take more shape   http://robertandrew.github.io/234.html 8/21/2014	three	this site	inter
+Refugees load a mystery file   http://robertandrew.github.io/235.html 8/22/2014	three	this site	inter
+Refugees with a year selector   http://robertandrew.github.io/236.html 8/23/2014	three	this site	inter
+Refugees with better year selector   http://robertandrew.github.io/237.html 8/24/2014	three	this site	inter
+Csv not so valued   http://robertandrew.github.io/238.html 8/25/2014	three	this site	inter
+Refugees with continent colors   http://robertandrew.github.io/239.html 8/26/2014	three	this site	inter
+Refugees pollockified   http://robertandrew.github.io/240.html 8/27/2014	three	this site	inter
+Refugees by state and not much else   http://robertandrew.github.io/241.html 8/28/2014	three	this site	inter
+Enhanced GDP contributions   http://robertandrew.github.io/242.html 8/29/2014	three	this site	inter
+Functional GDP contributions   http://robertandrew.github.io/243.html 8/30/2014	three	this site	inter
+More functoinal GDP contributions   http://robertandrew.github.io/244.html 8/31/2014	three	this site	inter
+The best GDP contributions so far   http://robertandrew.github.io/245.html 9/1/2014	three	this site	inter
+GDP contributions which may have better tooltips   http://robertandrew.github.io/246.html 9/2/2014	three	this site	inter
+More refined tooltips   http://robertandrew.github.io/247.html 9/3/2014	three	this site	inter
+Less refined tooltips   http://robertandrew.github.io/248.html 9/4/2014	three	this site	inter
+Back with refined tooltips   http://robertandrew.github.io/249.html 9/5/2014	three	this site	inter
+May work someday   http://robertandrew.github.io/250.html 9/6/2014	three	this site	inter
+Responsive container   http://robertandrew.github.io/251.html 9/7/2014	three	this site	inter
+Responsive empty   http://robertandrew.github.io/252.html 9/8/2014	three	this site	inter
+Some file stuff happening   http://robertandrew.github.io/253.html 9/9/2014	three	this site	inter
+More file stuff happening   http://robertandrew.github.io/254.html 9/10/2014	three	this site	inter
+Bizarre labels  http://robertandrew.github.io/255.html 9/11/2014	three	this site	inter
+Labels grow   http://robertandrew.github.io/256.html 9/12/2014	three	this site	inter
+Or don't   http://robertandrew.github.io/257.html 9/13/2014	three	this site	inter
+And finally something comes together  http://robertandrew.github.io/258.html 9/14/2014	three	this site	inter
+And gets ready to fall apart again  http://robertandrew.github.io/259.html 9/15/2014	three	this site	inter
+Now with outside data  http://robertandrew.github.io/260.html 9/16/2014	three	this site	inter
+And better data handling  http://robertandrew.github.io/261.html 9/17/2014	three	this site	inter
+And proper use of that data  http://robertandrew.github.io/262.html 9/18/2014	three	this site	inter
+Unraveling  http://robertandrew.github.io/263.html 9/19/2014	three	this site	inter
+Banging against the wall  http://robertandrew.github.io/264.html 9/20/2014	three	this site	inter
+One small step  http://robertandrew.github.io/265.html 9/21/2014	three	this site	inter
+Teetering on the brink of an epiphany  http://robertandrew.github.io/267.html 9/22/2014	three	this site	inter
+Similar looks, better works  http://robertandrew.github.io/268.html 9/23/2014	three	this site	inter
+Down the home stretch  http://robertandrew.github.io/269.html 9/24/2014	three	this site	inter
+Final countdown http://robertandrew.github.io/270.html 9/25/2014	three	this site	inter
+Chris Cross   http://robertandrew.github.io/271.html 9/26/2014	three	this site	inter
+Variable added   http://robertandrew.github.io/272.html 9/27/2014	three	this site	inter
+Nothing added   http://robertandrew.github.io/273.html 9/28/2014	three	this site	inter
+More grey http://robertandrew.github.io/274.html 9/29/2014	three	this site	inter
+Other progress http://robertandrew.github.io/275.html 9/30/2014	three	this site	inter
+Other progress in other places http://robertandrew.github.io/276.html 10/1/2014	three	this site	inter
+Progress Quest http://robertandrew.github.io/277.html 10/2/2014	three	this site	inter
+Html progressed elsewhere! http://robertandrew.github.io/278.html 10/3/2014	three	this site	inter
+not functional http://robertandrew.github.io/279.html 10/4/2014	three	this site	inter
+still not functional http://robertandrew.github.io/280.html 10/5/2014	three	this site	inter
+better, not functional  http://robertandrew.github.io/281.html 10/6/2014	three	this site	inter
+broken better http://robertandrew.github.io/282.html 10/7/2014	three	this site	inter
+broken worse  http://robertandrew.github.io/283.html 10/8/2014	three	this site	inter
+text tweak  http://robertandrew.github.io/284.html 10/9/2014	three	this site	inter
+more elaborate  http://robertandrew.github.io/285.html 10/10/2014	three	this site	inter
+same but linkier  http://robertandrew.github.io/286.html 10/11/2014	three	this site	inter
+same linkiness  http://robertandrew.github.io/287.html 10/12/2014	three	this site	inter
+lot more going on  http://robertandrew.github.io/288.html 10/13/2014	three	this site	inter
+even more going on  http://robertandrew.github.io/289.html 10/14/2014	three	this site	inter
+not sure what is going on  http://robertandrew.github.io/290.html 10/15/2014	three	this site	inter
+perhaps even more going on  http://robertandrew.github.io/291.html 10/16/2014	three	this site	inter
+better dynamic sorting  http://robertandrew.github.io/292.html 10/17/2014	three	this site	inter
+better dynamic something  http://robertandrew.github.io/293.html 10/18/2014	three	this site	inter
+better dynamic other thing  http://robertandrew.github.io/294.html 10/19/2014	three	this site	inter
+not much more  http://robertandrew.github.io/295.html 10/20/2014	three	this site	inter
+more exposition  http://robertandrew.github.io/296.html 10/21/2014	three	this site	inter
+little additional exposition  http://robertandrew.github.io/297.html 10/22/2014	three	this site	inter
+making progresses  http://robertandrew.github.io/298.html 10/23/2014	three	this site	inter
+making a new set  http://robertandrew.github.io/299.html 10/24/2014	three	this site	inter
+reinventing the wheel  http://robertandrew.github.io/300.html 10/25/2014	three	this site	inter
+refining the wheel  http://robertandrew.github.io/301.html 10/26/2014	three	this site	inter
+spinning the wheel  http://robertandrew.github.io/302.html 10/27/2014	three	this site	inter
+spinning the straw  http://robertandrew.github.io/303.html 10/28/2014	three	this site	inter
+spinning the spinner  http://robertandrew.github.io/304.html 10/29/2014	three	this site	inter
+paging the spin doctor  http://robertandrew.github.io/305.html 10/30/2014	three	this site	int
+new croutons  http://robertandrew.github.io/306.html 10/31/2014	three	this site	int
+happy croutons  http://robertandrew.github.io/307.html 11/1/2014	three	this site	int
+broken color machine http://robertandrew.github.io/308.html 11/2/2014	three	this site	int
