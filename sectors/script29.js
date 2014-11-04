@@ -1,252 +1,859 @@
-<!doctype html>
-<!--[if lt IE 7 ]>
-<html lang="en" class="no-js ie6">
-<![endif]-->
-<!--[if IE 7 ]>
-<html lang="en" class="no-js ie7">
-<![endif]-->
-<!--[if IE 8 ]>
-<html lang="en" class="no-js ie8">
-<![endif]-->
-<!--[if IE 9 ]>
-<html lang="en" class="no-js ie9">
-<![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!-->
-<html lang="en" class="no-js">
-<!--<![endif]-->
-<head>
+(function() {
+
+	$(function() {
 	
-	<meta charset="utf-8"/>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+////////MY BUSINESS///////
 
-	<title>Payrolls by sector</title><?php /* EDIT ME */ ?>
+//return the absolute value of a thing
+function ab(d){
+	if(d>=0){return d}
+	else if(d<0){return d * -1}
+	};
 
-	<link rel="shortcut icon" href="http://si.wsj.net/favicon.ico"/>
-	<link rel="apple-touch-icon" href="http://s.wsj.net/apple-touch-icon.png"/>
+//json format a date
+var parseDate = d3.time.format('%x').parse;
 
-	<meta name="apple-mobile-web-app-capable" content="yes"/>
-	<meta name="format-detection" content="telephone=no">
+//GLOBALish VARIABLES
+var sortCriteria = 'pctChange';
+var posFill = '#0080c3';//light is 009933
+var negFill = '#cc0b24';//light is ff0000
+var neutralFill = '#999999';
+var bgFill = '#f3f3f3';
 
-	<?php
-		/* - Fill out this meta info - */
-	?>
-			<!-- Meta: URL -->
-			<link rel="canonical" href=""/>
-			<meta property="og:url" content=""/>
+//sort boxes by either 'pctChange', 'change', or 'value'
+function sorter(sortSet){
+	sortSet.forEach(function(d,i){
 
-			<!-- Meta: Images -->
-			<link rel="image_src" href=""/>
-			<meta property="og:image" content=""/>
-			<meta name="twitter:image:src" content="">
-
-			<!-- Meta: Title -->
-			<meta name="title" content=""/>
-			<meta property="og:title" content=""/>
-			<meta name="twitter:title" content="">
-
-			<!-- Meta: Description -->
-			<meta name="description" content=""/>
-			<meta name="twitter:description" content="">
-
-			<!-- Meta: Keywords -->
-			<meta name="keywords" content=""/>
-			<meta name="news_keywords" content="">
-	<?php
-		/* - You're all done with meta info - */
-	?>
-
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<meta name="author" content="Unknown" />
-	<meta name="twitter:domain" content="WSJ.com">
-	<meta name="twitter:card" content="photo">
-	<meta name="twitter:site" content="@wsj">
-	<meta property="og:site_name" content="The Wall Street Journal"/>
-	<meta property="og:type" content="article"/>
-<!-- skip some of the includes for faster ofline loading
-	<script type="text/javascript" src="http://online.wsj.com/public/resources/documents/WSJ_Interactive_TrackingAndAdsv6.min.js"></script>
-
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.min.js"></script>
-
-	<link rel="stylesheet" href="http://fonts.wsj.net/HCo_Whitney/font_HCo_Whitney.css" type="text/css"/>
-	<link rel="stylesheet" href="http://fonts.wsj.net/HCo_Chronicle/font_HCo_Chronicle.css" type="text/css"/>
-
-	<!--[if lte IE 9]>
-	<link rel="stylesheet" href="http://fonts.wsj.net/HCo_Whitney/font_HCo_Whitney-ie.css" type="text/css"/>
-	<link rel="stylesheet" href="http://fonts.wsj.net/HCo_Chronicle/font_HCo_Chronicle-ie.css" type="text/css"/>
-	<![endif]-->
+	//sort each nested value in descending order based on percentage change
+		
+		d.values = d.values.sort(function(a,b){return d3.descending(a.pctChange,b.pctChange)});
+		
+	//give each a rank based on where it sits in the heirarchy		
+		var firstPos = -1;//this is the first pos, the rest will be in descending order from this one
+		var zeroCount = 0;//the number of nulls in any given set
+		var valLength = d.values.length;
+		d.values.forEach(function(d){
+			if(d.pctChange>0){
+				firstPos++}//close the counter conditional	
+			if(d.pctChange == 0){
+				zeroCount++;
+				d.rank = -18 - zeroCount;
+				d.fill = neutralFill;
+				}});
+		d.values.forEach(function(d,i){
+		
+			//give the unchanges no rank		
+					
+			if(d.pctChange > 0){
+				d.rank = ab(i-firstPos)+1;				
+			d.fill = posFill;	
+				}	
+			if(d.pctChange < 0){
+				d.rank = (-1 * (ab(i-firstPos) - (zeroCount))) + 1;//the plus one ensures there will be a zero				
+				d.fill = negFill;				
+				}
+			})		
+		
+	})//close the nest sorter
+}//CLOSE SORTSET
 
 
-	<script src="js/libs/d3.v3.min.js"></script>
-	<script src="js/libs/jquery.min.js"></script>
-	<script src="js/common.js"></script>
-	<script src="js/script3.js"></script>
-
-
-	<!-- Bootstrap -->
-
-	<link href="css/libs/bootstrap.min.css" rel="stylesheet" type="text/css" />
+//takes a dataset and a startdate in mm/dd/yyyy
+function boxer(dataSetRaw,starter,recessSet){
 	
-	<!-- jQuery UI -->
-	<link rel="stylesheet" href="css/libs/jquery-ui.structure.min.css"/>	
-	<link rel="stylesheet" href="css/libs/jquery-ui.min.css"/>	
+	var rawStartDate = starter;//saves it without jsonification
 	
-	<!-- DataTables -->
-
-	<link rel="stylesheet" href="css/libs/dataTables.bootstrap.css"/>
+	d3.select('text#unchangedLabel')
+		.attr('x',0)
+		.attr('text-anchor','end')
+		.attr('class','axis');
 	
-	<!-- Social Climber -->
-	<link rel="stylesheet" href="css/libs/jquery.socialclimber.css"/>
-
-
-	<link rel="stylesheet" href="css/style.css"/>
-
-</head>
-
-<body class="">
-	<div class="top-header">
-		<a href="http://wsj.com" title="The Wall Street Journal"><img src="img/wsj.png"></a>
-	</div>
-
-<!---	<div id="top-ad"><iframe src="http://ad.doubleclick.net/adi/interactive.wsj.com/sports_interactive;!category=;sz=728x90;ord=8921892189218921;" width="728" height="90" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no"></iframe></div>-->
-
-	<div id="main-wrapper" class="">
-		<div id="main-content" class="container">
-			<header class="row">
-				<div class="social-links col-md-12"></div>
-				<div class="col-md-12">
-
-				<h1>Sectors</h1>
-								
-				<p>The classic month-to-month payrolls number is a strong indicator of the health of the economy, but it doesn't capture the fact that, even in the depths of a recession, some sectors thrive, while others aren't adding jobs even during a sustained recovery.</p>
-
-					<div class="byline">By <a href="#">Andrew</a></div>
-
-					<div class="meta">
-						<!--Last updated Sept. 10, 2014 at 2:09 p.m. ET <div class="meta-split">|</div> -->
-						Published Sept. 10, 2014 at 2:09 p.m. ET
-					</div>
-				</div>
-			</header>
+	//other global attributes
+	var duration = 500;	
 	
-			<div class="row">
-			<div class="sectors">
-				<h3>Piecemeal Recovery</h3>
-					<p>Below, the economy broken down into eighteen large, identifiable sectors, sorted by how each sector has performed in a given month. Click on any month for a snapshot of each sector's performance.</p>
-					<h4>Number of sectors <pill class = "positive">gaining</pill> or losing <pill class = "negative"> jobs in<span id="thisMonth"> a given month</span> </h4>
-
-			<div class="row" id="timeButtons">
-				<h6>Show change since:</h6>
-				<button type='button' class="btn btn" id="y2k">
-					y2k (1.1.2000)	
-				</button>		
-				<button type='button' class="btn btn-primary"  id="recession">
-					The recession (1.1.2008)
-				</button>		
-				<button type='button' class="btn btn" id="recovery">
-					The recovery (6.1.2009)			
-				</button>		
+	//constrict dataSet based on the start date
+	starter = parseDate(starter);	
+	var dataSet = dataSetRaw.filter(function(d){return d.values[0].dateObj >=starter });	
+	
+	//constrict the recessions, but also modify the start date
+	var recess = recessSet.filter(function(d){return d.trough >= starter });
+	if(recess.length > 0 && recess[0].peak <= starter){
+		recess[0].peak = starter };
+	
+	//set the width for the SVG based on the window's width
+	var w = 0;//placeholder			
+	var win = window.innerWidth;
+	var wInset = 0.9; //share of the window which, at max, can be occupied		
+	var cPad = 40; //px padding on all sides of the chart
+	if(win < 350){cPad = 20};
+	
+	//update w based on innerwidth
+	if(win >= 959){w = 959}
+	else if(win <= 350){w = 350}
+	else if(win < 959 && win > 350){w = win}
+	
+	w = (w * wInset) - cPad - cPad;
+	
+		//sorts boxes by either 'pctChange', 'change', or 'value'
+	function sorter(sortSet){
+		sortSet.forEach(function(d,i){
+	
+		//sort each nested value in descending order based on percentage change
 			
-			</div>
-
-			<div class="row" id="sortButtons">
-				<h6>Sort the sector boxes by:</h6>
-				<button type='button' class="btn btn-primary" id="pctChange">
-					Monthly jobs lost/gained (percentage)				</button>		
-				<button type='button' class="btn btn"  id="change">
-					Monthly jobs lost/gained (total)
-				</button>		
-				<button type='button' class="btn btn"  id="value">
-					Total jobs in sector			
-				</button>		
+			d.values = d.values.sort(function(a,b){return d3.descending(a.pctChange,b.pctChange)});
 			
-			</div>
+		//give each a rank based on where it sits in the hierarchy		
+			var firstPos = -1;//this is the first pos, the rest will be in descending order from this one
+			var zeroCount = 0;//the number of nulls in any given set
+			var valLength = d.values.length;
+			d.values.forEach(function(d){
+				if(d.pctChange>0){
+					firstPos++}//close the counter conditional	
+				if(d.pctChange == 0){
+					zeroCount++;
+					d.rank = -18 - zeroCount;
+					d.fill = neutralFill;
+					}});
+			d.values.forEach(function(d,i){
+			
+				//give the unchanges no rank		
+						
+				if(d.pctChange > 0){
+					d.rank = ab(i-firstPos)+1;				
+				d.fill = posFill;	
+					}	
+				if(d.pctChange < 0){
+					d.rank = (-1 * (ab(i-firstPos) - (zeroCount))) + 1;//the plus one ensures there will be a zero				
+					d.fill = negFill;				
+					}
+				})		
+			
+		})//close the nest sorter
+	}//CLOSE SORTER
 
+	
+	
+	//Create an array	that contains the number of ups and downs in the set	
+	var upDown = [];	
+	//load the array with blanks
+	dataSet[0].values.forEach(function(d,i){
+		upDown.push({
+			"series" : d.series,
+			"up" : 0,
+			"down" : 0,						
+			})
+	
+		});//end array-loading forEach
+	
+	//show where in the array a given series can be found
+	var downScaler = d3.scale.ordinal()
+		.domain(upDown.map(function(d){return d.series}))
+		.range(d3.range(0,upDown.length));	
+
+function shader(){	
+	//iterate through the dataset and pull the highest absolute percent for color-scaling purposes
+	var topCrit = 0;		
+	dataSet.forEach(function(d,i){
+		d.values.forEach(function(d,i){
 				
-					<div class="chart">
-						<svg>
-							<g id="viz">
-								<g id="onlyBoxes">
-									<g id="recessions"></g>						
-									<g id="listenerBoxes"></g>							
-									<g id="x" class="axis"></g>
-									<g id="y" class="axis">
-										<g id="unch"></g>									
-									</g>
-									<g id="boxes"></g>
-								</g id = "onlyBoxes">
-								<g id="bars">
-									<rect id='boxBounder'></rect>
-										
-
-									</g id = "barViz">-->
-									<g id="rebarViz">
-										<g id = "shadedRect"></g>
-										<g id = "barBackers"></g>
-										<g id = "sectorLabels"></g>										
-										<g id = "barChange">		
-											<g id = "barBoxes"><text></text></g>
-											<g id = "barBoxLabels"></g>
-										</g id = "barChange">
-										<g id = "barSize">
-											<g id="barRectShaders"></g>
-											<g id="barRects"><text></text></g>
-											<g id="barRectLabels"></g>							
-										</g id = "barSize">
-										<g id = "barUp">
-											<g id="upCircles"><text></text></g>
-											<g id="upCircleLabels"></g>							
-										</g id = "barUp">
-										<g id = "barDown">
-											<g id="downCircles"></g>
-											<g id="downCircleLabels"></g>							
-										</g id = "barDown">
-
-									</g id = "rebarViz">
-								</g id = "bars">
-							</g id="viz">
-						</svg>
-					</div>
-			</div>
-
-			</section>
+				var thisCrit = ab(d[sortCriteria]);
+				var rawC = d[sortCriteria];
+				if(rawC>0){
+					upDown[downScaler(d.series)].up = upDown[downScaler(d.series)].up + 1;}				
+				if(rawC<0){
+					upDown[downScaler(d.series)].down = upDown[downScaler(d.series)].down + 1;}				
+				if(thisCrit > topCrit){
+					topCrit = thisCrit;
+					}//close the conditional
+				
+			})//close the values forEach
+		});//close dataSet forEach 	
 	
-			</section>
+	//This determines the opacity for each box
+	var opacityRange = d3.scale.sqrt()
+		.domain([0,topCrit])
+		.range([0.3,1.2]);	
+	
 
-		</div>
-	</div>
+	dataSet.forEach(function(d,i){
+		d.values.forEach(function(d,i){
+			d.boxOpacity = opacityRange(ab(d[sortCriteria]));
+			})		
+		});	
+	}//close shader function
+		
+	
+	
+	var longestSet = d3.max(dataSet,function(d,i){return d.values.length});
+		//set scales based on sizes
+		
+	var boxWidth = d3.scale.ordinal()
+		.domain(dataSet.map(function(d){return d.key}))
+		.rangeBands([0,w]);
 
-	<footer>
-		<div id="source-line">Copyright &copy;<?php echo date("Y"); ?> Dow Jones & Company, Inc. All Rights Reserved. <a href="http://online.wsj.com/public/page/privacy-policy.html?mod=WSJ_footer">PRIVACY POLICY</a> | <a href="http://online.wsj.com/public/page/subscriber_agreement.html?mod=WSJ_footer">USER AGREEMENT</a></div>
-	</footer>
-<!--SKIP FOR OFFLINE
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	var scaleX = d3.time.scale()
+		.domain([(dataSet[0].values[0].dateObj),(dataSet[dataSet.length - 1].values[0].dateObj)])
+		.range([0,w-boxWidth.rangeBand()]);
 
-	<script type="text/javascript" src="http://graphics.wsj.com/libs/js/wsj/FrameMessenger/0.0.1/framemessenger.js"></script>
-  	<script type="text/javascript"
-            id="framemessenger_graphics"
-            data-frame-name="EDITME"
-            data-root-element="#interactive_wrapper"
-            src="http://graphics.wsj.com/libs/js/wsj/FrameMessenger/0.0.1/framemessenger_graphics.js"></script>
+	
+	var ch = (longestSet * 2) * boxWidth.rangeBand();	//height of the chart space, excluding padding
 
-	<script type="text/javascript">
-		var proj_id = "Interactive proj ID";
-		var proj_headline = "Interactive proj HEADLINE";
+	//since Y is dependent on X, it gets set later		
+	var scaleY = d3.scale.linear()
+		.domain([-longestSet,longestSet])
+		.range([ch,0]);
 
-		var trackingOpts = {
-			pageName_over:"WSJ_infogrfx_interactive_"+proj_id+"_"+proj_headline
-		};
+	//set up the axes
+	var xAxis = d3.svg.axis()
+		.scale(scaleX)
+		.orient('top');
+	
+	var yAxis = d3.svg.axis()
+		.scale(scaleY)
+		.orient('left');
 
-//		window.countPage(proj_id, proj_headline, "", trackingOpts);-->
-	</script>
+	//set svg and g dimensions based on sizes
+	d3.select('svg').attr('width',w + cPad + cPad)
+		.attr('height',ch + cPad + cPad);
+	
+	d3.select('g#viz')
+		.attr('transform','translate(' + cPad + ',' + cPad + ')');
+
+	//drop the recessions below everything
+	var recessDraw = d3.select('g#recessions').selectAll('rect')
+		.data(recess,function(d){return d.recession});	
+	
+	recessDraw.enter().append('rect')
+		.append('title')
+		.text(function(d){return d.recession});
+
+			
+	recessDraw.exit().remove();
+		
+	
+	recessDraw.attr('height',ch)
+		.style('fill',bgFill)
+		.attr('width',function(d){return scaleX(d.trough) - scaleX(d.peak)})
+		.attr('x',function(d){return scaleX(d.peak)})
+		.attr('y',0)
+		.attr('transform','translate(' + boxWidth.rangeBand() + ',0)');
+			//scoot recessions over to compensate for the fact that recessions begin the month after the peak begins
+		
+		
+	
+	//call both axes
+
+	d3.select('g#x').call(xAxis);
+	//	.attr('transform','translate(0,' + ch + ')');
+	d3.select('g#y').call(yAxis);
+	var unchanger = d3.select('g#y g#unch')
+		.selectAll('text')
+		.data(['unch']);
+		
+	unchanger.enter()
+		.append('text');
+		
+	unchanger.attr('x',0)
+		.attr('y',scaleY(-20))
+		.text('unchg.')
+		.style('text-anchor','end')
+		.attr('transform','translate(-7,0)')
+		.attr('class','axis')
+		.attr('font-weight','light');
+	
+	//draw some boxes
+	var boxGrouper = d3.select('g#boxes').selectAll('g')
+		.data(dataSet);
+		
+	boxGrouper.enter()
+		.append('g')
+		.attr('id',function(d){return d.key});
+	
+	var boxDrawer = d3.selectAll('g#boxes g')
+		.selectAll('rect')
+		.data(function(d){return d.values});
+		
+	boxDrawer
+		.enter()
+		.append('rect')
+		.append('title')
+		.text(function(d){
+			if(d.change < 0){			
+			return d.label + ' fell ' + d[sortCriteria] + ' in ' + d.date;}
+
+			if(d.change > 0){			
+			return d.label + ' rose ' + d[sortCriteria] + ' in ' + d.date;}
+			})//close title text
+	
+	//Remove both entrances should the date horizon narrow
+	boxGrouper.exit().remove();
+	boxDrawer.exit().remove();
+		
+	var boxUpdater = boxDrawer
+		.attr('height',boxWidth.rangeBand() * 0.9)
+		.attr('width',boxWidth.rangeBand() * 0.9)
+		.attr('x',function(d){
+			return scaleX(parseDate(d.date))})
+		.attr('y',function(d){return scaleY(d.rank)})
+		.attr('rx',boxWidth.rangeBand() * 0.2)
+		.attr('ry',boxWidth.rangeBand() * 0.2)		
+		.attr('fill',function(d){return d.fill})
+		.style('opacity',function(d){return d.boxOpacity})
+		.attr('class',function(d){return d.series});
+
+	boxUpdater.on('mouseover',function(d){
+		var activeSector = d3.select(this).data()[0].series;
+				
+		d3.selectAll('g#boxes rect.' + activeSector)
+			.style('opacity',1)
+			.attr('stroke-width',1)
+			.attr('stroke',function(d){return d.fill});
+			}).on('mouseout',function(d){
+		d3.selectAll('g#boxes rect')
+			.style('opacity',function(d){return d.boxOpacity})
+			.attr('stroke-width',0)
+			}).on('click',function(d){
+		var activeDate = d3.select(this).data()[0].date;
+		//.attr('class');
+		///boxer(dataSet,'01/01/2006',recessSet);
+		rebarrer(activeDate);		
+				})
+				
+		
+	var listenerBoxes = d3.select('g#listenerBoxes')
+		.selectAll('rect')
+		.data(dataSet,function(d){return d.key});
+	
+	listenerBoxes.enter()
+		.append('rect')
+		.attr('id',function(d){
+			var thisMonth = d.values[0].date.substring(0,2);
+			var thisYear = d.values[0].date.substring(6,10);
+			return "d" + thisMonth + thisYear});
+	
+	listenerBoxes.attr('x',function(d){return scaleX(parseDate(d.key))})
+		.attr('y',0)
+		.attr('height',ch)
+		.style('fill',bgFill)
+		.attr('width',boxWidth.rangeBand())
+		.style('opacity',0)
+		.style('pointer-events','none');
+	
+	listenerBoxes
+		.exit().remove();
 
 
-	<script type="text/javascript">
-		(function(a,b,c,d){
-		a='//tags.tiqcdn.com/utag/wsjdn/newsgraphics/prod/utag.js';
-		b=document;c='script';d=b.createElement(c);d.src=a;d.type='text/java'+c;d.async=true;
-		a=b.getElementsByTagName(c)[0];a.parentNode.insertBefore(d,a);
-		})();
-	</script>
+///////////////////////////////////		
+////////BEGIN REBARRER///////////////
+///////////////////////////////////		
+	
+	
+	function rebarrer(barDate){
+		
+		//light up the listenerRect with the correct ID
+		
+		var rebarMonth = barDate.substring(0,2);
+		var rebarYear = barDate.substring(6,10);	
+			
+		d3.selectAll('g#listenerBoxes rect')
+			.style('opacity',0)
+			.attr('height',ch)
+			.attr('width',boxWidth.rangeBand());
+			
+		d3.select('rect#d' + rebarMonth + rebarYear)
+		//	.style('opacity',0.3)
+			.attr('height',ch * 1.5);
+		
+		
+		//Pull out the date-specific subset of data					
+		var selector = d3.scale.ordinal()
+			.domain(dataSet.map(function(d){return d.key}))	
+			.range(d3.range(0,dataSet.length));
 
-</body>
-</html>
+		var rebarSet = dataSet[selector(barDate)].values;
+		
+		//Add the overall up and down numbers to the subset		
+		rebarSet.forEach(function(dbar,ibar){
+			upDown.forEach(function(dup,iup){
+				if(dbar.series == dup.series){
+					dbar.up = dup.up;
+					dbar.down = dup.down;
+					}//close positive conditional
+				})//close upDown foreach
+			})//close barSet foreach
+		
+		//Hard-code the chart's size
+		var lh = 18; //line height governs all other vertical dimensions
+		var gh; //the height of each group will be determined responsively
+
+		var boxY;
+		var barY;		
+		var labelY;
+		var circleY;
+
+		var boxX;
+		var barX;		
+		var labelX;
+		var upCircleX;
+		var downCircleX;
+		
+		var upFill = 'steelblue';
+		var downFill = 'red';
+		
+		//Scales that are dependent on the chart's size
+
+		var scaleRect = d3.scale.linear()
+			.domain([0,d3.max(rebarSet, function(d){return d.value})]);
+			
+		var scaleCircle = d3.scale.sqrt()
+			.domain([0,Math.max(d3.max(rebarSet,function(d){return d.up}),d3.max(rebarSet,function(d){return d.down}))]);
+		var circleOpacity = d3.scale.linear()	
+			.domain([0,Math.max(d3.max(rebarSet,function(d){return d.up}),d3.max(rebarSet,function(d){return d.down}))])
+			.range([1,0.3])
+
+		
+		//Resize all the things that need to be responsive
+		
+		//MOST SIZES
+		if(w>350){
+		gh = lh * 4;	
+		boxH = lh * 3;		
+						
+		boxY = lh * 0.5;
+		barY = lh * 1.75;
+		labelY = lh * 1.25;
+		circleY = gh/2;
+
+		boxX = lh * 1;
+		barX = boxH + (lh * 1.5);
+		labelX = boxH + (lh * 1.5);;
+		upCircleX = w - (boxH * 2.0);
+		downCircleX = w - ((boxH * 0.8));		
+		
+		scaleRect.range([0,upCircleX - boxX - (lh * 6)]);//five accounts for all the buffers and whatnot that we're gonna be up against
+		
+		scaleCircle.range([0,boxH * 0.7]);
+
+		
+			};				
+		
+		//MOBILE		
+		if(w<=350){
+		gh = (w * 0.75) - lh;
+		boxH = w * 0.25;
+		
+		boxY = w * 0.3 - (boxH/2);
+		barY = w * 0.5;
+		labelY = w * 0.1;
+		circleY = w * 0.3;
+
+		boxX = lh * 1;
+		barX = lh * 1;
+		labelX = lh * 1;
+		upCircleX = w * 0.55;
+		downCircleX = w * 0.8;
+		
+		scaleRect.range([0,w-(lh * 2)]);
+
+		scaleCircle.range([0,boxH * 0.6]);
+
+
+			}
+			
+				
+		
+		//hardcode the X for each element based on set things
+		d3.select('g#barChange')
+			.attr('transform','translate(' + boxX + ',' + (boxY) + ')');	
+
+		d3.select('g#barBoxLabels')
+			.attr('transform','translate(' + (boxH * 0.5) + ',' + (boxH * 0.5) + ')');	
+
+
+		d3.select('g#sectorLabels')
+			.attr('transform','translate(' + labelX + ',' + (labelY) + ')');	
+
+		d3.select('g#barSize')
+			.attr('transform','translate(' + (barX) + ',' + (barY) + ')');	
+
+		d3.select('g#barUp')
+			.attr('transform','translate(' + (upCircleX) + ',' + (circleY) + ')');	
+
+		d3.select('g#barDown')
+			.attr('transform','translate(' + (downCircleX) + ',' + (circleY) + ')');	
+
+			
+		var barsH = (gh + (0.5*lh)) * (rebarSet.length + 1); //the full height of all groups put together, the plus one if for the key
+
+		d3.select('svg')
+			.attr('height', ch + cPad + cPad + barsH);
+			
+		var rebarGroup = d3.select('g#rebarViz')
+			.attr('transform','translate(0,' + (ch + cPad) + ')');
+		
+		var shader = d3.select('g#shadedRect')
+			.selectAll('g#shadedRect rect#shader')
+			.data(['shadey']);
+		
+		//ADD SHADER
+		shader
+			.enter()
+			.append('rect')
+			.attr('id','shader');
+		
+		shader
+			.attr('width',w)
+			.attr('height',barsH)
+			.attr('x',0)
+			.attr('y',0)
+			.style('fill',bgFill)
+			.attr('rx',(0.5 * lh))
+			.attr('ry',(0.5 * lh));
+		
+
+		//ADD BACKGROUND
+		var barBackers = d3.select('g#rebarViz g#barBackers')
+			.selectAll('rect')
+			.data(rebarSet,function(d){return d.series});
+		
+		barBackers.enter()
+			.append('rect');
+		
+		barBackers
+			.transition()
+			.duration(duration)
+			.attr('y',function(d,i){return (i+1) * (gh + (0.5 * lh))})
+			.attr('x',(lh * 0.5))
+//			.attr('rx',(lh * 0.5))
+//			.attr('ry',(lh * 0.5))
+			.attr('height',gh)
+			.attr('width',w-lh)
+			.style('fill','white')
+			.style('opacity',1);
+		
+		//THE PERCENT CHANGE BOXES	
+		var barBoxes = d3.select('g#rebarViz g#barBoxes')
+			.selectAll('rect')
+			.data(rebarSet,function(d){return d.series});
+			
+		barBoxes.enter()
+			.append('rect');
+		
+		barBoxes
+			.transition()
+			.duration(duration)
+			.attr('y',function(d,i){return (i+1) * (gh + (0.5 * lh))})
+			.attr('x',0)
+			.attr('rx',(lh * 0.5))
+			.attr('ry',(lh * 0.5))
+			.attr('height',boxH)
+			.attr('width',boxH)
+			.style('fill',function(d){return d.fill})
+			.style('opacity',function(d){return d.boxOpacity});
+
+		//THE PERCENT CHANGE LABELS
+		var barBoxLabels = d3.select('g#rebarViz g#barBoxLabels')
+			.selectAll('text')
+			.data(rebarSet,function(d){return d.series});
+
+		barBoxLabels.enter()
+			.append('text');		
+		
+		barBoxLabels
+			.attr('y',function(d,i){return (i+1) * (gh + (0.5 * lh))})
+			.attr('x',0)
+			.text(function(d){return d.pctChange})
+			.attr('dy','0.4em')
+			.style('text-anchor','middle')
+			.style('fill','white')
+			.style('font-weight','bold')
+			.style('font-size', boxH * 0.35);
+
+		
+		//THE SECTOR LABELS
+		var sectorLabels = d3.select('g#rebarViz g#sectorLabels')
+			.selectAll('\\text')
+			.data(rebarSet,function(d){return d.series});
+
+		sectorLabels.enter()
+			.append('text');		
+		
+		sectorLabels
+			.transition()
+			.duration(duration)
+			.attr('y',function(d,i){return (i+1) * (gh + (0.5 * lh))})
+			.attr('x',0)
+			.text(function(d){return d.label})
+			.attr('class','axis')
+			.style('text-anchor','beginning');
+
+		//SECTOR SHADER RECTS	
+		var barRects = d3.select('g#rebarViz g#barRectShaders')
+			.selectAll('rect')
+			.data(rebarSet,function(d){return d.series});
+			
+		barRects.enter()
+			.append('rect');
+		
+		barRects		
+			.transition()
+			.duration(duration)
+			.attr('y',function(d,i){return (i+1) * (gh + (0.5 * lh))})
+			.attr('x',0)
+			.attr('height',boxH/2)
+			.attr('width',scaleRect.range()[1])
+			.style('fill',bgFill)
+			.style('opacity',function(d){return d.boxOpacity});
+
+			
+		//THE SECTOR SIZES	
+		var barRects = d3.select('g#rebarViz g#barRects')
+			.selectAll('rect')
+			.data(rebarSet,function(d){return d.series});
+			
+		barRects.enter()
+			.append('rect')
+			.attr('width',0);
+		
+		barRects
+			.transition()
+			.duration(duration)
+			.attr('y',function(d,i){return (i+1) * (gh + (0.5 * lh))})
+			.attr('x',0)
+			.attr('height',boxH/2)
+			.attr('width',function(d){return scaleRect(d.value)})
+			.style('fill',function(d){return d.fill})
+			.style('opacity',function(d){return d.boxOpacity});
+
+		//SECTOR SIZE LABELS
+		var barRectLabels = d3.select('g#rebarViz g#barRectLabels')
+			.selectAll('text')
+			.data(rebarSet,function(d){return d.series});
+
+		barRectLabels.enter()
+			.append('text')
+			.attr('class','axis');		
+		
+		barRectLabels
+			.attr('y',function(d,i){return ((i+1) * (gh + (0.5 * lh))) + boxH * 0.25})
+			.attr('x',function(d){return scaleRect(d.value) + 5})
+			.text(function(d){return d3.round(d.value/1000,1) + "m"})
+			.attr('dy','0.4em')
+			.attr('id',function(d){return d.series})
+			.style('text-anchor','beginning');
+
+		//hackily select only the government text and fix it
+		d3.select('g#barRectLabels text#CES9000000001')
+			.attr('transform','translate(-10,0)')
+			.style('font-weight','bold')
+			.style('fill','white')
+			.style('text-anchor','end');
+
+		//UP CIRCLES
+		var upCircles = d3.select('g#rebarViz g#upCircles')
+			.selectAll('circle')
+			.data(rebarSet,function(d){return d.series});
+			
+		upCircles.enter()
+			.append('circle');
+		
+		upCircles
+			.transition()
+			.duration(duration)
+			.attr('cy',function(d,i){return (i+1) * (gh + (0.5 * lh))})
+			.attr('cx',0)
+			.attr('r',function(d){return scaleCircle(d.up)})
+//			.style('stroke',upFill)
+//			.style('stroke-width','2px')
+//			.style('fill','none');
+			.style('fill', upFill)
+			.style('opacity',0.3);//function(d){return circleOpacity(d.up)});
+		
+		//DOWN CIRCLES
+		var downCircles = d3.select('g#rebarViz g#downCircles')
+			.selectAll('circle')
+			.data(rebarSet,function(d){return d.series});
+			
+		downCircles.enter()
+			.append('circle');
+		
+		downCircles
+			.transition()
+			.duration(duration)
+			.attr('cy',function(d,i){return (i+1) * (gh + (0.5 * lh))})
+			.attr('cx',0)
+			.attr('r',function(d){return scaleCircle(d.down)})
+//			.style('stroke',downFill)
+//			.style('stroke-width','2px')
+//			.style('fill','none');
+			.style('fill', downFill)
+			.style('opacity',0.3);//function(d){return circleOpacity(d.down)});
+
+		//UP CIRCLE LABELS
+		var upCircleLabels = d3.select('g#rebarViz g#upCircleLabels')
+			.selectAll('text')
+			.data(rebarSet,function(d){return d.series});
+
+		upCircleLabels.enter()
+			.append('text');		
+		
+		upCircleLabels
+			.attr('y',function(d,i){return (i+1) * (gh + (0.5 * lh))})
+			.attr('x',0)
+			.text(function(d){return d.up})
+			.attr('dy','0.4em')
+			.style('text-anchor','middle')
+			.attr('class','axis');
+
+		//DOWN CIRCLE LABELS
+		var downCircleLabels = d3.select('g#rebarViz g#downCircleLabels')
+			.selectAll('text')
+			.data(rebarSet,function(d){return d.series});
+
+		downCircleLabels.enter()
+			.append('text');		
+		
+		downCircleLabels
+			.attr('y',function(d,i){return (i+1) * (gh + (0.5 * lh))})
+			.attr('x',0)
+			.text(function(d){return d.down})
+			.attr('dy','0.4em')
+			.style('text-anchor','middle')
+			.attr('class','axis');
+
+
+			
+		}//end rebarrer	
+		
+		
+	//////////////////////////////
+	///////CLOSE REBAR////////////
+	//////////////////////////////	
+		
+	rebarrer(dataSet[dataSet.length -1].key);
+	}//end boxer
+
+
+
+/////////////////////////////
+////DATA DEPENDENT///////////
+/////////////////////////////
+var payArray = [];
+
+d3.tsv('payrollSeries.tsv',function(error,data){
+	d3.tsv('recessions.csv', function(eRecession, dRecession){
+	var series = data;
+	var recessions = dRecession;
+
+	recessions.forEach(function(d){
+		d.peak = parseDate(d.peak);
+		d.trough = parseDate(d.trough);		
+				})
+	//key to translate the series code into a shortlabel
+	var labelSeries = d3.scale.ordinal()
+		.domain(series.map(function(d){return d.series}))
+		.range(series.map(function(d){return d.label}));
+	
+	d3.tsv('payrolls.tsv',function(error1,data1){
+	payrolls = data1;
+	series.forEach(function(dSeries,iSeries){
+		payrolls.forEach(function(dPay,iPay){
+		if(iPay>0){
+			var thisVal = +dPay[dSeries.series];
+			var preVal = +payrolls[iPay-1][dSeries.series];
+			var change = thisVal - preVal;
+			var pctChange = d3.round((thisVal-preVal)/preVal * 100,2);
+			payArray.push({
+				"series" : dSeries.series,
+				"label" : dSeries.label,//labelSeries(dSeries.series),
+				"date" : (dPay['date']),
+				"dateObj" : parseDate(dPay['date']),
+				"value" : thisVal,
+				"change" : change,
+				"pctChange" : pctChange,
+				
+
+				})	//end payArray push
+		} //end filter conditional			
+		})//close payrolls foreach	
+	})//close series foreach
+	
+	
+	var payNest = d3.nest()
+		.key(function(d){return d.date})
+		.entries(payArray.filter(function(d,i){return d.value != 0}));
+
+	
+var startDate = '01/01/2007';//this is a default that will get updated
+sorter(payNest,'pctChange');
+boxer(payNest,startDate,recessions);
+	
+	/////////////////////////////
+	/////EVENT LISTENERS////////
+	/////////////////////////////
+
+	var oldWin = window.innerWidth; //compares the new resize window to see if we've crossed a Rubicon
+	window.addEventListener('resize',function(event){
+		newWin = window.innerWidth;
+		if(newWin >= oldWin + 10 || newWin <= oldWin - 10){
+			//call functions if the window has been resized a lot
+			boxer(payNest, startDate,recessions);
+			oldWin = newWin;}		
+		})//CLOSE resize event listener
+
+	d3.select('button#y2k').on('click',function(d){
+		d3.selectAll('div#timeButtons button').attr('class','btn btn');
+		d3.select(this).attr('class','but-primary');
+		startDate = '01/01/2000';
+		boxer(payNest,startDate, recessions);
+		})
+		
+	d3.select('button#recession').on('click',function(d){
+		d3.selectAll('div#timeButtons button').attr('class','btn btn');
+		d3.select(this).attr('class','but-primary');
+		startDate = '12/01/2007';
+		boxer(payNest,startDate, recessions);
+		})
+	
+	d3.select('button#recovery').on('click',function(d){
+		d3.selectAll('div#timeButtons button').attr('class','btn btn');
+		d3.select(this).attr('class','but-primary');
+		startDate = '12/06/2009';
+		boxer(payNest,startDate, recessions);
+		})
+
+	d3.select('button#pctChange').on('click',function(d){
+		d3.selectAll('div#sortButtons button').attr('class','btn btn');
+		d3.select(this).attr('class','btn-primary');
+		sortCriteria = 'pctChange';
+		sorter(payNest);
+		boxer(payNest,startDate, recessions);
+		})
+		
+	d3.select('button#change').on('click',function(d){
+		d3.selectAll('div#sortButtons button').attr('class','btn btn');
+		d3.select(this).attr('class','btn-primary');
+		sortCriteria = 'change';
+		sorter(payNest);
+		boxer(payNest,startDate, recessions);
+		})
+	
+	d3.select('button#value').on('click',function(d){
+		d3.selectAll('div#sortButtons button').attr('class','btn btn');
+		d3.select(this).attr('class','btn-primary');
+		sortCriteria = 'value';
+		sorter(payNest);
+		boxer(payNest,startDate, recessions);
+		})
+		})//close payrolls.tsv		
+		})//close recessions.csv
+	})//close series.tsv
+
+////////NONE OF MY BUSINESS///////
+
+					var fm = Iframe.init(); // must be at the end of your code
+	});
+
+//	socialRiser.create();
+
+})();
