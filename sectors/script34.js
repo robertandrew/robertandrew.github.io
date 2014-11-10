@@ -5,8 +5,8 @@
 		//'Global' variables
 		var sortCriteria = 'pctChange';
 		var shadeCriteria = 'pctChange';
-		var posFill = '#0080c3'; //light is 009933
-		var negFill = '#cc0b24'; //light is ff0000
+		var posFill = '#009933'; //light is 009933
+		var negFill = '#ff0000'; //light is ff0000
 		var neutralFill = '#999999';
 		var bgFill = '#f3f3f3';
 		var lh = 18; //line height governs all other vertical dimensions
