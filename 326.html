@@ -1,0 +1,136 @@
+(function() {
+
+	$(function() {
+
+		//////////////////////////////
+		/////OPEN/////////////////////
+
+		//////////////////////////////
+		/////GLOBAL VARIABLES/////////
+		//////////////////////////////
+
+		//hard-coded dimensions	and other constants
+		var	qHeight = 120, //constant
+			wfBarHeight = 15, //constant
+			marginTop = 30,
+			marginBottom = 30,
+			marginRight = 30,
+			marginLeft = 30,
+			betweenCharts = 30,						
+			duration = 500; 
+				
+		//placeholders for the soft dimensions
+		var	w, 
+				h;
+		
+		//placeholders/initial values for key stuff
+		//
+		//////OMNIBUS FUNCTIONS////////////////	
+		//
+				
+		//call everything necessary the first time the page loads
+		function init(){
+			getData();	
+		}
+
+		//call only those functions necessary upon page resize
+		function resize(){
+			console.log('resized');
+		}		
+
+		//
+		///////SPECIFIC-PURPOSE FUNCTIONS//////
+		//
+
+		//For the record, Math.abs(x); works
+
+		//lay out the SVG and its dimensions
+			
+		function drawCanvas(){
+		
+			//get and update screen width
+			//use a number of global variables to set vertical dimensions
+
+		}
+
+		function drawQuarters(){
+		//methods or modules		
+		
+		/*data format
+		quarter
+			pctChg
+			fill
+		*/
+		
+		}
+
+		function drawWaterfall(){
+		/*data format	
+		sector
+			pctChg
+			fill	
+		*/
+		
+		}
+		
+		//
+		function getWidth(){
+		
+		}
+		
+		//DATA HANDLING FUNCTIONS////////////
+		
+		//returns dataSet appropriate for the quarterly change
+		function filterQ(dataSet){
+			//pulls out only GDP-related data	
+		};		
+		
+		//returns dataSet appropriate for the waterfall, filtered based on the live quarter
+		function filterWf(dataSet){
+			
+			//removes the unecessary bits of the series
+			function filterSeries(seriesData){
+			
+			};
+			
+			function			
+			
+							
+		};
+		
+		
+		//returns dataSet nested 
+
+				
+		function getData(){
+			d3.tsv('series.txt',function(error, seriesData){
+			
+				//contributions always known as "ribs"
+				d3.json('shortRibs.json',function(error,ribsData){
+			
+					console.log(seriesData);
+					console.log(ribsData.BEAAPI.Results.Data);
+				})//finish loading JSON and executing all data-dependent functions
+			})//finish loading the series ids
+		}//close GetData
+		
+
+
+	//Call the only function
+	init();
+	$(window).resize(function(){
+	
+		resize();
+	});
+		
+		//////CLOSE MY CALLS/////////
+		/////////////////////////////	
+	
+
+					var fm = Iframe.init(); // must be at the end of your code
+	});
+
+	socialRiser.create();
+
+})();
+
