@@ -1,0 +1,339 @@
+(function() {
+
+	$(function() {
+
+		//////////////////////////////
+		/////OPEN/////////////////////
+
+		//////////////////////////////
+		/////GLOBAL VARIABLES/////////
+		//////////////////////////////
+
+		//hard-coded dimensions	and other constants
+		var	qH = 120, //constant
+			marginTop = 30,
+			marginRight = 30,
+			marginBottom = 30,
+			marginLeft = 30,
+			marginMiddle = 50,
+			wfHed = 30,
+			wfInset = 10,//the internal inset within the waterfall's group
+			wfBarHeight = 18, //constant
+			mobileWidth = 350,
+			desktopWidth = 959,						
+			duration = 500; 
+			
+				
+		//placeholders for the soft dimensions
+		var	w, 
+			h,
+			wfW,
+			wfOffset = 	marginTop + 
+						qH +
+						marginMiddle,//the vertical space taken up by the quarterly chart
+			wfH;//declared within setDimensions because it is dependent on the lenght of the dataset
+		
+		//placeholders/initial values for key stuff
+		var liveQ = '2014Q3', //the quarter that is highlighted and draw in the waterfall
+			startQ = '2000ßQ1'; //the first quarter which we'll display
+
+		//datasets in their various forms
+		var series,
+			blsJSON,	
+			qData = [], //empty array to hold perfectly formatted quarterly GDP data
+			wfData = []; //empty array to hold formatted contribution data
+				
+		//
+		//////WRAPPER FUNCTIONS////////////////	
+		//
+				
+		//call everything necessary the first time the page loads
+		function init(){
+			filterQ();//only need to populate the quarterly dataset once, upon pageload
+			filterWf();
+			setDimensions();
+			drawCanvas();
+			drawQ();
+			drawWf();
+		}
+
+		//call only those functions necessary upon page resize
+		function resize(){
+			setDimensions();
+			resizeQ();
+			resizeWf();
+			resizeSVG();
+		}		
+
+		//
+		//////SPECIFIC-PURPOSE FUNCTIONS//////
+		//
+
+		//For the record, Math.abs(x); works
+
+
+		//sets the dimensions of the canvas, with margins subtracted
+		function setDimensions(){
+			//the width, which varies dynamically based on window size
+			var wWidth = window.innerWidth - 30; //The 30 is a temporary placeholder, it depends on how the CSS actually sets the inset
+			if(wWidth <= mobileWidth){
+				w = mobileWidth - marginRight - marginLeft;		
+			}
+			if(wWidth > mobileWidth && wWidth < desktopWidth){
+				w = wWidth - marginRight - marginLeft;
+			}
+			if(wWidth >= desktopWidth){
+				w = desktopWidth - marginRight - marginLeft;		
+			}
+			
+			wfW = w - (wfInset * 2);
+
+			//the height, which never varies
+			wfH = 	(wfBarHeight * wfData.length) + //changes based on how many bars we want to show in the waterfall
+						(wfBarHeight * 1.5); //for the GDP bar at the bottom
+						
+			h = qH + wfH + marginTop + marginMiddle + wfHed + marginBottom;			
+		}	
+
+		////INIT-ONLY FUNCTIONS//////////
+		
+		//sets liveQ based on the final datapoint in the quarterly dataset		
+		function getLiveQ(){
+		//	return qData[qData.length-1].TimePeriod;	
+		}		
+
+		
+		//The SVG's size is based on width plus margins
+		//All interior elements are translated based on margins
+		function drawCanvas(){
+			var svg = d3.select('div#gdpChart')
+				.append('svg')
+				.attr('width',w + marginRight + marginLeft)
+				.attr('height',h + marginTop + marginBottom);
+				
+			var qCanvas = svg.append('g').attr('id', 'qCanvas')
+				.attr('transform','translate(' + marginRight + ',' + marginTop + ')');
+			
+			//the waterfall 
+			var wfCanvas = svg.append('g').attr('id', 'wfOutline')
+				.attr('transform','translate(' + marginRight + ',' + wfOffset + ')');	
+			
+				wfCanvas.append('g').attr('id','wfText')
+					.attr('transfrom','translate(' + wfInset + ',0)');
+				wfCanvas.append('g').attr('id','wfCanvas')
+					.attr('transform','translate(' + wfInset + ',' + wfHed + ')');	
+		}
+
+		////WRAPPER FOR DRAWING THE QUARTERS
+		function drawQ(){
+			d3.select('g#qCanvas')
+				.append('rect')
+				.attr('width',w)
+				.attr('height',qH)
+				.attr('x',0)
+				.attr('class','outline')
+				.attr('y',0);
+			
+			drawQBars();			
+			/*data format
+			quarter
+				pctChg
+				fill
+			*/
+		
+		}
+		
+		function drawQBars(){
+			console.log(qData);
+				
+		}
+
+		function resizeQBars(){
+			
+		}
+
+		////WRAPPER FOR THE SERIES OF EVENTS THAT NEEDS TO HAPPEN TO DRAW THE WATERFALL
+		function drawWf(){
+			
+			d3.select('g#wfOutline')
+				.append('rect')
+				.attr('width',wfW + (wfInset * 2))
+				.attr('height',wfH)
+				.attr('class','outline')
+				.attr('x',0)
+				.attr('y',0)
+				.attr('rx',wfInset)
+				.attr('ry',wfInset);
+				
+			wfText();
+		/*data format	
+		sector
+			pctChg
+			fill	
+		*/
+		}
+		
+		//Hack in permanent text to the waterfall until it's ready for an HTML div
+		function wfText(){
+			d3.select('g#wfText') 
+				.append('text')
+				.attr('class','h6')
+				.attr('x',0)
+				.attr('y',0)
+				.text('Percentage-point contributions to quarterly change in GDP')
+				.attr('transform','translate(' + (-marginLeft) + ',' + (-marginTop) + ')')
+				.style('fill','#cc0b24');
+		}
+		
+		//sort the waterfall entries in descending order, from most positive to most negative
+		function sortWf(){
+		}
+		
+		//set a proportional delay
+		function addWfdelay(){
+			var timeOffset = 0; //counter holds the offsets as they advance
+		
+		}
+		
+		//take in waterfall data, determine scales, and add x, y, delay and w values
+		function addWfXY(){
+			//set x scale based on w - labels
+			//bar width is always its scalex - scaleX(0)
+			//	
+				
+		}
+		
+		//Draw horizonal rects, full-width, on top of everything in the waterfall
+		function drawListeners(){	
+			
+			//when a listener is moused over, it calls the tooltip function
+			function wfMousover(){
+			
+				function wfTooltip(){
+			
+				}	
+					
+			}	
+			
+			
+			//resets the listener and all of its descendents, using the data which is bound to them instead of grabbed
+			function wfMouseout(){
+				
+			}
+		}
+		
+	
+		////RESIZE-ONLY FUNCTIONS
+		
+		function resizeQ(){
+			d3.select('g#qCanvas rect')
+				.attr('width',w);
+		}
+		
+		function resizeWf(){
+			d3.select('g#wfOutline rect')
+				.attr('width',wfW + (wfInset * 2));
+		}
+		
+		function resizeSVG(){
+			d3.select('svg')
+				.attr('width',w + marginRight + marginLeft)
+		
+		}		
+		
+		////DATA HANDLING FUNCTIONS////////////
+		
+		//returns a sortable number
+		function quarterToNumber(quarter){
+			return (+quarter.substring(0,4) + (+quarter.substring(5,6)/10));
+		
+		}
+		
+
+		//fills the qData array with all the available GDP data
+		function filterQ(){
+			blsJSON.forEach(function(d,i){
+				if(d.LineNumber=="1"){   //1 is the line number for GDP
+					qData.push({
+						'numDate' : quarterToNumber(d.TimePeriod),
+						'date' : d.TimePeriod, //this might be deletable
+						'v' : +d.DataValue //'v' will always be used for a data value
+					});
+				}				
+			});
+			
+			//remove any quarters that are beyond the desired range dictated by startQ
+			qData = qData.filter(function(d){return d.numDate >= quarterToNumber(startQ);}); 
+			
+		};		
+		
+			
+		//fills the wfData array with waterfall data filtered based on the live quarter
+		function filterWf(){
+			//pull out only the current quarter
+			var liveQData = blsJSON.filter(function(d){return d.TimePeriod == liveQ;});
+						
+			liveQData.forEach(function(dQ,iQ){
+				series.forEach(function(dS,iS){
+					if(dQ.LineNumber == dS.LineNumber){
+						wfData.push({
+							'v' : +dQ.DataValue,
+							'oneWord' : dS.oneWord,
+							'toolTipLabel' : dS.toolTipLabel								
+						});
+					}
+				});			
+			});
+
+			//Pivot the data with a nest and rollup
+			wfData = d3.nest()
+				.rollup(function(d){
+					return {
+						v : d3.sum(d,function(dP){
+							return dP.v;							
+						}),
+						oneWord : d[0].oneWord,
+						toolTipLabel : d[0].toolTipLabel
+					};
+					
+				})
+				.key(function(d){return d.oneWord;})
+				.entries(wfData);									
+		};
+		
+		//LOAD THE DATA AND CALL WRAPPER FUNCTIONS
+		d3.tsv('series.txt',function(error, seriesData){
+			series = seriesData;
+	
+	
+				//contributions always known as "ribs"
+				d3.json('shortRibs.json',function(error, ribsData){
+			
+					
+					//returns a subset of the raw data with numDate -- a sortable integer value		
+					blsJSON = ribsData.BEAAPI.Results.Data;
+
+					blsJSON.forEach(function(d,i){
+						d.numDate = quarterToNumber(d.TimePeriod);
+						});
+		
+									
+					//Call the two wrapper functions within the data load
+					init();
+					$(window).resize(function(){
+			
+						resize();
+					});
+				});//finish loading JSON and executing all data-dependent functions
+			});//finish loading the series ids
+		
+		//////CLOSE MY CALLS/////////
+		/////////////////////////////	
+	
+
+					var fm = Iframe.init(); // must be at the end of your code
+	});
+
+	socialRiser.create();
+
+})();
