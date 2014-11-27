@@ -1,0 +1,34 @@
+Actions on load:
+⦁	FIX DATA (all)
+⦁	DRAW (all)
+Actions on click:
+⦁	Radio button
+⦁	Draw all, based on the three radio-button presets for each
+⦁	Overall listeners
+⦁	Draw only breakdown
+Actions on resize:
+⦁	Redraw all
+⦁	Trigger mobile draw settings at 350 px wide
+Possible discrete actions:
+⦁	FIX DATA
+⦁	Pivot data
+⦁	Sort data
+⦁	Filter data
+⦁	DRAW
+⦁	Draw canvas
+⦁	Add hed/dek
+⦁	Draw overall
+⦁	Draw breakdown
+Mobile-only settings:
+⦁	Time period automatically reduced to "since the recovery"
+⦁	Radio buttons for time period eliminated
+⦁	Layout of the breakdown shifts into the wacky one-column
+Data is all handled upon initial page load. At that time, we...
+⦁	Add value, opacity factors and ranks for...
+⦁	Percentage change
+⦁	Absolute change
+⦁	Sector size
+⦁	EXCEPTION: Ups and downs are calculated as part of the DrawOverall function, because they are very time-period dependent
+Draw functions need to...
+⦁	Filter the data
+⦁	Set X and Y scales based on the data
