@@ -1,0 +1,129 @@
+(function() {
+
+	$(function() {
+
+	
+	////PASTE IN RECESSION/SERIES DATA DIRECTLY, INSTEAD OF VIA CSV, TO CUT LOAD TIME////
+	
+	//DECLARE DATASETS
+	var series,
+		recessions,
+		dataset = [];
+	
+	//DECLARE SINGLE-VALUE HOLDERS	
+	var sortCriteria,
+		shadeCriteria,
+		startDate,
+		activeDate;
+		
+	
+	
+	series = [{"label":"Mining and logging","series":"CES1000000001","id":"mining","report":"CES1000000001"},
+		{"label":"Construction","series":"CES2000000001","id":"construction","report":"CES2000000001"},
+		{"label":"Durable Goods","series":"CES3100000001","id":"durable","report":"CES3100000001"},
+		{"label":"Nondurable Goods","series":"CES3200000001","id":"nondurable","report":"CES3200000001"},
+		{"label":"Wholesale trade","series":"CES4142000001","id":"wholesale","report":"CES4142000001"},
+		{"label":"Retail trade","series":"CES4200000001","id":"retail","report":"CES4200000001"},
+		{"label":"Transportation and warehousing","series":"CES4300000001","id":"transportation","report":"CES4300000001"},
+		{"label":"Utilities","series":"CES4422000001","id":"utilities","report":"CES4422000001"},
+		{"label":"Information","series":"CES5000000001","id":"information","report":"CES5000000001"},
+		{"label":"Financial activities","series":"CES5500000001","id":"financial","report":"CES5500000001"},
+		{"label":"Professional and business services","series":"CES6000000001","id":"business","report":"CES6000000001"},
+		{"label":"Other services","series":"CES8000000001","id":"services","report":"CES8000000001"},
+		{"label":"Government","series":"CES9000000001","id":"government","report":"CES9000000001"},
+		{"label":"Health care and social assistance","series":"CES6562000001","id":"health","report":"CES6562000001"},
+		{"label":"Education","series":"CES6561000001","id":"education","report":"CES6561000001"},
+		{"label":"Arts, entertainment and rec.","series":"CES7071000001","id":"arts","report":"CES7071000001"},
+		{"label":"Accommodation","series":"CES7072100001","id":"accommodation","report":"CES7072100001"},
+		{"label":"Restaurants and bars","series":"CES7072200001","id":"food","report":"CES7072200001"}];
+
+	recessions = [{"recession":"r1929","peak":"08/1/1929","trough":"03/01/1933","nextPeak":"02/01/1945"},
+		{"recession":"r1945","peak":"02/01/1945","trough":"10/01/1945","nextPeak":"07/01/1953"},
+		{"recession":"r1953","peak":"07/01/1953","trough":"05/01/1954","nextPeak":"08/01/1957"},
+		{"recession":"r1957","peak":"08/01/1957","trough":"04/01/1958","nextPeak":"04/01/1960"},
+		{"recession":"r1960","peak":"04/01/1960","trough":"02/01/1961","nextPeak":"12/01/1969"},
+		{"recession":"r1969","peak":"12/01/1969","trough":"11/01/1970","nextPeak":"11/01/1973"},
+		{"recession":"r1973","peak":"11/01/1973","trough":"03/01/1975","nextPeak":"01/01/1980"},
+		{"recession":"r1980-81","peak":"01/01/1980","trough":"11/01/1982","nextPeak":"07/01/1990"},
+		{"recession":"r1990","peak":"07/01/1990","trough":"03/01/1991","nextPeak":"03/01/2001"},
+		{"recession":"r2001","peak":"03/01/2001","trough":"11/01/2001","nextPeak":"12/01/2007"},
+		{"recession":"r2007","peak":"12/01/2007","trough":"06/01/2009","nextPeak":"06/18/2014"}];
+		
+	
+	
+	
+	
+	
+	////DATA DEPENDENT////
+	d3.json('sectorsJSON.json',function(error,data){
+		
+		//Pivot data
+		data.forEach(function(d,i){
+			d.data.forEach(function(dData, iData){
+				
+				dataset.push({
+					//"Date" is an artificial numerical object that allows chronological sorting without a date object
+					'date' : +(dData.year + '.' + dData.period.substring(1,3)),
+					'v' : +dData.value,
+					'series' : d.seriesID		
+				})
+			})		
+		})		
+
+		
+		//Put the dataset in chronological order based on the artificial date numeral
+		dataset.sort(function(a, b){return d3.descending(a.date,b.date)})
+
+		var subsetPreviousValue;
+
+		//Adds three rank factors to each datapoint
+		series.forEach(function(dSeries, iSeries){
+			
+			dataset.filter(function(dData){return dSeries.series == dData.series})
+				.sort(function(a, b){return d3.ascending(a.date,b.date)})
+				.forEach(function(dSubset, iSubset){
+					
+					if(iSubset == 0){
+						subsetPerviousValue = 0;
+						
+					}
+					
+					//The first item can't have a change, so it should be excluded
+					if(iSubset != 0){
+						dSubset.change = +(dSubset.v - liveSubset[iSubset - 1].v).toFixed(1);
+						dSubset.pctChange = +(dSubset.change/liveSubset[iSubset-1].v * 100).toFixed(1);			
+					}
+						
+				})			
+			
+			//Remove that first item
+			liveSubset.shift();
+			//Set opacity scales based on three possibilities
+			
+			//Add rank values based on three different possibilities
+			
+			
+			console.log(liveSubset);				
+			
+		})
+
+
+		//Sort and add three different ranks and opacity values for each nest
+		
+		
+		
+		console.log(dataset);
+		console.log(series);
+		console.log(recessions);
+	})
+
+	
+	
+		////////THIS REMAINS FOREVER///////
+
+		var fm = Iframe.init(); // must be at the end of your code
+	});
+
+	//	socialRiser.create();
+
+})();
