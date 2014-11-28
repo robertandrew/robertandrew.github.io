@@ -1,0 +1,58 @@
+Actions on load:
+⦁	All data manipulation
+⦁	All drawing, based on default dates set by the setDefaults() function
+Actions on click:
+⦁	If it's a radio button...
+⦁	Draw all, based on the three radio-button presets for each
+⦁	If it's a rectangular listener...
+⦁	Draw only the breakdown
+Actions on mouseover:
+⦁	Display tooltip, remove tooltip
+Actions on resize:
+⦁	Redraw all
+⦁	Trigger mobile draw settings at 350 px wide
+Possible discrete actions:
+⦁	FIX DATA
+⦁	Pivot data
+⦁	Sort data
+⦁	Filter data
+⦁	DRAW
+⦁	Draw canvas
+⦁	Add hed/dek
+⦁	Draw overall
+⦁	Draw breakdown
+Mobile-only settings:
+⦁	Time period automatically reduced to "since the recovery"
+⦁	Radio buttons for time period eliminated
+⦁	Layout of the breakdown shifts into the wacky one-column
+Data is all handled upon initial page load. At that time, we...
+⦁	Add value, opacity factors and ranks for...
+⦁	Percentage change
+⦁	Absolute change
+⦁	Sector size
+⦁	EXCEPTION: Ups and downs are calculated as part of the DrawOverall function, because they are  time-period dependent
+Draw functions need to...
+⦁	Filter the data
+⦁	Set X and Y scales based on the data, x scale for overall depends on the length of the dataset
+⦁	Draw the data
+⦁	Draw listeners to later manipulate the data
+⦁	Draw tooltips on mouseover
+Data functions need to...
+⦁	Pivot all the data into one stripe
+⦁	Nest everything
+⦁	Rank the data based on time
+⦁	
+Best ways to accomplish this:
+⦁	Go through my data loading process step by step and write out what I am tryiing to accomplish with each.
+⦁	Define broad functions, but only worry about the discrete actions as I write them
+⦁	Nonetheless, constantly ask myself if this is the tightest discrete function possible and if it ever needs to be replicated.
+The most logical overall progression would be:
+1.	Declare variables
+2.	Set wrapper functions for initialize and resize
+3.	Set defaults (sortCriteria, shadeCriteria, startDate, activeDate)
+4.	Draw canvas
+5.	Draw overall (function takes sortCriteria, shadeCriteria, startDate)
+6.	Draw sectors (function takes activeDate)
+7.	Add listeners for radio buttons
+8.	Add resize behavior
+9.	Load and manipulate data
