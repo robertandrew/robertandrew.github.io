@@ -1,0 +1,1174 @@
+(function() {
+	$(function() {
+
+		//DECLARE DATASETS
+		var series,
+			recessions,
+			dataset = [],
+			dateRange = [];
+
+		//DECLARE SINGLE-VALUE HOLDERS
+		var sortCriteria,
+			shadeCriteria,
+			startDate = 2004.10,
+			activeDate = 2014.11,
+			parseDate = d3.time.format('%x').parse,
+			millionsFormat = d3.format('0,000'),
+			sortType = 'pctChange',
+			opacityType = 'pctChange',
+			posFill = '#004eaf',
+			negFill = '#cc0b24',
+			shadeFill = '#f3f3f3',
+			neutralFill = '#999999',
+			keyFill = 0;
+
+		//DECLARE RESPONSIVE CUTOFFS
+		var mobileW = 410,
+			desktopW = 959
+			svgWidthPadding = 0.95; //The maximum amount of page that can be devoted to charts
+
+		//DECLARE PAGE DIMENSIONS
+		var canvasW, //excludes the margins
+			canvasH, //excludes the margins
+			marginTop = 30,
+			marginRight = 15,
+			marginLeft = 40,
+			marginBottom = 15,
+			marginMiddle = 30, //space between charts
+			overallH, //this is the interior height, excluding labels
+			overallBoxSide,
+			pageW; //this is window.innerWidth
+
+		//DECLARE DIMENSIONS FOR THE BREAKDOWN (BD)
+		//All of them vary based on screen size.
+		//Some are calculated based on other factors...
+		var	bd_w,
+			bd_h,
+			//...and some are hard-coded.
+			bd_inset = 15,
+			bd_rowHeight,
+			//The rest of the dimensions are all expressed relative to those.
+			//Boxes showing percentge change
+			bd_boxSide,
+			bd_boxRectX,
+			bd_boxRectY,
+			bd_boxLabelX,
+			bd_boxLabelY,
+			//Bars showing the size of each sector...
+			bd_barX, //also applies to the bar shaders
+			bd_barY,
+			bd_barW,
+			bd_barH,
+			bd_barLabelX,
+			bd_barLabelY,
+			//Labels showing the name of each sector...
+			bd_labelX,
+			bd_labelY,
+			//Circles showing how many sectors were rising and falling during the time period
+			bd_circleR,
+			bd_upX,
+			bd_upLabelX,
+			bd_downX,
+			bd_downLabelX;
+
+
+		////PASTE IN RECESSION/SERIES DATA DIRECTLY, INSTEAD OF VIA CSV, TO CUT LOAD TIME////
+		series = [{
+			"label": "Mining and logging",
+			"series": "CES1000000001",
+			"id": "mining",
+			"report": "CES1000000001"
+		}, {
+			"label": "Construction",
+			"series": "CES2000000001",
+			"id": "construction",
+			"report": "CES2000000001"
+		}, {
+			"label": "Durable Goods",
+			"series": "CES3100000001",
+			"id": "durable",
+			"report": "CES3100000001"
+		}, {
+			"label": "Nondurable Goods",
+			"series": "CES3200000001",
+			"id": "nondurable",
+			"report": "CES3200000001"
+		}, {
+			"label": "Wholesale trade",
+			"series": "CES4142000001",
+			"id": "wholesale",
+			"report": "CES4142000001"
+		}, {
+			"label": "Retail trade",
+			"series": "CES4200000001",
+			"id": "retail",
+			"report": "CES4200000001"
+		}, {
+			"label": "Transportation and warehousing",
+			"series": "CES4300000001",
+			"id": "transportation",
+			"report": "CES4300000001"
+		}, {
+			"label": "Utilities",
+			"series": "CES4422000001",
+			"id": "utilities",
+			"report": "CES4422000001"
+		}, {
+			"label": "Information",
+			"series": "CES5000000001",
+			"id": "information",
+			"report": "CES5000000001"
+		}, {
+			"label": "Financial activities",
+			"series": "CES5500000001",
+			"id": "financial",
+			"report": "CES5500000001"
+		}, {
+			"label": "Professional and business services",
+			"series": "CES6000000001",
+			"id": "business",
+			"report": "CES6000000001"
+		}, {
+			"label": "Other services",
+			"series": "CES8000000001",
+			"id": "services",
+			"report": "CES8000000001"
+		}, {
+			"label": "Government",
+			"series": "CES9000000001",
+			"id": "government",
+			"report": "CES9000000001"
+		}, {
+			"label": "Health care and social assistance",
+			"series": "CES6562000001",
+			"id": "health",
+			"report": "CES6562000001"
+		}, {
+			"label": "Education",
+			"series": "CES6561000001",
+			"id": "education",
+			"report": "CES6561000001"
+		}, {
+			"label": "Arts, entertainment and rec.",
+			"series": "CES7071000001",
+			"id": "arts",
+			"report": "CES7071000001"
+		}, {
+			"label": "Accommodation",
+			"series": "CES7072100001",
+			"id": "accommodation",
+			"report": "CES7072100001"
+		}, {
+			"label": "Restaurants and bars",
+			"series": "CES7072200001",
+			"id": "food",
+			"report": "CES7072200001"
+		}];
+
+		recessions = [{
+			"recession": "1973",
+			"start": "12/01/1973",
+			"trough": "03/01/1975",
+			"nextstart": "01/01/1980"
+		}, {
+			"recession": "1980-81",
+			"start": "02/01/1980",
+			"trough": "11/01/1982",
+			"nextstart": "07/01/1990"
+		}, {
+			"recession": "1990",
+			"start": "08/01/1990",
+			"trough": "03/01/1991",
+			"nextstart": "03/01/2001"
+		}, {
+			"recession": "2001",
+			"start": "04/01/2001",
+			"trough": "11/01/2001",
+			"nextstart": "12/01/2007"
+		}, {
+			"recession": "2007",
+			"start": "01/01/2008",
+			"trough": "06/01/2009",
+			"nextstart": "06/18/2014"
+		}];
+
+		//The recessions should be date objects, so let's hack that in
+		recessions.forEach(function(d){
+			d.start = parseDate(d.start);
+			d.trough = parseDate(d.trough);
+		})
+
+		////WRAPPER FUNCTIONS
+		function loadCharts(){
+			updateDateObjects();
+			setDimensions();
+			rankData();
+			drawCanvas();
+			positionCanvas();
+			positionBreakdown();
+			drawOverall();
+			drawBreakdown();
+			listenForMonthClicks();
+			listenForRadioClicks();
+		}
+
+		function resizeCharts(){
+			//When the window is resized, we first take note of the size it was before
+			previousSize = pageW;
+			//Then we see what the current size would be...
+			updateDateObjects();
+			setDimensions();
+			//...and if it's significant, we call the draw functions...
+			if (pageW <= previousSize + 5 || pageW >= previousSize - 5) {
+
+			positionCanvas();
+			positionBreakdown();
+			drawOverall();
+			drawBreakdown();
+			}
+		};
+		
+		function updateDateObjects(){
+			startDateObject = parseDate((startDate+"").substring(5,8) + '/01/' + (startDate+"").substring(0,4));
+			activeDateObject = parseDate((activeDate+"").substring(5,8) + '/01/' + (activeDate+"").substring(0,4));		
+		}
+		function setDimensions() {
+
+			pageW = d3.round(window.innerWidth, 0);
+
+			if (pageW >= mobileW && pageW <= desktopW) {
+				canvasW = (pageW * svgWidthPadding) - marginRight - marginLeft;
+				bd_w = canvasW - (bd_inset * 2);
+				setBreakdownDesktop();
+			}
+			if (pageW < mobileW) {
+				canvasW = (mobileW * svgWidthPadding) - marginRight - marginLeft;
+				bd_w = canvasW - (bd_inset * 2);
+				setBreakdownMobile();
+			}
+			if (pageW > desktopW) {
+				canvasW = (desktopW * svgWidthPadding) - marginRight - marginLeft;
+				bd_w = canvasW - (bd_inset * 2);
+				setBreakdownDesktop();
+			}
+
+			//Call setHeight at the end of setDimensions because it's dependent
+			setHeight();
+		};
+
+		//Height is dependent upon width, so setDimensions must be called first.
+		function setHeight() {
+			//You start by calculating the height needed for a single sector box, which, because it's a square, is dictated by the width divided by the number of months we'll be showing...
+			overallBoxSide = canvasW / (dateRange.filter(function(d) {
+				return d.date >= startDate
+			}).length);
+
+			//...then we derive the height of the overall chart.
+			overallH =
+				//The size of a box is multiplied by the possible range of positive and negative sectors...
+				overallBoxSide * (series.length + series.length + 3);
+
+			//...then we derive the height of the breakdown chart, and all the dynamic pieces are in place.
+			bd_h = ((bd_rowHeight + bd_inset) * (series.length + 1)) + bd_inset;
+
+			//Now we add together the static and dynamic pieces, top to bottom, in order to get the full height of the SVG
+			canvasH = overallH + marginMiddle + bd_h;
+		}
+
+		//to be called within setDimensions
+		function setBreakdownMobile() {
+			//Some are hard-coded...
+			bd_inset = 15,
+				//...in mobile, the key value, row height, is not one of them
+				bd_rowHeight = mobileW * 0.4,
+
+				//The rest of the dimensions are all expressed relative to those.
+				//Boxes showing percentge change
+				bd_boxSide = bd_rowHeight * 0.5,
+				bd_boxRectX = bd_inset,
+				bd_boxRectY = (bd_rowHeight * 0.4) + (bd_inset/2),
+				bd_boxLabelX = bd_boxRectX + (bd_boxSide / 2),
+				bd_boxLabelY = bd_boxRectY + (bd_boxSide / 2),
+				//Bars showing the size of each sector...
+				bd_barX = bd_inset, //also applies to the bar shaders
+				bd_barY = bd_rowHeight * 0.2,
+				bd_barW = bd_w - (bd_inset * 2),
+				bd_barH = bd_rowHeight * 0.2,
+				bd_barLabelX = bd_inset, //to be updated dynamically
+				bd_barLabelY = bd_barY + (bd_barH * 0.5),
+				//Labels showing the name of each sector...
+				bd_labelX = bd_inset,
+				bd_labelY = bd_barY - bd_inset,
+				//Circles showing how many sectors were rising and falling during the time period
+				bd_circleR = bd_boxSide * 0.5,
+				bd_upX = bd_w * 0.55,
+				bd_downX = bd_w * 0.85,
+				bd_circleY = bd_boxRectY + (bd_boxSide * 0.5);
+
+		}
+
+		//To be called within setDimensions
+		function setBreakdownDesktop() {
+
+			//Width is inherited from the setDimensions function
+			//Height, inset and label offset are all hard-coded
+			bd_inset = 15,
+				bd_rowHeight = 80,
+				//The rest of the dimensions are all expressed relative to those.
+				//Boxes showing percentge change
+				bd_boxSide = bd_rowHeight - bd_inset,
+				bd_boxRectX = (bd_inset * 0.5),
+				bd_boxRectY = bd_boxRectX,
+				bd_boxLabelX = bd_boxRectX + (bd_boxSide * 0.5),
+				bd_boxLabelY = bd_boxLabelX,
+				//Bars showing the size of each sector...
+				bd_barX = bd_inset + bd_boxSide + bd_inset, //also applies to the bar shaders
+				bd_barY = bd_rowHeight * 0.4,
+				bd_barH = bd_rowHeight - bd_barY - (bd_inset * 0.5),
+				bd_barLabelX = bd_barX, //this will be set dynamically later
+				bd_barLabelY = bd_barY + (bd_barH * 0.5),
+				//Labels showing the name of each sector...
+				bd_labelX = bd_inset + bd_boxSide + bd_inset,
+				bd_labelY = bd_inset * 1.2,
+				//Circles showing how many sectors were rising and falling during the time period
+				bd_circleR = bd_boxSide * 0.75,
+				bd_upX = bd_w - (bd_circleR * 3),
+				bd_downX = bd_upX + (bd_circleR * 2),
+				bd_circleY = bd_rowHeight * 0.5,
+				//The bar width gets set last here, because it's dependent on many other things
+				bd_barW = bd_upX - bd_barX - bd_circleR - bd_inset;
+
+		}
+
+
+
+
+		//DRAW THE CANVAS AFTER DATA LOAD, USED FOR BOTH RESIZE AND LOAD EVENTS
+		function drawCanvas() {
+
+			//First draw the svg, without committing to any sizes or anything...
+			var canvas = d3.select('div.chart')
+				.append('svg')
+
+			//...with a group within it, which will later be offset by the margins.
+			.append('g')
+				.attr('id', 'canvas')
+				//					.attr('transform','translate(' + marginRight + ',' + marginLeft + ')');
+
+			//Then add in a group for the overall...
+			var overallCanvas = canvas.append('g').attr('id', 'overall');
+			//...and within it, groups for each the objects which will be dynamically selected by d3.
+			overallCanvas.append('g').attr('id', 'recessions');
+			overallCanvas.append('g').attr('class', 'monthListeners');
+			overallCanvas.append('g').attr('id', 'x').attr('class', 'axis');
+			overallCanvas.append('g').attr('id', 'y').attr('class', 'axis')
+				//With a tiny static label for the unchanged entries thrown in.
+				.append('text').attr('id', 'unchanged').text('Unch.');
+			//And the box group comes last, so that it's on top.
+			overallCanvas.append('g').attr('id', 'boxes');
+
+			overallCanvas.append('rect').attr('id', 'temps');
+
+			//And do the same for the breakdown chart, which will late be translated by the height of the second chart and the middle margin.
+			var breakdownCanvas = canvas.append('g').attr('id', 'breakdown');
+			//...though this one is different, since it also contains an shader rectangle
+			breakdownCanvas.append('rect').attr('id', 'shader');
+			breakdownCanvas.append('g').attr('id', 'whiteBackgrounds');
+			breakdownCanvas.append('g').attr('id', 'labels');
+
+			var boxes = breakdownCanvas.append('g').attr('id', 'boxes');
+			boxes.append('g').attr('id', 'rects').attr('class', 'boxes');
+			boxes.append('g').attr('id', 'boxLabels').attr('class', 'centeredLabels');
+
+			var bars = breakdownCanvas.append('g').attr('id', 'bars');
+			bars.append('g').attr('id', 'backgrounds');
+			bars.append('g').attr('id', 'rects').attr('class', 'bars');
+			bars.append('g').attr('id', 'barLabels');
+
+			var up = breakdownCanvas.append('g').attr('id', 'up');
+			up.append('g').attr('id', 'circles').attr('class', 'circles');
+			up.append('g').attr('id', 'upLabels').attr('class', 'centeredLabels');
+
+			var down = breakdownCanvas.append('g').attr('id', 'down');
+			down.append('g').attr('id', 'circles').attr('class', 'circles');
+			down.append('g').attr('id', 'downLabels').attr('class', 'centeredLabels');
+		}
+
+
+		function positionCanvas() {
+
+			//First, set the SVG gets the canvas size, plus margins
+			d3.select('div.chart svg')
+				.attr('height', canvasH + marginTop + marginBottom)
+				.attr('width', canvasW + marginLeft + marginRight);
+
+			//NON-RESPONSIVE ELEMENTS
+
+			//The main canvas is offset by the margins, which also handles all offsets for the overall chart
+			d3.select('g#canvas')
+				.attr('transform', 'translate(' + marginLeft + ',' + marginTop + ')');
+
+			//The breakdown canvas is also offset by the inset, which applies to all sides
+			d3.select('g#breakdown')
+				.attr('transform', 'translate(' + bd_inset + ',' + (overallH + marginMiddle + bd_inset) + ')');
+			//...but the rect isnt, so we have to account for that
+			d3.select('g#breakdown rect#shader').attr('transform', 'translate(' + (bd_inset * -1) + ',' + (0 - bd_inset) + ')');
+			//...and the same goes for the labels, but in a different direction
+			d3.select('g#breakdown g#labels').attr('transform', 'translate(0,' + (0) + ')');
+
+		}
+
+		function positionBreakdown() {
+			//Labels
+			d3.select('g#breakdown g#labels')
+				.attr('transform', 'translate(' + bd_labelX + ',' + bd_labelY + ')');
+
+			//Boxes
+			d3.select('g#breakdown g#boxes g#rects')
+				.attr('transform', 'translate(' + bd_boxRectX + ',' + bd_boxRectY + ')');
+			d3.select('g#breakdown g#boxes g#boxLabels')
+				.attr('transform', 'translate(' + bd_boxLabelX + ',' + bd_boxLabelY + ')');
+
+			//Bars
+			d3.select('g#breakdown g#bars g#backgrounds')
+				.attr('transform', 'translate(' + bd_barX + ',' + bd_barY + ')');
+			d3.select('g#breakdown g#bars g#rects')
+				.attr('transform', 'translate(' + bd_barX + ',' + bd_barY + ')');
+			d3.select('g#breakdown g#bars g#barLabels')
+				.attr('transform', 'translate(' + bd_barLabelX + ',' + bd_barLabelY + ')');
+
+			//Circles
+			d3.select('g#breakdown g#up')
+				.attr('transform', 'translate(' + bd_upX + ',' + bd_circleY + ')');
+			d3.select('g#breakdown g#down')
+				.attr('transform', 'translate(' + bd_downX + ',' + bd_circleY + ')');
+		}
+
+		//Adds a dummy object to the beginning of the array
+		function addKeyItem(targetSet){
+			var upDown = (dateRange.filter(function(d){return d.date >= startDate}).length * 0.8) ;
+			targetSet.unshift({
+				"change" : 0,//"Monthly change",
+				"changeRank" : 0,
+				"pctChangeRank" : 0,
+				"sizeRank" : 0,
+				"down" : upDown,//"Months falling",
+				"up" : upDown,//"Months rising",
+				"size" : 5000000,
+				"label" : 0,//"Overall sector size",
+				"fill" : neutralFill,
+				"opacity" : 0.5,
+				"pctChange" : 0,// "Monthly pct. chg."
+			})
+		}
+
+		//Turns the first item into a key object
+		function makeKeyItem(selector,newText){
+			//First, strip the current styles...
+			var selection = d3.select(selector)
+				.style('fill',null)
+				.style('opacity',1)
+				.attr('id',null)
+				//...then add the new class and text
+				.attr('class','keyItem')
+				//...text is added in all cases, because it doesn't hurt
+				.text(newText);
+			}
+
+		function labelKeyBoxes(changeType){
+			var possibleBoxText = [{
+				'changeType' : 'pctChange',
+				'keyText' : 'Percent change',
+				'shortKeyText' : 'Pct. chg.'			
+			},
+			{
+				'changeType' : 'change',
+				'keyText' : 'Jobs gained/lost',
+				'shortKeyText' : 'Jobs. chg.',			
+			},
+			{
+				'changeType' : 'size',
+				'keyText' : 'Percent change',
+				'shortKeyText' : 'Pct. chg.',				
+			}];
+			
+			var scaleBoxText = d3.scale.ordinal()
+				.domain(possibleBoxText.map(function(d){return d.changeType}))
+				.range(possibleBoxText.map(function(d){return d.shortKeyText}));
+			
+			return scaleBoxText(changeType);
+		}
+
+		function styleAllKeys(changeType){
+			//Run the function on every key item.
+			makeKeyItem('g#breakdown g#whiteBackgrounds rect');
+			makeKeyItem('g#breakdown g#labels text', 'Sector status in '
+			 	+ (activeDateObject.getMonth()) + '/' + (activeDateObject.getFullYear()));			
+			makeKeyItem('g#breakdown g#boxes g#rects rect');
+			makeKeyItem('g#breakdown g#boxes g#boxLabels text', labelKeyBoxes(changeType));
+			makeKeyItem('g#breakdown g#bars g#rects rect');
+			makeKeyItem('g#breakdown g#bars g#backgrounds rect');
+			makeKeyItem('g#breakdown g#bars g#barLabels text','Total jobs in the sector');
+			makeKeyItem('g#breakdown g#up circle');
+			makeKeyItem('g#breakdown g#down circle');
+			makeKeyItem('g#breakdown g#up text','Mos. up');
+			makeKeyItem('g#breakdown g#down text','Mos. down');
+			//Minor individual tweaks
+			d3.select('g#breakdown g#bars g#rects rect')
+				.style('fill','white');
+			d3.select('g#breakdown g#whiteBackgrounds rect')
+				.style('stroke-width',0)
+				.style('opacity',0.5)
+				.attr('rx',bd_rowHeight * 0.1)
+				.attr('ry',bd_boxSide * 0.1);
+			d3.select('g#breakdown g#boxes g#boxLabels text')
+				.style('font-size', null)
+				.style('font-weight', null);	
+			d3.select('g#breakdown g#labels text')
+				.attr('class',null);
+		}
+		
+		function listenForRadioClicks(){
+			$('input:radio[name="time-options"]').change(
+				function(){
+					console.log($(this).val());
+					startDate = $(this).val();
+					setDimensions;
+					resizeCharts();
+					
+				}
+			)
+			$('input:radio[name="sort-options"]').change(
+				function(){
+					console.log($(this).val());
+					sortType = $(this).val();
+					resizeCharts();
+				}
+			)
+			$('input:radio[name="opacity-options"]').change(
+				function(){
+					console.log($(this).val());
+					opacityType = $(this).val();
+					resizeCharts();
+				}
+			)
+		}
+		
+		
+		function listenForMonthClicks(){
+			d3.selectAll('g.monthListeners rect').on('click',function(d,i){
+				activeDate = d.date;
+				drawBreakdown();
+			})
+		}
+		
+		
+		function highlightActiveDate(){
+			
+			//We start by returning all possible listener rects to their default state
+			d3.selectAll('g.monthListeners rect')
+				.style('opacity',0)
+				.attr('height',overallH);
+			
+			//...then we select the active date and lengthen it.
+			d3.select('rect#m' + (activeDate*100))
+				.style('opacity',0.15)
+				.attr('height',overallH + marginMiddle);
+		}		
+
+		
+		function drawOverall() {
+			//Always start by restricting the data only to the live set, which is sorted to work in chronological order...
+			var overallData = dataset.filter(function(d) {
+				return d.date >= startDate
+			}).sort(function(a, b) {
+				return d3.ascending(a.date, b.date)
+			});
+			//...and we'll do the same for the dates
+			var activeDateData = dateRange.filter(function(d){return d.date >= startDate});
+
+			//...and then scanned to set a scale for the opacity, because we need that soon...
+			var scaleOpacity = d3.scale.linear()
+				.domain([0,d3.max(overallData,function(d){return Math.abs(d[opacityType])})])
+				//The high end of the range is set beyond 1, so that we'll get a higher concentration of deep shades, even during the depths of the recession
+				.range([0.5,1.6]);
+
+			//...then take a detour to count the ups and downs
+			series.forEach(function(dSeries, iSeries) {
+				//First we set out counters for the positives and negatives...
+				var posCounter = 0;
+				var negCounter = 0;
+
+				//...Then we loop through the entire dataset once and get the totals...
+				overallData.forEach(function(dSet, iSet) {
+
+					if (dSeries.series == dSet.series) {
+						if (dSet.change > 0) {
+							posCounter++;
+						}
+						if (dSet.change < 0) {
+							negCounter++;
+						}
+					}
+				})
+
+				//...then we loop through once more to add the totals to every single item...
+				overallData.forEach(function(dSet, iSet) {
+					if (dSeries.series == dSet.series) {
+						dSet.up = posCounter;
+						dSet.down = negCounter;
+						//And this is as good a time as any to also insert an opacity value
+						dSet.opacity = scaleOpacity(Math.abs(dSet[opacityType]));
+					}
+				})
+			})
+
+			//We set a new scale with every redraw, because it is almost always either new data or size
+			var scaleX = d3.time.scale()
+				.domain(d3.extent(overallData, function(d) {
+					return d.dateObject
+				}))
+				//And we have to be sure to shorten the axis by the width of a box, because the XY indicates the upper left corner of the box
+				.range([0, canvasW - overallBoxSide]);
+
+			//There's one Y scale we can use for all the drawing...
+			var scaleY = d3.scale.linear()
+				.domain([d3.min(overallData, function(d) {
+					return d.sizeRank
+				}) - 2, series.length]) //any rank could be used for the extent
+				.range([overallH - overallBoxSide, 0]);
+
+
+			//And with these scales come new axes...
+			var xAxis = d3.svg.axis()
+				.scale(scaleX)
+				.orient('top')
+				//...which will be limited to years
+				.ticks(activeDateData.length/12);
+
+			var yAxis = d3.svg.axis()
+				.scale(scaleY)
+				.orient('left');
+				
+			//... and which need to be called in the pre-existing groups.
+			d3.select('g#overall g#x').call(xAxis);
+			d3.select('g#overall g#y').call(yAxis);
+			//The unchanged label is a one-of-a-kind hack to give the unchanged labels their own spot
+			d3.select('text#unchanged')
+				.style('text-anchor', 'end')
+				.attr('x', 0)
+				.attr('y', scaleY(scaleY.domain()[0])-4)
+				.attr('dy','0em');
+			//...and to make it possible, we hackily remove the text from the ultimate tick
+			d3.select('g#y g.tick')
+				.style('visibility','hidden');
+
+			//Then we add the recessions
+			//..but first we have to filter the data
+			var filteredRecessions = recessions.filter(function(d){return d.trough > startDateObject});
+			//... and make it start at the right place
+			filteredRecessions.forEach(function(d){
+				if(d.start < startDateObject)
+				{d.start = startDateObject};
+			})
+			//...at which point we can finally bind the data to rectangles...
+			var drawRecessions = d3.select('g#overall g#recessions')
+				.selectAll('rect')
+				.data(filteredRecessions);
+
+			//...which are appended if new data is detected...
+			drawRecessions.enter()
+				.append('rect')
+				.attr('class', 'shaders');
+
+			//...and scaled based on the period from the start to the trough...
+			drawRecessions.attr('x', function(d) {
+					return scaleX(d.start)
+				})
+				.attr('y', 0)
+				.attr('height', overallH)
+				.attr('width', function(d){ return scaleX(d.trough) - scaleX(d.start)})
+				//...the fill style is set here instead of CSS because it varies dynamically
+				.style('fill', shadeFill)
+				.style('opacity', 0.6);
+				
+			//...and removed if they're no longer necessary'
+			drawRecessions.exit()
+				.remove();
+				
+			//Next, we add listener rectangles to trigger the monthly draw events
+			//We'll need to filter the dates
+			
+			
+			//...then we draw the listener boxes...
+			var drawListeners = d3.select('g#overall g.monthListeners')
+				.selectAll('rect')
+				.data(activeDateData,function(d){return d.date});
+			
+			drawListeners.enter()
+				.append('rect');
+			
+			drawListeners.attr('x',function(d){return scaleX(d.dateObject)})
+				.attr('y',0)
+				.attr('width',overallBoxSide)
+				.attr('height',overallH)
+				.attr('id',function(d){return 'm' + d.date * 100})
+			
+		
+			//And finally we add the boxes themselves...
+			var drawBoxes = d3.select('g#overall g#boxes')
+				.selectAll('rect')
+				.data(overallData);
+
+			//...which are appended if new data is detected...
+			drawBoxes.enter()
+				.append('rect')
+				.attr('class', 'boxes')
+				.append('title')
+				.text(function(d){return 
+					d.label 
+					+ " showed a " 
+					+ labelKeyBoxes(d[sortType]) 
+					+ " in " 
+					+ d.dateObject.getMonth() 
+					+ "/" 
+					+ d.dateObject.getFullYear });
+
+			//...and scaled based on everything...
+			drawBoxes.attr('x', function(d) {
+					return scaleX(d.dateObject)
+				})
+				.attr('y', function(d) {
+					return (scaleY(d[sortType + 'Rank']))
+				})
+				.attr('height', overallBoxSide * 0.9)
+				.attr('width', overallBoxSide * 0.9)
+				.attr('rx', overallBoxSide * 0.15)
+				.attr('ry', overallBoxSide * 0.15)
+				//...the fill style is set here instead of CSS because it varies dynamically
+				.style('fill', function(d) {
+					return d.fill
+				}).style('opacity',function(d){return d.opacity});
+
+			drawBoxes.exit()
+				.remove();
+			
+			//Finally, we call the function that adds listeners to all the hidden month rects
+		
+		}
+
+		function drawBreakdown() {
+
+			//The only necessary data comes from the part of the dataset that matches activeDate
+			var breakdownData = dataset.filter(function(d) {
+					return d.date == activeDate
+				})
+				.sort(function(a, b) {
+					return d3.descending(a[sortType + 'Rank'], b[sortType + 'Rank'])
+				});
+	
+			//The labels all follow the same format and can be placed with a function
+			function drawLabelText(selector, textSource) {
+				var labeler = d3.select(selector)
+					.selectAll('text')
+					.data(breakdownData, function(d){return d.series});
+
+				labeler.enter()
+					.append('text');
+
+				labeler.text(function(d) {
+						if(textSource == 'size'){
+							return(millionsFormat(d[textSource]))
+						}
+						if(textSource != 'size'){
+							return d[textSource]
+						}
+					})
+					.attr('x', 0)
+					.attr('y', function(d, i) {
+							return i * (bd_rowHeight + bd_inset)
+				});
+			}
+
+			//It's the same as main draw function, except it dynamically changes font size...
+			function drawBoxText(selector, textSource) {
+				//...and substitutes pctChange for size, if necessary
+				if(textSource == 'size'){
+					textSource = 'pctChange';
+				}
+				var labeler = d3.select(selector)
+					.selectAll('text')
+					.data(breakdownData, function(d){return d.series});
+
+				labeler.enter()
+					.append('text');
+
+				labeler.text(function(d) {
+						if(textSource == 'change'){
+							return (d[textSource]/1000).toFixed(0) + 'K';
+						}
+						if(textSource == 'pctChange'){
+							return (d[textSource]).toFixed(2);
+						}
+					})
+					.attr('x', 0)
+					.attr('y', function(d, i) {
+						return i * (bd_rowHeight + bd_inset)
+					})
+					.style('font-size', bd_boxSide*0.35)
+					;
+
+			}
+
+			//Scales are set for the circle radii and bar widths...
+			var scaleCircles = d3.scale.sqrt()
+				.domain([0,Math.max(d3.max(breakdownData, function(d){return d.up}),d3.max(breakdownData, function(d){return d.down}))])
+				.range([0,bd_circleR]);
+
+			var sizeMax = d3.max(breakdownData, function(d){return d.size});
+
+			var scaleBars = d3.scale.linear()
+				.domain([0,sizeMax])
+				.range([0,bd_barW]);
+				
+			//...and then we can add the key items, once the scales are already set, so that they don't muck it up.
+			addKeyItem(breakdownData);
+
+			//the background rectangle is moved around first, so that it sits behind everything...
+			d3.select('g#breakdown rect#shader')
+				.attr('width', bd_w + (bd_inset * 2))
+				//And its offset needs to be increased slightly to account for the final space between sectors, as well as the offsets between every single rectangle
+				.attr('height', bd_h)
+				.style('opacity', 0.15)
+				.attr('rx', bd_inset)
+				.attr('ry', bd_inset);
+
+			//...then each series gets its own backing rectangle
+			var whiteBackgrounds = d3.select('g#breakdown g#whiteBackgrounds')
+				.selectAll('rect')
+				.data(breakdownData, function(d){return d.series});
+
+			whiteBackgrounds.enter()
+				.append('rect');
+
+			whiteBackgrounds
+				.attr('width', bd_w)
+				.attr('height', bd_rowHeight)
+				.attr('x', 0)
+				.attr('y', function(d, i) {
+					return i * (bd_rowHeight + bd_inset)
+				})
+				.style('fill', 'white');
+
+			//...and we draw the percent-change boxes...
+			var boxDrawer = d3.select('g#breakdown g#boxes g#rects')
+				.selectAll('rect')
+				.data(breakdownData, function(d){return d.series});
+
+			boxDrawer.enter()
+				.append('rect');
+
+			boxDrawer
+				.attr('width', bd_boxSide)
+				.attr('height', bd_boxSide)
+				.attr('x', 0)
+				.attr('y', function(d, i) {
+					return i * (bd_rowHeight + bd_inset)
+				})
+				.attr('rx', bd_boxSide * 0.15)
+				.attr('ry', bd_boxSide * 0.15)
+				//The fill is set directly, because it varies dynamically
+				.style('fill', function(d) {
+					return d.fill
+				})
+				.style('opacity',function(d){return d.opacity});
+
+			var barBackgroundDrawer = d3.select('g#breakdown g#bars g#backgrounds')
+				.selectAll('rect')
+				.data(breakdownData, function(d){return d.series});
+
+			barBackgroundDrawer.enter()
+				.append('rect');
+
+			barBackgroundDrawer
+				.attr('width', bd_barW)
+				.attr('height', bd_barH)
+				.attr('x', 0)
+				.attr('y', function(d, i) {
+					return i * (bd_rowHeight + bd_inset)
+				})
+				//The fill is set directly, because it varies dynamically
+				.style('fill', shadeFill);
+
+			var barDrawer = d3.select('g#breakdown g#bars g#rects')
+				.selectAll('rect')
+				.data(breakdownData, function(d){return d.series});
+
+			barDrawer.enter()
+				.append('rect');
+
+			barDrawer
+				.attr('width', function(d){return scaleBars(d.size)})
+				.attr('height', bd_barH)
+				.attr('x', 0)
+				.attr('y', function(d, i) {
+					return i * (bd_rowHeight + bd_inset)
+				})
+				//The fill is set directly, because it varies dynamically
+				.style('fill', function(d) {
+					return d.fill
+				})
+				.style('opacity',function(d){return d.opacity});
+
+			var upCircleDrawer = d3.select('g#breakdown g#up g#circles')
+				.selectAll('circle')
+				.data(breakdownData, function(d){return d.series});
+
+			upCircleDrawer.enter()
+				.append('circle');
+
+			upCircleDrawer
+				.attr('cx', 0)
+				.attr('cy', function(d, i) {
+					return i * (bd_rowHeight + bd_inset)
+				})
+				.attr('r', function(d){return scaleCircles(d.up)})
+				//The fill is set directly, because it varies dynamically
+				.style('fill', posFill);
+
+			var downCircleDrawer = d3.select('g#breakdown g#down g#circles')
+				.selectAll('circle')
+				.data(breakdownData, function(d){return d.series});
+
+			downCircleDrawer.enter()
+				.append('circle');
+
+			downCircleDrawer
+				.attr('cx', 0)
+				.attr('cy', function(d, i) {
+					return i * (bd_rowHeight + bd_inset)
+				})
+				.attr('r', function(d){return scaleCircles(d.down)})
+				//The fill is set directly, because it varies dynamically
+				.style('fill', negFill);
+
+
+			//all the labels can be drawn at once, at the end
+			drawLabelText('g#breakdown g#labels', 'label');
+			drawBoxText('g#breakdown g#boxes g#boxLabels', sortType);
+			drawLabelText('g#breakdown g#up g#upLabels', 'up');
+			drawLabelText('g#breakdown g#down g#downLabels', 'down');
+			drawLabelText('g#breakdown g#bars g#barLabels', 'size');
+			//Another caveat, the bar labels don't work well with the function.
+			d3.selectAll('g#breakdown g#bars g#barLabels text')
+				.attr('x', function(d){
+					var tempWidth = scaleBars(d.size)
+					if(tempWidth <= bd_barW * 0.8){
+						return tempWidth + (bd_inset * 0.5);
+					}
+					if(tempWidth > bd_barW * 0.8){
+						return tempWidth - (bd_inset * 0.5);
+					}
+				})
+				.attr('class', function(d){
+					var tempWidth = scaleBars(d.size);
+					if(tempWidth <= bd_barW * 0.8){
+						return 'leftLabels';
+					}
+					if(tempWidth > bd_barW * 0.8){
+						return 'rightLabels';
+					}
+				})
+			//...and while we're styling text, let's center everything in the group horizontally
+			d3.selectAll('g#breakdown text')
+				.attr('dy','0.37em');
+
+			styleAllKeys(sortType);
+			highlightActiveDate();
+		}
+
+
+		//Each sector datapoint will be assigned ranks according to size, change and pctChange
+		function rankData() {
+
+			//first, find the total postive, zero and total negative-change entries
+			dateRange.forEach(function(dDate, iDate) {
+
+				//Set all the counters to zero...
+				var posCounter = 0,
+					negCounter = 0,
+					zeroCounter = 0;
+
+				//...and increment them, while all "ranking" the unchanged elements, since they are not dependent on the sort function
+				dataset.filter(function(dFilter) {
+						return dDate.date == dFilter.date
+					})
+					.forEach(function(dSubset, iSubset) {
+						if (dSubset.change == 0) {
+							zeroCounter++;
+							//anything with zero change can be given a rank at the counting stage rather than the ranking stage because it doesn't need to be relative to the other zeros
+							var zeroLocation = 0 - series.length - 3 + zeroCounter;
+							dSubset['changeRank'] = zeroLocation;
+							dSubset['pctChangeRank'] = zeroLocation;
+							dSubset['sizeRank'] = zeroLocation;
+							//might as well add a fill while I'm in there
+							dSubset.fill = neutralFill;
+						}
+						if (dSubset.change > 0) {
+							posCounter++;
+						}
+						if (dSubset.change < 0) {
+							negCounter++;
+						}
+					});
+
+				//A single function handles both the descending elements (pctChange and Change)
+				function rankDescending(rankCriteria) {
+					dataset.filter(function(dFilter) {
+							return dDate.date == dFilter.date
+						})
+						.sort(function(a, b) {
+							return d3.descending(a[rankCriteria], b[rankCriteria])
+						})
+						.forEach(function(dRank, iRank) {
+							if (dRank.change > 0) {
+								//Positive sectors will start a the highest possible number of positives
+								dRank[rankCriteria + 'Rank'] = posCounter - (iRank);
+								dRank.fill = posFill;
+								//					console.log(dRank[rankCriteria + 'Rank'] + " pos " + dRank.change + " " + dRank.series);
+
+							}
+							if (dRank.change < 0) {
+								//Negative sectors will start at zero, because the rectangles' xy starts at 0,0 and descends
+								dRank[rankCriteria + 'Rank'] = ((iRank) - posCounter - zeroCounter) * -1;
+								dRank.fill = negFill;
+								//			console.log(dRank[rankCriteria + 'Rank'] + " neg " + dRank.change + " " + dRank.series);
+							}
+						});
+				}
+
+				//For non-change datapoints, they are instead ranked to "start" at zero for positive values and descend from there for negative ones
+				function rankPeaking(rankCriteria) {
+
+					//First, filter out the positive numbers and sort them ascending...
+					dataset.filter(function(dFilter) {
+							return (dDate.date == dFilter.date && dFilter.change > 0)
+						})
+						.sort(function(a, b) {
+							return d3.ascending(a[rankCriteria], b[rankCriteria])
+						})
+						.forEach(function(dRank, iRank) {
+							dRank[rankCriteria + 'Rank'] = posCounter - iRank;
+							dRank.fill = posFill;
+							//									console.log(dRank[rankCriteria + 'Rank'] + " pos " + dRank.size + " " + dRank.series);
+
+						})
+
+					//...then pull out the negative numbers and sort them descending.
+					dataset.filter(function(dFilter) {
+							return (dDate.date == dFilter.date && dFilter.change < 0)
+						})
+						.sort(function(a, b) {
+							return d3.descending(a[rankCriteria], b[rankCriteria])
+						})
+						.forEach(function(dRank, iRank) {
+							dRank[rankCriteria + 'Rank'] = 0 - iRank;
+							dRank.fill = negFill;
+							//							console.log(dRank[rankCriteria + 'Rank'] + " neg " + dRank.size + " " + dRank.series);
+
+						})
+				}
+
+				//Call the proper rank functions for each criteria
+				rankDescending('change');
+				rankDescending('pctChange');
+				rankPeaking('size');
+			})
+		}
+
+		////DATA DEPENDENT////
+		d3.json('sectorsJSON.json', function(error, data) {
+
+			//Pivot data
+			data.forEach(function(d, i) {
+				d.data.forEach(function(dData, iData) {
+
+					dataset.push({
+						//"Date" is an artificial numerical object that allows chronological sorting without a date object
+						'date': +(dData.year + '.' + dData.period.substring(1, 3)),
+						'dateObject': parseDate(dData.period.substring(1, 3) + '/01/' + dData.year),
+						'size': +(dData.value * 1000).toFixed(0),
+						'series': d.seriesID,
+						'label': d.label
+					})
+				})
+			})
+
+
+			//Put the dataset in chronological order based on the artificial date numeral
+			dataset.sort(function(a, b) {
+				return d3.descending(a.date, b.date)
+			})
+
+			var subsetPreviousValue;
+
+			//Add change, rank and opacity to each live datapoint
+			series.forEach(function(dSeries, iSeries) {
+
+				//Pull out each series as an active subset
+				dataset.filter(function(dData) {
+					return dSeries.series == dData.series
+				})
+
+				//Add change to each live datapoint
+				.sort(function(a, b) {
+						return d3.ascending(a.date, b.date)
+					})
+					.forEach(function(dSubset, iSubset) {
+						//This is a convenient time to add a label to each datapoint
+						dSubset.label = dSeries.label;
+						//The first item doesn't get change, but its value still needs to be recorded...
+						if (iSubset == 0) {
+							dSubset.change = 'unknown'; // This is a placeholder value that will get filtered out
+							subsetPreviousValue = dSubset.size;
+						}
+
+						//...all other items get a change as well as items recorded.
+						if (iSubset != 0) {
+							dSubset.change = +(dSubset.size - subsetPreviousValue).toFixed(1);
+							dSubset.pctChange = +(dSubset.change / subsetPreviousValue * 100).toFixed(3);
+							subsetPreviousValue = dSubset.size;
+
+							//And piggyback on this function to populate the dates as well
+							if (iSeries == 0) {
+								dateRange.push({
+									'date': dSubset.date,
+									'dateObject': dSubset.dateObject,
+								})
+							}
+						}
+					})
+			})
+
+			//Remove the unknowns
+			dataset = dataset.filter(function(dData, iData) {
+				return dData.change != 'unknown'
+			});
+
+			loadCharts();
+
+
+		////RESIZE EVENTS////
+		window.addEventListener('resize', function(event) {
+				resizeCharts();
+		})
+	})
+
+		////////THIS REMAINS FOREVER///////
+
+		var fm = Iframe.init(); // must be at the end of your code
+	});
+
+	//	socialRiser.create();
+
+})();
