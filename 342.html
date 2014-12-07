@@ -1,0 +1,37 @@
+Usually those sections are: GLOBAL VARIABLES, INIT, DATA SETUP, SET NAVIGATION, DRAW CHART and UPDATE CHART.
+
+function drawList(theData) {
+
+  //'theData' would be the unique data object for the selected month in the data set.
+
+  $(".list-div").empty();
+
+  //Loop through your data for each seclection.
+  $.each(theData, function(i, item) {
+
+
+    $(".list-div").append(
+
+      "<div class='sector-item row'>"+ //Sector item is the holder for each sector
+
+      "<div class='pct-box col-md-2'>"+item.percent+"</div>"+ //
+      "<div class='bar-box col-md-6'>"+
+      "<p>"+item.sector_name+"</p>"+
+      "<div class='bar-chart-holder'>"+
+      //Bar chart logic goes here
+      //Use the number to calculate a width percentage
+      //Or draw a new svg chart and calculate the width using the number
+      "</div>"+
+      "</div>"+
+      "<div class='circle-box col-md-4'>"+
+      //Draw your circles here
+      "</div>"
+
+      "</div>"+
+
+    );
+
+
+  });
+
+}
