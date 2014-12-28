@@ -1,0 +1,77 @@
+  //A tooltip div needs to be added to the DOM so it can be activated upon mouseover
+  //Only needs to be called once, when the page loads
+  //Does not need to be called for the mobile version
+  function addTooltips(){
+    var tooltip = d3.select('body').append('div').attr('class','tooltipContainer');
+
+      tooltip.append('p').attr('class','tooltipSector');
+      tooltip.append('div')
+        .attr('class','tooltipRow')
+        .attr('id','value');
+      tooltip.append('div')
+        .attr('class','tooltipRow')
+        .attr('id','date');
+  };
+
+  //Upon mouseover, selected objects cause the tooltip to appear and move
+  //To be called when charts are loaded and when they are resized
+  function activateTooltips(){
+      var tt_coord,
+        thisX,
+        thisY,
+        tooltipOffset = 12,
+        thisOpacity,
+        thisLabel,
+        thisDetail,
+        thisFill,
+        thisDate;
+
+      d3.selectAll('rect.boxes')
+        .on('mouseover',function(d){
+
+          coord = $(this).offset();
+          thisX = coord.left;
+          thisY = coord.top;
+          thisData = d3.select(this).data()[0];
+          thisLabel = d3.select(this).data()[0].label;
+          thisFill = d3.select(this).attr('fill');
+
+          thisDetail = labelKeyBoxes() + ": " + labelBoxes(thisData);
+          thisDate = thisData.dateObject.getMonth() + '/' + thisData.dateObject.getFullYear();
+
+          d3.select(this)
+            .style('stroke-width','2px')
+            .style('stroke',thisFill)
+            .style('opacity',1);
+
+          d3.select('div.tooltipContainer')
+            .style('display','block')
+            .style('top',thisY + tooltipOffset + 'px' )
+            .style('left',thisX + tooltipOffset + 'px');
+
+          d3.select('p.tooltipSector')
+            .text(thisLabel);
+
+          d3.select('div.tooltipRow#value')
+            .text(thisDetail);
+
+          d3.select('div.tooltipRow#date')
+            .text('Month: ' + thisDate);
+
+        })
+        .on('mouseout',function(d){
+
+          thisOpacity = d3.select(this).data()[0].opacity;
+
+          d3.select(this)
+            .style('opacity',thisOpacity)
+            .style('stroke-width', '0px')
+
+          d3.select('div.tooltipContainer').style('display','none')
+        })
+        .on('click',function(d){
+          activeDate = d.date;
+        drawBreakdown();
+
+        })
+    }
