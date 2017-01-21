@@ -48,6 +48,11 @@ div.image {
   text-align: center;
   
   }
+
+.esg table td.active {
+  font-weight: bold;
+  
+}
 .esg table td:first-child {
     width:200px;
    font-weight:bold;  
