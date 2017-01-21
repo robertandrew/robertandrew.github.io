@@ -2,26 +2,27 @@ body {
   background-color: lightgrey;
 }
 .esg .pullquote {
-  width:75%;
+  width:65%;
   background-color:#99DDFF;
   padding-top: 3px;
   padding-bottom: 3px;
   padding-right: 10px;
   padding-left: 10px;
   border-radius:8px;
-  margin-top:5px;
-  margin-left:auto;
-  margin-right:auto;
+  margin-top:15px;
+  margin-left:50px;
+  display:block;
 }
 .attribution {
   font-weight:bold;
 }
 
 div.image img {
-  width:55%;
+  width:none;
 }
 
 div.image {
+  width: 100%;
   margin-left:auto;
   margin-right: auto; 
   margin-top:10px;
