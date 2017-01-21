@@ -23,7 +23,9 @@ div.image img {
 
 div.image {
   margin-left:auto;
-  margin-right: auto;  
+  margin-right: auto; 
+  margin-top:10px;
+  padding-top:10px;
 }
 
 .esg table {
