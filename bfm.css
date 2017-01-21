@@ -12,8 +12,8 @@ body {
   margin-top:15px;
 }
 
-.esg table, .esg .pullquote {
-  margin-left:50px;
+.esg table, .esg .pullquote, div.image img {
+  margin-left:40px;
   display:block;
 }
 .attribution {
@@ -32,10 +32,6 @@ div.image {
   padding-top:10px;
 }
 
-.esg table {
-  margin-left:auto;
-  margin-right: auto;
-}
 .esg table a {
   color:black;
 }
