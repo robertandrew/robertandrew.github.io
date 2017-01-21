@@ -1,4 +1,7 @@
-.pullquote {
+body {
+  background-color: lightgrey;
+}
+p.pullquote {
   width:60%;
   background-color:#99DDFF;
     padding:7px 15px 7px 15px;
@@ -6,3 +9,30 @@
   margin-left:auto;
   margin-right:auto;
 }
+.esg table {
+  margin-left:auto;
+  margin-right: auto;
+}
+.esg table a {
+  color:black;
+}
+
+.esg td {
+    width:80px; 
+    border:1px solid white;
+  border:collapse: collapse;
+    border-radius: 2px;
+  border:5px solid #01A813;
+  background-color: #01A813;
+  vertical-align:center;
+  padding: 1px;
+  text-align: center;
+  
+  }
+.esg table td:first-child {
+   font-weight:bold;  
+}
+.esg table td:hover, .esg table a {
+  color:white;
+}
+
