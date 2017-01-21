@@ -1,15 +1,17 @@
 body {
   background-color: lightgrey;
 }
-.pullquote {
-  width:60%;
+.esg .pullquote {
+  width:75%;
   background-color:#99DDFF;
-    padding:7px 15px 7px 15px;
-  border-radius:15px;
+    padding:3px 10px 3px 10px;
+  border-radius:8px;
   margin-left:auto;
   margin-right:auto;
 }
-
+.attribution {
+  
+}
 
 .esg table {
   margin-left:auto;
@@ -34,8 +36,17 @@ body {
 .esg table td:first-child {
     width:200px;
    font-weight:bold;  
+  text-align:left;
 }
-.esg table td:hover, .esg table a {
+
+.esg table td:first-child:hover {
+  color:black;
+}
+
+.esg table td:hover, .esg table a:hover {
   color:white;
+}
+.esg a:hover, .esg a:visited, .esg a:link, .esg a:active {
+   text-decoration:none;
 }
 
