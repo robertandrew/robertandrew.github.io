@@ -10,6 +10,9 @@ body {
   padding-left: 10px;
   border-radius:8px;
   margin-top:15px;
+}
+
+.esg table, .esg .pullquote {
   margin-left:50px;
   display:block;
 }
@@ -18,7 +21,7 @@ body {
 }
 
 div.image img {
-  width:none;
+  width:55%;
 }
 
 div.image {
