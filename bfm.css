@@ -57,6 +57,7 @@ div.image {
     width:200px;
    font-weight:bold;  
   text-align:left;
+  font-style: italic;
 }
 
 .esg table td:first-child:hover {
