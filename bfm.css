@@ -1,7 +1,7 @@
 body {
   background-color: lightgrey;
 }
-.esg .pullquote {
+.esg .pullquote, .esg .special {
   width:65%;
   background-color:#99DDFF;
   padding-top: 3px;
@@ -10,6 +10,10 @@ body {
   padding-left: 10px;
   border-radius:8px;
   margin-top:15px;
+}
+.esg .special {
+  background-color: #FFFF00;
+  
 }
 
 .esg table, .esg .pullquote, div.image img {
