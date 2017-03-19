@@ -13,11 +13,11 @@ body {
 }
 .esg .special {
   background-color: #FFFF00;
-  
+  margin-left:40px;  
 }
 
 .esg table, .esg .pullquote, div.image img {
-  margin-left:40px;
+
   display:block;
 }
 .attribution {
